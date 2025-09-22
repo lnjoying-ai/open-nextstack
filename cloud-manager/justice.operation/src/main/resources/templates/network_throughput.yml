@@ -1,0 +1,11 @@
+groups:
+  - name: network_throughput
+    rules:
+      - alert: NetworkThroughput
+        expr: [(${expr})]
+        for: [(${forTime})]
+        annotations:
+          ruleId: [(${ruleId})]
+          summary: "网卡吞吐率超过阈值"
+          threshold: [(${threshold})]
+          description: "instance: {{ $labels.instanceId }} 网卡吞吐率是 {{$value}}MB/s."

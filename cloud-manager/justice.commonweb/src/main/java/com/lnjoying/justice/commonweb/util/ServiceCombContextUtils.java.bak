@@ -1,0 +1,199 @@
+package com.lnjoying.justice.commonweb.util;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.lnjoying.justice.commonweb.exception.WebSystemException;
+import com.lnjoying.justice.schema.common.ErrorCode;
+import com.lnjoying.justice.schema.common.ErrorLevel;
+import com.lnjoying.justice.schema.constant.RoleConstants;
+//import com.lnjoying.justice.schema.constant.UserKindEnum;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.servicecomb.core.Invocation;
+import org.apache.servicecomb.foundation.vertx.http.VertxServerRequestToHttpServletRequest;
+import org.apache.servicecomb.swagger.invocation.context.ContextUtils;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import static com.lnjoying.justice.schema.common.ErrorCode.*;
+import static com.lnjoying.justice.schema.common.ErrorLevel.ERROR;
+import static com.lnjoying.justice.schema.constant.UserHeadInfo.*;
+
+
+public class ServiceCombContextUtils
+{
+    public static HttpServletRequest getHttpServletRequest()
+    {
+        HttpServletRequest request = ((Invocation) ContextUtils.getInvocationContext()).getRequestEx();
+        if (request == null) {
+            RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+            if (requestAttributes != null) {
+                request = ((ServletRequestAttributes) requestAttributes).getRequest();
+            }
+        }
+        return request;
+    }
+
+    public static String getAuthorities() throws WebSystemException
+    {
+        String authorities = httpServletRequest().getHeader(AUTHORITIES);
+        if (StringUtils.isBlank(authorities))
+        {
+            throw new WebSystemException(AUTHORITIES_NOT_FOUND, ERROR);
+        }
+        return authorities;
+    }
+
+//    public static String getUserKind()
+//    {
+//        String userKind = (String) httpServletRequest().getHeader(USERKIND);
+//        if (StringUtils.isBlank(userKind))
+//        {
+//            throw new WebSystemException(USER_KIND_NOT_FOUND, ERROR);
+//        }
+//        return userKind;
+//    }
+
+    public static String getUserId() throws WebSystemException
+    {
+        String userId =  httpServletRequest().getHeader(USERID);
+        if (StringUtils.isBlank(userId))
+        {
+            throw new WebSystemException(USER_ID_NOT_FOUND, ERROR);
+        }
+        return userId;
+    }
+
+    public static String getUserName() throws WebSystemException
+    {
+        String userName =   httpServletRequest().getHeader(USERNAME);
+        if (StringUtils.isBlank(userName))
+        {
+            throw new WebSystemException(USER_NAME_NOT_FOUND, ERROR);
+        }
+        return userName;
+    }
+
+    public static String getBpId() throws WebSystemException
+    {
+        String bpId =  httpServletRequest().getHeader(BPID);
+
+        // role of tenant_admin must have bpId
+        if (isBpAdmin())
+        {
+            if (StringUtils.isBlank(bpId))
+            {
+                throw new WebSystemException(BP_ID_NOT_FOUND, ERROR);
+            }
+        }
+
+        return bpId;
+    }
+
+    public static String getBpName() throws WebSystemException
+    {
+        String bpName =  httpServletRequest().getHeader(BpName);
+
+        // role of tenant_admin must have bpName
+        if (isBpAdmin())
+        {
+            if (StringUtils.isBlank(bpName))
+            {
+                throw new WebSystemException(BP_NAME_NOT_FOUND, ERROR);
+            }
+        }
+
+        return bpName;
+    }
+
+    public static boolean isAdmin() throws WebSystemException
+    {
+        String authorities = getAuthorities();
+        return StringUtils.isNotBlank(authorities)
+                && (authorities.contains(RoleConstants.ROLE_ALL_ADMIN));
+    }
+
+    public static boolean isBpAdmin() throws WebSystemException
+    {
+        String authorities = getAuthorities();
+        return StringUtils.isNotBlank(authorities)
+                && (authorities.contains(RoleConstants.ROLE_ALL_TENANT_ADMIN));
+    }
+
+    public static Pair<String, String> getUserAttributes() throws WebSystemException
+    {
+
+        // left bpId, right userId
+        Pair<String, String> pair;
+
+        if (isAdmin())
+        {
+            pair = ImmutablePair.nullPair();
+        }
+        else if (isBpAdmin())
+        {
+            pair = ImmutablePair.of(getBpId(), null);
+        }
+        else
+        {
+            pair = ImmutablePair.of(getBpId(), getUserId());
+        }
+
+        return pair;
+    }
+
+    /**
+     * just for simplified  query not real user id
+     * @return String
+     */
+    public static String queryUserId() throws WebSystemException
+    {
+        return getUserAttributes().getRight();
+    }
+
+    /**
+     * just for simplified query not real bp id
+     * @return String
+     */
+    public static String queryBpId() throws WebSystemException
+    {
+        return getUserAttributes().getLeft();
+    }
+
+    public static void checkRoleAdmin() throws WebSystemException
+    {
+        String authorities = getAuthorities();
+        boolean hasAuthorities = StringUtils.isNotBlank(authorities)
+                && (authorities.contains(RoleConstants.ROLE_ALL_ADMIN));
+
+        if (!hasAuthorities)
+        {
+            throw new WebSystemException(ErrorCode.User_Not_Grant, ErrorLevel.INFO);
+        }
+    }
+
+    public static void checkRoleTenantAdmin() throws WebSystemException
+    {
+        String authorities = getAuthorities();
+        boolean hasAuthorities = StringUtils.isNotBlank(authorities)
+                && (authorities.contains(RoleConstants.ROLE_ALL_TENANT_ADMIN));
+
+        if (!hasAuthorities)
+        {
+            throw new WebSystemException(ErrorCode.User_Not_Grant, ErrorLevel.INFO);
+        }
+
+    }
+
+    /**
+     * get HttpServletRequest from InvocationContext
+     *
+     * @return HttpServletRequest
+     */
+    public static HttpServletRequest httpServletRequest()
+    {
+        return (((VertxServerRequestToHttpServletRequest) ( ContextUtils.getInvocationContext()).getLocalContext().get("servicecomb-rest-request")));
+    }
+}

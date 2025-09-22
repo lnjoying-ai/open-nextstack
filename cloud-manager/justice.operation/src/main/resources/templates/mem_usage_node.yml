@@ -1,0 +1,11 @@
+groups:
+  - name: mem_usage
+    rules:
+      - alert: HighMemUsage
+        expr: [(${expr})]
+        for: [(${forTime})]
+        annotations:
+          ruleId: [(${ruleId})]
+          summary: "内存使用率超出阈值"
+          threshold: [(${threshold})]
+          description: "instance: {{ $labels.instance }} 内存使用率是 {{$value}}%."

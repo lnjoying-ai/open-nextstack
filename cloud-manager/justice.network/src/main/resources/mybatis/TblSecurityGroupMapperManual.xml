@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.network.mapper.SecurityGroupMapper">
+    <resultMap id="SecurityGroupResultMap" type="com.lnjoying.justice.network.domain.dto.response.SecurityGroupRspVo">
+        <id column="sg_id" jdbcType="VARCHAR" property="sgId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="rule_count" jdbcType="INTEGER" property="ruleCount"/>
+        <result column="compute_instance_count" jdbcType="INTEGER" property="computeInstanceCount"/>
+        <result column="phase_status" jdbcType="INTEGER" property="phaseStatus"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="where_sg">
+        <if test="userId !=null">
+            and sg.user_id=#{userId}
+        </if>
+        <if test="sgId!=null">
+            and sg.sg_id=#{sgId}
+        </if>
+<!--        <if test="name!=null">-->
+<!--            and sg.name ilike '%' || #{name} || '%'-->
+<!--        </if>-->
+    </sql>
+
+    <sql id = "where_sub_sg">
+        <where>
+        <if test="userId !=null">
+            and sub1.user_id=#{userId}
+        </if>
+        <if test="sgId!=null">
+            and sub1.sg_id=#{sgId}
+        </if>
+<!--        <if test="name!=null">-->
+<!--            and sub1.name ilike '%' || #{name} || '%'-->
+<!--        </if>-->
+        </where>
+    </sql>
+
+    <sql id="choose_phase">
+        <choose>
+            <when test="phaseStatusIsEqual==true and phaseStatus!=null">
+                where sg.phase_status=#{phaseStatus}
+            </when>
+            <when test="phaseStatusIsEqual==false and phaseStatus!=null">
+                where sg.phase_status!=#{phaseStatus}
+            </when>
+            <otherwise>where sg.phase_status is null</otherwise>
+        </choose>
+    </sql>
+
+    <select id="selectByUserId" resultMap="SecurityGroupResultMap">
+        SELECT sub1.sg_id, sub1.name , sub1.rule_count ,sub2.compute_instance_count , sub1.phase_status,
+        sub1.description, sub1.create_time, sub1.update_time from
+        (SELECT sg.sg_id,
+        sg.name,
+        sg.phase_status,
+        sg.description,
+        COALESCE(sub.rule_count, 0) as rule_count,
+        sg.create_time,
+        sg.update_time
+        FROM tbl_security_group AS sg
+        LEFT JOIN
+        (SELECT sg.sg_id,
+        COUNT(DISTINCT RULE.rule_id) AS rule_count
+        FROM tbl_security_group as sg
+        LEFT JOIN
+        tbl_security_group_rule AS RULE
+        on sg.sg_id = RULE.sg_id
+        where RULE.phase_status != -1
+        <include refid="where_sg"/>
+        GROUP BY sg.sg_id
+        ) sub on sg.sg_id = sub.sg_id <include refid="choose_phase"/> ) sub1 LEFT JOIN
+        (SELECT sg.sg_id,
+        COALESCE(sub.compute_instance_count,0)as compute_instance_count FROM tbl_security_group AS sg LEFT JOIN
+        (SELECT
+        sg.sg_id,
+        COUNT ( DISTINCT compute_ins.instance_id ) AS compute_instance_count
+        FROM
+        tbl_security_group as sg
+        LEFT JOIN tbl_sg_vm_instance AS compute_ins ON sg.sg_id = compute_ins.sg_id
+        where
+        compute_ins.phase_status != -1 and compute_ins.phase_status != 54
+        <include refid="where_sg"/>
+        GROUP BY sg.sg_id
+        ) sub on sg.sg_id = sub.sg_id  <include refid="choose_phase"/>
+        ) sub2 on sub1.sg_id = sub2.sg_id
+        <if test="name!=null">
+            where sub1.name ilike '%' || #{name} || '%'
+        </if>
+        order by sub1.create_time desc
+        <if test="startRow != null and pageSize != null and pageSize != 0">
+            limit #{pageSize} offset #{startRow}
+        </if>
+    </select>
+
+
+    <select id="selectByUserIdOther" resultMap="SecurityGroupResultMap">
+        select distinct sg.sg_id,sg.name,count(distinct rule.rule_id) as rule_count,count(distinct
+        compute_ins.instance_id) as compute_instance_count,sg.phase_status, sg.description from
+        tbl_security_group as sg
+        left join tbl_sg_vm_instance as compute_ins on sg.sg_id = compute_ins.sg_id
+        left join tbl_security_group_rule as rule on sg.sg_id = rule.sg_id
+        <where>
+            <if test="userId !=null">
+                and sg.user_id=#{userId}
+            </if>
+            <if test="sgId!=null">
+                and sg.sg_id=#{sgId}
+            </if>
+            <if test="name!=null">
+                and sg.name=#{name}
+            </if>
+
+            and compute_ins.phase_status != -1
+            and compute_ins.phase_status != 54
+            or compute_ins.phase_status is null
+        </where>
+        GROUP BY sg.sg_id
+        <choose>
+            <when test="phaseStatusIsEqual==true and phaseStatus!=null">
+                having sg.phase_status=#{phaseStatus}
+            </when>
+            <when test="phaseStatusIsEqual==false and phaseStatus!=null">
+                having sg.phase_status!=#{phaseStatus}
+            </when>
+            <otherwise>having sg.phase_status is null</otherwise>
+        </choose>
+        <if test="startRow != null and pageSize != null and pageSize != 0">
+            limit #{pageSize} offset #{startRow}
+        </if>
+    </select>
+
+
+    <select id="countByUserId" resultType="java.lang.Long">
+        select count(distinct sg.sg_id) from tbl_security_group as sg
+        <where>
+            <if test="userId !=null">
+                and sg.user_id=#{userId}
+            </if>
+            <if test="sgId!=null">
+                and sg.sg_id=#{sgId}
+            </if>
+            <if test="name!=null">
+                and sg.name like '%' || #{name} || '%'
+            </if>
+            <choose>
+                <when test="phaseStatusIsEqual==true and phaseStatus!=null">
+                    and sg.phase_status=#{phaseStatus}
+                </when>
+                <when test="phaseStatusIsEqual==false and phaseStatus!=null">
+                    and sg.phase_status!=#{phaseStatus}
+                </when>
+                <otherwise>and sg.phase_status is null</otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="selectWrongPhaseSgVmInstance" resultType="com.lnjoying.justice.network.entity.SgVmInstance">
+        SELECT
+        tbl_sg_vm_instance.*
+        FROM
+        tbl_sg_vm_instance
+        LEFT JOIN tbl_security_group ON tbl_sg_vm_instance.sg_id = tbl_security_group.sg_id
+        WHERE
+        tbl_security_group.phase_status = - 1
+        AND tbl_sg_vm_instance.phase_status != -1
+        AND tbl_sg_vm_instance.instance_id=#{vmInstanceId}
+
+    </select>
+</mapper>

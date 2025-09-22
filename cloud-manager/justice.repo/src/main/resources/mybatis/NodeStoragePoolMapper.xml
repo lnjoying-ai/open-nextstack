@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.repo.mapper.NodeStoragePoolMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lnjoying.justice.repo.entity.NodeStoragePool">
+        <id column="node_storage_pool_id" property="nodeStoragePoolId"/>
+        <result column="storage_pool_id_from_agent" property="storagePoolIdFromAgent" />
+        <result column="storage_pool_id" property="storagePoolId" />
+        <result column="node_ip" property="nodeIp" />
+        <result column="sid" property="sid"/>
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="paras" property="paras" />
+        <result column="phase_status" property="phaseStatus" />
+
+    </resultMap>
+</mapper>

@@ -1,0 +1,37 @@
+gnext_src: /home/fusion/test/dev-gnext
+linux_dist: ubuntu
+exporter: True
+
+nodes:
+# === 选项 2: Etcd 单节点模式 ===
+# 取消注释以下配置来使用单节点模式
+- host: 10.133.2.12
+  user: fusion
+  passwd: p0dWk1NHAdE9vTdi
+  etcd:
+    etcd_name: etcd-single
+
+# 业务节点
+- host: 10.133.2.12
+  user: fusion
+  passwd: p0dWk1NHAdE9vTdi
+  gnext:
+    agent_ip: 10.133.2.12
+    agent_port: 8899
+    log_level: debug
+    default_eip: 10.133.2.13
+    wan_gw_ip: 10.133.2.126
+    vlan_range: 301-4000
+    wan_gw_mac: 00:00:00:00:10:05
+    lan_nic: ens64f1np1
+    wan_nic: ens64f1np1.10
+    # 对于单节点模式，使用单个etcd endpoint
+    etcd_endpoints: 
+      - http://localhost:2379
+    # 对于集群模式，使用多个etcd endpoints
+    # etcd_endpoints: 
+    #   - http://192.168.8.111:2379
+    #   - http://192.168.8.112:2379
+    #   - http://192.168.8.113:2379
+    #uuid: node01-uuid
+  manager: True

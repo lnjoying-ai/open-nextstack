@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.network.mapper.EipMapper">
+
+   <select id="selectEipIdProtocolPort" resultType="java.lang.Integer">
+        select global_port from tbl_eip LEFT JOIN tbl_eip_map on tbl_eip.eip_id=tbl_eip_map.eip_id
+        LEFT JOIN tbl_port_map on tbl_eip_map.eip_map_id = tbl_port_map.eip_map_id
+        <where>
+        <if test="userId !=null">
+            and tbl_eip_map.user_id=#{userId}
+        </if>
+            and tbl_port_map.protocol=#{protocol}
+            and tbl_eip.eip_id=#{eipId}
+            and tbl_port_map.status != -1::smallint
+        </where>
+    </select>
+    <select id="countPortByEip" resultType="java.lang.Long">
+        select count(tbl_port_map.global_port) from tbl_eip LEFT JOIN tbl_eip_map on tbl_eip.eip_id=tbl_eip_map.eip_id
+        LEFT JOIN tbl_port_map on tbl_eip_map.eip_map_id = tbl_port_map.eip_map_id
+        <where>
+            <if test="globalPort !=null">
+                and tbl_port_map.global_port=#{globalPort}
+            </if>
+            and tbl_port_map.protocol=#{protocol}
+            and tbl_eip.eip_id=#{eipId}
+            and tbl_port_map.status != -1::smallint
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.operation.mapper.TblAlarmInfoDao">
+
+    <resultMap type="com.lnjoying.justice.operation.entity.TblAlarmInfo" id="TblAlarmInfoMap">
+        <result property="infoId" column="info_id" jdbcType="VARCHAR"/>
+        <result property="ruleId" column="rule_id" jdbcType="VARCHAR"/>
+        <result property="alarmCount" column="alarm_count" jdbcType="INTEGER"/>
+        <result property="summeryInfo" column="summery_info" jdbcType="VARCHAR"/>
+        <result property="detailInfo" column="detail_info" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="phaseStatus" column="phase_status" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+        <result property="triggerBehavior" column="trigger_behavior" jdbcType="VARCHAR"/>
+        <result property="confirmTime" column="confirm_time" jdbcType="TIMESTAMP"/>
+        <result property="interval" column="interval" jdbcType="INTEGER"/>
+        <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="resourceType" column="resource_type" jdbcType="INTEGER"/>
+        <result property="alarmElement" column="alarm_element" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+    <select id="selectAlaPage" resultType="com.lnjoying.justice.operation.domain.dto.response.AlarmInfoResp">
+        SELECT
+        tai.summery_info AS summeryInfo,
+        tai.detail_info AS detailInfo,
+        tai.trigger_behavior AS triggerBehavior,
+        tai."level" AS LEVEL,
+        tai.resource_type AS resourceType,
+        tai.confirm_time AS confirmTime,
+        tai.phase_status AS phaseStatus,
+        tai.info_id AS infoId,
+        tai.alarm_count AS alarmCount,
+        tai."interval" AS INTERVAL,
+        tai.update_time AS createTime
+        FROM
+        tbl_alarm_info tai
+        <where>
+         tai.phase_status != -1
+            <if test="summeryInfo != null and summeryInfo != ''">
+                AND (tai.summery_info LIKE '%' || #{summeryInfo} || '%'
+                OR tai.detail_info LIKE '%' || #{summeryInfo} || '%')
+            </if>
+            <if test="resourceType != null">
+                AND tai.resource_type = #{resourceType}
+            </if>
+            <if test="phaseStatus != null">
+                AND tai.phase_status = #{phaseStatus}
+            </if>
+            <if test="startTimeDate != null and startTimeDate != endTimeDate">
+                AND tai.update_time &gt;= #{startTimeDate}
+            </if>
+            <if test="endTimeDate != null and startTimeDate != endTimeDate">
+                AND tai.update_time &lt;= #{endTimeDate}
+            </if>
+        </where>
+        order by tai.update_time desc
+    </select>
+
+    <select id="getAlarmSt1atistics"
+            resultType="com.lnjoying.justice.operation.domain.dto.response.AlarmStatisticsBaseResp">
+        SELECT days.DAY AS date12, COALESCE ( SUM ( CASE WHEN tai.create_time >= days.DAY AND tai.create_time &lt; days.DAY + INTERVAL '1 day' AND tar.LEVEL = '0' THEN 1 ELSE 0 END ), 0 ) AS warning, COALESCE ( SUM ( CASE WHEN tai.create_time >= days.DAY AND tai.create_time &lt; days.DAY + INTERVAL '1 day' AND tar.LEVEL = '1' THEN 1 ELSE 0 END ), 0 ) AS critical, COALESCE ( SUM ( CASE WHEN tai.create_time >= days.DAY AND tai.create_time &lt; days.DAY + INTERVAL '1 day' AND tar.LEVEL = '2' THEN 1 ELSE 0 END ), 0 ) AS emergency FROM generate_series ( CURRENT_DATE - INTERVAL '6 days', CURRENT_DATE, '1 day' ) AS days ( DAY ) LEFT JOIN tbl_alarm_info tai ON tai.create_time >= days.DAY AND tai.create_time &lt; days.DAY + INTERVAL '1 day' LEFT JOIN tbl_alarm_rule tar ON tar.rule_id = tai.rule_id WHERE tar.user_id = '39937079-99fe-4cd8-881f-04ca8c4fe09d' GROUP BY days.DAY ORDER BY days.DAY ASC
+    </select>
+
+    <select id="getAlarmStatisticsCount"
+            resultType="com.lnjoying.justice.operation.domain.dto.response.AlarmStatisticsBaseResp">
+        SELECT SUM ( CASE WHEN tai."level" = '0' THEN tai.alarm_count ELSE 0 END ) AS warning,
+               SUM ( CASE WHEN tai."level" = '1' THEN tai.alarm_count ELSE 0 END ) AS critical,
+               SUM ( CASE WHEN tai."level" = '2' THEN tai.alarm_count ELSE 0 END ) AS emergency
+        FROM
+            tbl_alarm_info tai
+        WHERE
+          tai.update_time &gt;= #{beginOfDay}
+          AND tai.update_time &lt;= #{endOfDay}
+    </select>
+
+    <select id="getAlarmDistribution"
+            resultType="com.lnjoying.justice.operation.domain.dto.response.AlarmDistributionBaseResp">
+        SELECT
+            SUM ( CASE WHEN tai."alarm_element" = '0' THEN tai.alarm_count ELSE 0 END ) AS cpuUsage,
+            SUM ( CASE WHEN tai."alarm_element" = '1' THEN tai.alarm_count ELSE 0 END ) AS memUsage,
+            SUM ( CASE WHEN tai."alarm_element" = '3' THEN tai.alarm_count ELSE 0 END ) AS filesystemUsage,
+            SUM ( CASE WHEN tai."alarm_element" = '4' THEN tai.alarm_count ELSE 0 END ) AS networkThroughput,
+            SUM ( CASE WHEN tai."alarm_element" = '5' THEN tai.alarm_count ELSE 0 END ) AS diskIops,
+            SUM ( CASE WHEN tai."alarm_element" = '6' THEN tai.alarm_count ELSE 0 END ) AS diskThroughput,
+            SUM ( CASE WHEN tai."alarm_element" = '7' THEN tai.alarm_count ELSE 0 END ) AS instanceOffline
+        FROM
+            tbl_alarm_info tai
+        WHERE
+          tai.update_time &gt;= #{beginOfDay}
+          AND tai.update_time &lt;= #{endOfDay}
+    </select>
+    <select id="selectAlaCount" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM
+        tbl_alarm_info tai
+        <where>
+            tai.phase_status != -1
+            <if test="summeryInfo != null and summeryInfo != ''">
+                AND (tai.summery_info LIKE '%' || #{summeryInfo} || '%'
+                OR tai.detail_info LIKE '%' || #{summeryInfo} || '%')
+            </if>
+            <if test="resourceType != null">
+                AND tai.resource_type = #{resourceType}
+            </if>
+            <if test="phaseStatus != null">
+                AND tai.phase_status = #{phaseStatus}
+            </if>
+            <if test="startTimeDate != null and startTimeDate != endTimeDate">
+                AND tai.create_time &gt;= #{startTimeDate}
+            </if>
+            <if test="endTimeDate != null and startTimeDate != endTimeDate">
+                AND tai.create_time &lt;= #{endTimeDate}
+            </if>
+        </where>
+    </select>
+
+</mapper>
+

@@ -1,0 +1,21 @@
+global:
+  # The smarthost and SMTP sender used for mail notifications.
+  # #smtp_smarthost: ''
+  # #smtp_from: ''
+  # #smtp_auth_username: ''
+  # #smtp_auth_password: ''
+  resolve_timeout: 1m
+
+route:
+  group_wait: 2m
+  group_interval: 1m
+  repeat_interval: 10m
+  group_by: ['groupId']
+  receiver: 'webhook'
+
+receivers:
+  - name: 'webhook'  
+    webhook_configs:
+      - url: "http://127.0.0.1/api/operation/v1/group-alarm"      
+        
+

@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus exporter for libvirt machine metrics, written in Go with pluggable metric collectors.
+After=libvirtd.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/opt/nextstack
+ExecStart=/opt/nextstack/bin/gpu.sh
+ExecStop=/usr/bin/kill -9 $MAINPID
+
+[Install]
+WantedBy=multi-user.target

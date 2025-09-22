@@ -1,0 +1,76 @@
+###servicecomb config####
+servicecomb-config-order: 1
+APPLICATION_ID: justice-cloud  #应用名
+service_description:
+  name: vm        #微服务名
+  version: 1.0.0   #微服务版本
+  environment: development
+servicecomb:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+    publishAddress: 127.0.0.1
+#  rest:
+#    address: 0.0.0.0:8811
+
+  rest:
+    address: 127.0.0.1:8810  #Rest通信地址
+    server:
+      connection:
+        idleTimeoutInSeconds: 5
+  #  highway:
+#    address: 127.0.0.1:7011
+
+  #    servlet:
+  #      urlPattern: /cse/*  #using spring mvc rest server to handle requests
+  request:
+    timeout: 30000
+  inspector:
+    enabled: true
+
+
+#  handler:
+#    chain:
+#      Provider:
+#        default: globalExceptionHandler
+
+####spring config######
+server:
+  port: 8816
+#  ssl:
+#    enabled: ${SSL_ENABLED:false}
+
+#    protocol: TLS
+#    enabled-protocols: [TLSv1.2]
+#    ciphers: [TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+#              TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384]
+#    key-store: ${SSL_KEY_STORE_PATH:}
+#    key-store-password: ${SSL_KEY_STORE_PASSWORD:}
+#    key-store-type: ${SSL_KEY_STORE_TYPE:}
+#    key-alias: ${SSL_KEY_ALIAS:}
+#  servlet:
+#    session:
+#      timeout: 3600
+#      cookie:
+#        name: AUTHSERVERSESSIONID
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://${POSTGRES_IP:192.168.1.110}:${POSTGRES_PORT:5432}/${POSTGRES_DB_NAME:develop}
+#    username: ${POSTGRES_USERNAME:postgres}
+#    password: ${POSTGRES_PASSWORD:abcabc}
+#    driver-class-name: org.postgresql.Driver
+#    initialization-mode: never
+##    schema: classpath:networkmanagerdb.sql
+##    data: classpath:networkmanager-data.sql
+#  main:
+#    allow-bean-definition-overriding: true
+#
+####mybtis config####
+#mybatis:
+#  mapper-locations: classpath:mybatis/sql/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+jwtkey: abcdeeefffss
+
+

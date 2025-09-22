@@ -1,0 +1,11 @@
+groups:
+  - name: disk_throughput
+    rules:
+      - alert: DiskThroughput
+        expr: [(${expr})]
+        for: [(${forTime})]
+        annotations:
+          ruleId: [(${ruleId})]
+          summary: "磁盘吞吐率超出阈值"
+          threshold: [(${threshold})]
+          description: "instance: {{ $labels.instanceId }}-{{ $labels.target_device }} 吞吐率是 {{$value}}MB/s."

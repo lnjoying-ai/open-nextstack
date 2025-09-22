@@ -1,0 +1,17 @@
+ [Unit]
+ Description=Gunicorn instance to serve a box active page
+ After=network-online.target
+ Wants=network-online.target
+
+ [Service]
+ User=root
+ Group=root
+ WorkingDirectory=/opt/nextstack
+ Environment="PATH=/opt/.v3.10/bin:/usr/sbin:/usr/bin"
+ ExecStart=/opt/.v3.10/bin/gunicorn -b 127.0.0.1:8001 -w 4 nextstack.boxagent:application
+ ExecStop=/usr/bin/kill -9 $MAINPID
+ Restart=on-failure
+ RestartSec=3
+
+ [Install]
+ WantedBy=multi-user.target

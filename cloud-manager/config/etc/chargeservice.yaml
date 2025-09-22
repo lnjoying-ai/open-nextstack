@@ -1,0 +1,57 @@
+alipay:
+   app_id: "2016101600702251"
+   merchant_private_key_path: testprivate.pem
+   alipay_public_key_path: testpublic.pem
+   notify_url: https://f2f9aa5d.ap.ngrok.io/sr/charge/hook
+   return_url: http://www.baidu.com
+   sign_type: RSA2
+   gatewayUrl: https://openapi.alipaydev.com/gateway.do
+   subject: 闪渲充值
+   body: 如意币充值%d枚,赠送%d枚
+charge:
+   awardRegToken: 5000
+   currencys: [cny,usd]
+   channels:
+      alipay: 支付宝
+      alipay_pc_direct: 支付宝
+      wx: 微信
+      systemaward: 系统赠送
+      systemInviteAward: 推荐用户充值赠送
+      systemRegAward: 新用户注册赠送
+      systemLotteryAward: 用户抽奖赠送
+      MainTransIn: 主账户转入
+      MainTransOut: 从子账户划入
+cashCoupon:
+   acquiredMethod:
+      m0: 系统赠送
+      m1: 推荐用户赠送
+      m2: 积分兑换
+      m3: 用户转赠
+      m4: 现金券充值
+   state:
+      s0: 未激活
+      s1: 正常
+      s2: 过期
+      s3: 没有余额
+   useScope:
+      s0: 全平台
+invitorAward:
+   awardTokenRatio: 5
+   tokenAwardForInvitorComment: 用户%s充值%d奖励%d
+   acquiredMethod:
+      m0: 推荐用户注册赠送
+      m1: 推荐用户充值赠送
+   awardType:
+      a0: 如意币现金券
+      a1: 充值赠送如意币
+point:
+#   单位分钟，默认配置为365*24*60
+   effectiveDuation: 525600
+   exchangeRatio: 100
+   minExchangeNum: 10000
+#   %不能放在配置项的第一个
+   exchangeCashComments:  用%d积分兑换%d如意币
+   pointState:
+      s0: 已用完
+      s1: 正常
+      s2: 已过期

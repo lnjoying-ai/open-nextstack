@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.network.mapper.EipMapMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lnjoying.justice.network.entity.EipMap">
+        <id column="eip_map_id" property="eipMapId" />
+        <result column="user_id" property="userId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="map_name" property="mapName" />
+        <result column="eip_id" property="eipId" />
+        <result column="subnet_id" property="subnetId" />
+        <result column="port_id" property="portId" />
+        <result column="is_static_ip" property="isStaticIp" />
+        <result column="inside_ip" property="insideIp" />
+        <result column="status" property="status" />
+        <result column="bandwidth" property="bandwidth" />
+        <result column="is_one_to_one" property="isOneToOne" />
+    </resultMap>
+</mapper>

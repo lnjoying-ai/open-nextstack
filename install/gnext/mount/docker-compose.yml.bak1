@@ -1,0 +1,123 @@
+version: "3"
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    restart: always
+    volumes:
+      - ./prometheus/:/etc/prometheus/:rw
+      - ./prometheus/data:/prometheus:rw
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.listen-address=:9090'
+    network_mode: host
+
+  grafana:
+    image: hub.lnjoying.io:18443/lnjoying-baremetal-team/grafana:v9.3.2.rc1
+    depends_on:
+      - prometheus
+    restart: always
+    network_mode: host
+    volumes:
+      - ./grafana/data:/var/lib/grafana:rw
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini:rw
+      - ./grafana/provisioning:/etc/grafana/provisioning:rw
+    environment:
+      - TZ=Asia/Shanghai
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+      - GF_SECURITY_ADMIN_USER=lnjoying
+      - GF_SECURITY_ADMIN_PASSWORD=lnjoying
+
+  redis:
+    image: redis:6.2.3
+    container_name: lnjoying-redis
+    restart: always
+    ports:
+     - "6379:6379"
+    command: redis-server --requirepass hello
+    networks:
+      - lnjoying-bridge
+  postgres:
+    image: postgres:13.3
+    container_name: lnjoying-postgres
+    restart: always
+    ports:
+     - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "abcabc"
+      POSTGRES_DB: "justicedb"
+    volumes:
+      - ./postgre/init:/docker-entrypoint-initdb.d/
+      - /data/data:/var/lib/postgresql/data
+    networks:
+      - lnjoying-bridge
+  nginx:
+          #image: nginx:latest
+    image: hub.lnjoying.io:18443/lnjoying-baremetal-team/openresty:v1.0.3
+    container_name: lnjoying-nginx
+    restart: always
+    network_mode: "host"
+    volumes:
+      - ./nginx/web:/root/web
+      - ./nginx/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf      
+        #  - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  servicecomb:
+    image: servicecomb/service-center:latest
+    container_name: lnjoying-servicecomb
+    restart: always
+    ports:
+      - "30100:30100"
+      - "2380:2380"      
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "1"
+        max-size: "50m"
+  servicecomb-frontend:
+    image: hub.lnjoying.io:18443/lnjoying-baremetal-team/scfrontend:v1
+    container_name: lnjoying-servicecomb-frontend
+    restart: always
+    environment:
+      SC_ADDRESS: 192.168.11.233:30100
+    ports:
+      - "30103:30103"
+    networks:
+      - lnjoying-bridge
+    logging:
+      driver: json-file       
+  lnjoying_cloud:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/nextstack:v5
+    container_name: lnjoying-cloud
+    restart: always
+    network_mode: "host"
+    volumes:
+      - ./justice/config:/root/lnjoying_config
+      - ./justice/logs:/root/lnjoying_cloud/logs
+      - ./justice/out:/root/lnjoying_cloud/out
+    depends_on:
+      - grafana
+      - redis
+      - postgres
+      - nginx
+      - servicecomb
+  openresty:
+    image: hub.lnjoying.io:18443/lnjoying-baremetal-team/openresty:v1.0.3
+    container_name: lnjoying-openresty
+    restart: always
+    network_mode: "host"      
+    volumes:
+      - ./openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf      
+      - ./openresty/lnjoying.com.crt:/root/lnjoying.com.crt  
+      - ./openresty/lnjoying.com.key:/root/lnjoying.com.key
+      - ./openresty/dist:/root/dist  
+    depends_on:
+      - lnjoying_cloud      
+    logging:
+      driver: json-file       
+
+networks:
+  lnjoying-bridge:
+    driver: bridge

@@ -1,0 +1,13 @@
+[Unit]
+Description=Lnjoying Virtual Agent Daemon
+Before=libvirt-guests.service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/opt/.venv/bin/python3 -m websockify --token-plugin TokenFile --token-source /vms/tokens/192.168.8.77 6090
+
+[Install]
+WantedBy=multi-user.target

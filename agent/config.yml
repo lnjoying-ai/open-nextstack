@@ -1,0 +1,20 @@
+uuid: 3d75d2ce-4d77-431f-a0a8-7891d10fac4a
+ha_uuid: 22222222-888c-451c-9a10-a320bd9a8c24
+agent_ip: 192.168.8.138
+l3_mode: 1
+vm_mode: 1
+agent_port: 8899
+lan_nic: eno5
+wan_nic: eno6
+lan_bridge: br0
+wan_bridge: br1
+vlan_range: 400-500
+vxlan_range:
+eip_gw_mac:
+wan_gw_mac: c0:b8:e6:ed:4d:1f
+wan_gw_ip: 192.168.8.1
+default_eip: 192.168.8.199
+fm_ip: 192.168.122.100
+log_file:
+log_level: debug
+etcd_endpoints: [http://localhost:2389]

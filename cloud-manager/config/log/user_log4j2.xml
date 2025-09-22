@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<Properties>
+		<Property name="log_path">${sys:LOG_OUT_PATH}</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{ISO8601} [%t] %-5p [%c{1}] %m%n" />
+		</Console>
+		<RollingRandomAccessFile name="RollingRandomAccessFile" fileName="${log_path}/render_usermanage.log"
+								 filePattern="${log_path}/render_usermanage-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout pattern="%d{ISO8601} [%t] %-5p [%c{1}] %m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="50MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingRandomAccessFile>
+	</Appenders>
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="Console"/>
+			<AppenderRef ref="RollingRandomAccessFile"/>
+		</Root>
+	</Loggers>
+</configuration>

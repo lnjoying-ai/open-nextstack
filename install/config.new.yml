@@ -1,0 +1,48 @@
+gnext_src: /root/nextstack/gnext                   # 必须填写，gnext 源码路径
+linux_dist: ubuntu                                 # 必须填写，linux 发行版
+log_file:                                          # 可选，日志文件路径, 默认为当前工作路径下的log目录下的deploy.log
+log_level:                                         # 可选，日志级别， 默认为debug
+proxy:                                             # 可选，代理地址，用于必须使用代理才能访问外网的场景，仅用于部署阶段，默认为空
+exporter: true                                     # 可选，是否部署监控用exporter， 默认为false
+upgrade: false                                     # 可选，是否在部署是更新系统， 默认为false
+dns:                                               # 可选， 目标节点的上游dns服务器列表， 默认为114.114.114.114, 114.114.115.115
+nodes:                                             # 必须填写，部署目标节点列表
+- host: 192.168.8.114                              # 必须填写，部署目标节点IP, 用于部署脚本访问部署的目标节点
+  user: root                                       # 必须填写，部署目标节点用户名
+  passwd: lnjoying                                 # 必须填写，部署目标节点密码
+  uuid:                                            # 可选，部署目标节点UUID， 默认为空
+  manager: true                                    # 可选，是否在目标节点部署java层管理服务， 默认为true
+  vnc: false                                       # 可选，是否在目标节点启用vnc， 默认为false
+  gnext:
+    uuid:                                          # 必须填写， gnext的每个节点都必须有唯一的uuid， 默认值为空
+    agent_ip: 192.168.8.114                        # 可选，gnext服务监听IP， 默认为目标节点的host
+    agent_port: 8899                               # 可选，gnext服务监听端口， 默认为8899
+    fm_ip: 192.168.122.100                         # 可选，fabric manager虚拟机的IP地址，默认为空 (for vm only)
+    vlan_range: 301-4000                           # 可选，vlan范围， 默认为301-4000
+    lan_nic: eno6                                  # 必须填写，lan网卡, 用于虚拟机之间的通信(东西向)， 默认值为空
+    wan_nic: eno7                                  # 必须填写，wan网卡，用于虚拟机与外部网络的通信(南北向)， 默认值为空 
+    wan_gw_mac: C0:B8:E6:ED:4D:1F                  # 必须填写，wan网关MAC地址， 默认为空，(for l3 only)
+    wan_gw_ip: 192.168.8.1                         # 必须填写， 默认WAN网关的IP地址 (for l3 only)
+    default_eip: 192.168.8.100                     # 必须填写， 默认EIP地址 (for l3 only)
+    etcd_endpoints:                                # 必须填写， etcd的endpoints， 默认值为空
+    agent_home:                                    # 可选， gnext的安装路径， 默认值为/opt/gnext
+    log_file:                                      # 可选， gnext的日志文件路径， 默认值为gnext.log
+    log_level:                                     # 可选， gnext的日志级别， 默认值为info
+    vm_mode:                                       # 可选， 是否启用虚拟机模式， 默认值为false, vm_mode和l3_mode不能同时为false
+    l3_mode:                                       # 可选， 是否启用L3模式， 默认值为false, vm_mode和l3_mode不能同时为false
+    lan_bridge:                                    # 可选， lan桥的名称， 默认值为br0
+    wan_bridge:                                    # 可选， wan桥的名称， 默认值为br1
+    vni_range:                                     # 可选， 配置了VNI范围时表示使用VXLAN， 默认值为空 (for l3 only)
+    eip_gw_mac:                                    # 可选， 专用于EIP网关的MAC地址, 默认值为空 (for l3 only)
+    eip_gw_ip:                                     # 可选, 专用于EIP网关的IP地址, 默认值为空 (for l3 only)
+    dnsmasq_options:                               # 可选, dnsmasq的选项 (for l3 only)
+    dns_servers:                                   # 可选, DNS服务器地址 (for l3 only)
+    cmd_timeout:                                   # 可选, 命令执行超时时间, 默认值为30
+    ha_uuid:                                       # 可选, HA模式下的目标迁移节点UUID, 默认值为空 （for vm only）
+    dpu_ip:                                        # 可选, DPU的IP地址, 默认值为空 (for vm only)
+    dpu_port:                                      # 可选, DPU的端口号, 默认值为空 (for vm only)
+    default_speed:                                 # 可选, 网卡南北向速率,默认1000Mbps (for vm only)
+    wan_test_ip:                                   # 可选, WAN口测试IP地址, 默认为223.5.5.5 (for l3 only)
+    gpu:                                           # 可选，gpu配置， 默认为空 (for vm only)
+      vfio_ids:                                    # 可选，直通设备的vfio ID， 有默认值 (for vm only)
+      hugepages: 0                                 # 可选，大页内存大小（GB）， 默认为0 (for vm only)

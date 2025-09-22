@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus exporter for libvirt machine metrics, written in Go with pluggable metric collectors.
+After=libvirtd.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/opt/gnext
+ExecStart=/opt/gnext/bin/virt-monitor-exporter
+ExecStop=/usr/bin/kill -9 $MAINPID
+
+[Install]
+WantedBy=multi-user.target

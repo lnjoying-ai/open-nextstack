@@ -1,0 +1,14 @@
+#store:
+notifyTemplate:
+  validateCode:
+    email: 验证码
+    sms: 487925
+  newUserNotifyAdmin:
+    email: 新用户注册
+    sms: 532987
+  auth_verification_code:
+    email: 验证码
+    sms: 487925
+  reg_verification_code:
+    email: 验证码
+    sms: 487925

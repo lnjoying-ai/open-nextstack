@@ -1,0 +1,40 @@
+#store:
+mount: /Users/regulus/source/lnjoying_src_git/SRending/store
+sharePrefix: http://120.92.15.204/
+storeNameSpace:
+  default:
+    ipaddrs:
+      - host: 139.9.251.175
+        port: 5001
+        protocol: udp
+      - host: 139.9.251.175
+        port: 5001
+        protocol: udp
+    mountDir: /xxx
+  log:
+    ipaddrs:
+      - host: 139.9.251.175
+        port: 5001
+        protocol: udp
+      - host: 139.9.251.175
+        port: 5001
+        protocol: udp
+    mountDir: /xxx
+  storeA:
+    ipaddrs:
+      - host: 139.9.251.175
+        port: 5001
+        protocol: udp
+      - host: 139.9.251.175
+        port: 5001
+        protocol: udp
+    mountDir: /xxx
+  storeB:
+    ipaddrs:
+      - host: 139.9.251.175
+        port: 5001
+        protocol: udp
+      - host: 139.9.251.175
+        port: 5001
+        protocol: udp
+    mountDir: /xxx

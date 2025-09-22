@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.usermanager.db.mapper.TblBpInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.usermanager.db.model.TblBpInfo">
+    <id column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="bp_name" jdbcType="VARCHAR" property="bpName" />
+    <result column="website" jdbcType="VARCHAR" property="website" />
+    <result column="license_id" jdbcType="VARCHAR" property="licenseId" />
+    <result column="master_user" jdbcType="VARCHAR" property="masterUser" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="contact_info" jdbcType="VARCHAR" property="contactInfo" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    bp_id, bp_name, website, license_id, master_user, status, contact_info, create_time, 
+    update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.usermanager.db.model.TblBpInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_bp_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_bp_info
+    where bp_id = #{bpId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_bp_info
+    where bp_id = #{bpId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.usermanager.db.model.TblBpInfoExample">
+    delete from tbl_bp_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.usermanager.db.model.TblBpInfo">
+    insert into tbl_bp_info (bp_id, bp_name, website, 
+      license_id, master_user, status, 
+      contact_info, create_time, update_time
+      )
+    values (#{bpId,jdbcType=VARCHAR}, #{bpName,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
+      #{licenseId,jdbcType=VARCHAR}, #{masterUser,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{contactInfo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.usermanager.db.model.TblBpInfo">
+    insert into tbl_bp_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bpId != null">
+        bp_id,
+      </if>
+      <if test="bpName != null">
+        bp_name,
+      </if>
+      <if test="website != null">
+        website,
+      </if>
+      <if test="licenseId != null">
+        license_id,
+      </if>
+      <if test="masterUser != null">
+        master_user,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="contactInfo != null">
+        contact_info,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bpId != null">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpName != null">
+        #{bpName,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseId != null">
+        #{licenseId,jdbcType=VARCHAR},
+      </if>
+      <if test="masterUser != null">
+        #{masterUser,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="contactInfo != null">
+        #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.usermanager.db.model.TblBpInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_bp_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_bp_info
+    <set>
+      <if test="record.bpId != null">
+        bp_id = #{record.bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bpName != null">
+        bp_name = #{record.bpName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.website != null">
+        website = #{record.website,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenseId != null">
+        license_id = #{record.licenseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.masterUser != null">
+        master_user = #{record.masterUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.contactInfo != null">
+        contact_info = #{record.contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_bp_info
+    set bp_id = #{record.bpId,jdbcType=VARCHAR},
+      bp_name = #{record.bpName,jdbcType=VARCHAR},
+      website = #{record.website,jdbcType=VARCHAR},
+      license_id = #{record.licenseId,jdbcType=VARCHAR},
+      master_user = #{record.masterUser,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      contact_info = #{record.contactInfo,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.usermanager.db.model.TblBpInfo">
+    update tbl_bp_info
+    <set>
+      <if test="bpName != null">
+        bp_name = #{bpName,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseId != null">
+        license_id = #{licenseId,jdbcType=VARCHAR},
+      </if>
+      <if test="masterUser != null">
+        master_user = #{masterUser,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="contactInfo != null">
+        contact_info = #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where bp_id = #{bpId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.usermanager.db.model.TblBpInfo">
+    update tbl_bp_info
+    set bp_name = #{bpName,jdbcType=VARCHAR},
+      website = #{website,jdbcType=VARCHAR},
+      license_id = #{licenseId,jdbcType=VARCHAR},
+      master_user = #{masterUser,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      contact_info = #{contactInfo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where bp_id = #{bpId,jdbcType=VARCHAR}
+  </update>
+</mapper>

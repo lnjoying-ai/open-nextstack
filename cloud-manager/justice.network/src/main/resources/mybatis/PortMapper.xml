@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.network.mapper.PortMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lnjoying.justice.network.entity.Port">
+        <id column="port_id" property="portId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="subnet_id" property="subnetId" />
+        <result column="port_id_from_agent" property="portIdFromAgent" />
+        <result column="ip_address" property="ipAddress" />
+        <result column="mac_address" property="macAddress" />
+        <result column="phase_status" property="phaseStatus" />
+        <result column="type" property="type" />
+        <result column="vm_instance_id" property="instanceId" />
+        <result column="of_port" property="ofPort" />
+        <result column="host_id_from_agent" property="hostIdFromAgent" />
+    </resultMap>
+</mapper>

@@ -1,0 +1,32 @@
+nextstack_src: /root/dev-gnext
+linux_dist: centos
+nodes:
+- host: 192.168.8.67
+  user: root
+  passwd: lnjoying
+  gnext:
+    agent_ip: 192.168.8.67
+    default_eip: 192.168.8.192
+    wan_gw_ip: 192.168.8.1
+    vlan_range: 301-4000
+    lan_nic: eno6
+    wan_nic: eno7
+    etcd_endpoints: [http://localhost:2389]
+  etcd:
+     etcd_name: etcd01
+     etcd_port: 2389
+
+- host: 192.168.8.114
+  user: root
+  passwd: lnjoying
+  gnext:
+    agent_ip: 192.168.8.114
+    default_eip: 192.168.8.193
+    wan_gw_ip: 192.168.8.1
+    vlan_range: 301-4000
+    lan_nic: eno6
+    wan_nic: eno7
+    etcd_endpoints: [http://192.168.8.67:2389]
+  etcd:
+    etcd_name: etcd02
+    etcd_port: 2389

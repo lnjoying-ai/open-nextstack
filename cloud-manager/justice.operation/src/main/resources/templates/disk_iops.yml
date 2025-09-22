@@ -1,0 +1,11 @@
+groups:
+  - name: disk_iops
+    rules:
+      - alert: DiskIops
+        expr: [(${expr})]
+        for: [(${forTime})]
+        annotations:
+          ruleId: [(${ruleId})]
+          summary: "磁盘IOPS超出阈值"
+          threshold: [(${threshold})]
+          description: "instance: {{ $labels.instanceId }}-{{ $labels.target_device }} 磁盘IOPS是 {{$value}}req/s."

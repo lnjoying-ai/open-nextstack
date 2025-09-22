@@ -1,0 +1,17 @@
+[Unit]
+Description=GNext service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/opt/gnext
+ExecStart=/opt/gnext/gnext service start -C /opt/gnext/config.yml --fix
+ExecStop=/usr/bin/kill -9 $MAINPID
+KillMode=process
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

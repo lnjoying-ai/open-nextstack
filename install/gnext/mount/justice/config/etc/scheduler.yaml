@@ -1,0 +1,7 @@
+seedGroupParam:
+  taskOccupyMaxNode: 5
+  taskAccess1ByMinFreeNode: 0
+normalGroupParam:
+  createNewDevRatio: 80
+
+

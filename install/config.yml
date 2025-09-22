@@ -1,0 +1,17 @@
+gnext_src: /root/dev-gnext 
+linux_dist: centos
+nodes:
+- host: 192.168.8.114
+  user: root
+  passwd: lnjoying
+  gnext:
+    agent_ip: 192.168.8.114
+    agent_port: 8899
+    default_eip: 192.168.8.192
+    #wan_gw_ip: 192.168.8.1
+    #vlan_range: 301-4000
+    #wan_gw_mac: C0:B8:E6:ED:4D:1F 
+    lan_nic: eno6 
+    wan_nic: eno7
+    etcd_endpoints: [http://localhost:2389]
+  manager: False

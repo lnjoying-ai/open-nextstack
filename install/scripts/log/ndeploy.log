@@ -1,0 +1,1123 @@
+2023-10-08 17:48:52.491 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-08 17:55:47.944 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-08 17:56:17.265 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python ./setup.py bdist_wheel
+2023-10-08 17:58:17.107 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-08 17:58:17.603 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-08 17:58:17.608 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.1.32
+2023-10-08 17:58:39.724 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-08 17:58:40.215 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-08 17:58:40.220 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.32
+2023-10-08 17:59:03.298 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-08 17:59:03.793 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-08 17:59:03.798 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lNjoying! ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.32
+2023-10-08 17:59:12.584 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-08 17:59:13.081 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-08 17:59:13.085 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lNjoying! ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.32
+2023-10-08 17:59:21.877 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-08 17:59:22.365 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-08 17:59:22.369 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.32
+2023-10-08 17:59:46.127 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-08 17:59:46.742 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-08 17:59:46.747 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.32
+2023-10-08 17:59:47.099 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'systemctl disable firewalld'
+2023-10-08 17:59:47.683 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'systemctl stop firewalld'
+2023-10-08 17:59:48.022 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'setenforce 0'
+2023-10-08 17:59:48.301 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-08 17:59:48.595 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.32:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-08 17:59:48.954 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-08 17:59:48.961 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'systemctl reload NetworkManager'
+2023-10-08 17:59:49.331 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.32:/etc/resolv.conf
+2023-10-08 17:59:49.681 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-08 17:59:49.688 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-08 17:59:49.994 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-08 17:59:50.339 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-08 18:00:06.605 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-08 18:00:06.882 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-08 18:00:07.151 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'yum update -y'
+2023-10-08 18:11:41.815 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'yum makecache'
+2023-10-08 18:11:47.762 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'rpm -e --nodeps python39'
+2023-10-08 18:11:48.146 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'yum install -y python39'
+2023-10-08 18:11:54.576 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'rm -rf /opt/.v3.9'
+2023-10-08 18:11:55.168 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 '/usr/bin/python3.9 -m venv /opt/.v3.9'
+2023-10-08 18:11:58.103 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'source /opt/.v3.9/bin/activate && pip install pip wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-08 18:11:59.068 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'grep -F "export PATH=/opt/.v3.9/bin:\$PATH" ~/.bashrc'
+2023-10-08 18:11:59.304 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'echo -e "export PATH=/opt/.v3.9/bin:\$PATH" >> ~/.bashrc'
+2023-10-08 18:11:59.545 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'grep -F "source /opt/.v3.9/bin/activate" ~/.bashrc'
+2023-10-08 18:11:59.778 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'grep -F "export LANG=en_US.UTF-8" ~/.bashrc'
+2023-10-08 18:12:00.013 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'echo -e "export LANG=en_US.UTF-8" >> ~/.bashrc'
+2023-10-08 18:12:00.246 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'grep -F "set -o vi" ~/.bashrc'
+2023-10-08 18:12:00.481 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'grep -F "alias vi=vim" ~/.bashrc'
+2023-10-08 18:12:00.713 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/dist/nextstack-6.1-py3-none-any.whl root@192.168.11.32:/tmp
+2023-10-08 18:12:00.953 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'source /opt/.v3.9/bin/activate && pip install /tmp/nextstack-6.1-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-08 18:12:24.458 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'rm -rf /tmp/nextstack-6.1-py3-none-any.whl'
+2023-10-08 18:12:24.693 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'mkdir -p /opt/nextstack/{bin,db,log}'
+2023-10-08 18:12:24.930 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'systemctl stop lnjoying-nbd.service'
+2023-10-08 18:12:25.167 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'systemctl stop dnsmasq.service'
+2023-10-08 18:12:25.410 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'systemctl disable dnsmasq.service'
+2023-10-08 18:12:25.850 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'killall -9 dnsmasq'
+2023-10-08 18:12:27.096 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/bin root@192.168.11.32:/opt/nextstack/
+2023-10-08 18:12:27.428 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'grep -F "alias cdd=\"cd /opt/nextstack\"" ~/.bashrc'
+2023-10-08 18:12:27.662 | WARNING  | __main__:config_pxe:419 - pxeagent_ip is not set, use host 192.168.11.32
+2023-10-08 18:12:27.665 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.pxeagent.yml root@192.168.11.32:/opt/nextstack/config.pxe.yml
+2023-10-08 18:12:27.903 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.pxeagent.yml
+2023-10-08 18:12:27.908 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-pxeagent.service root@192.168.11.32:/usr/lib/systemd/system/
+2023-10-08 18:12:28.148 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'yum install -y samba'
+2023-10-08 18:12:32.139 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'systemctl enable smb && systemctl start smb'
+2023-10-08 18:12:32.594 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.32 'chmod 644 /usr/lib/systemd/system/lnjoying-pxeagent.service && systemctl enable lnjoying-pxeagent.service && systemctl start lnjoying-pxeagent.service'
+2023-10-08 20:26:25.900 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-08 20:26:26.361 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-08 20:26:26.368 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.99
+2023-10-08 20:26:26.850 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable firewalld'
+2023-10-08 20:26:27.158 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop firewalld'
+2023-10-08 20:26:27.324 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'setenforce 0'
+2023-10-08 20:26:27.479 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-08 20:26:27.635 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.99:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-08 20:26:27.803 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-08 20:26:27.808 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl reload NetworkManager'
+2023-10-08 20:26:28.030 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.99:/etc/resolv.conf
+2023-10-08 20:26:28.220 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-08 20:26:28.245 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-08 20:26:28.436 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-08 20:26:28.591 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-08 20:27:09.291 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-08 20:27:09.455 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-08 20:27:09.616 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum update -y'
+2023-10-08 20:27:24.884 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum makecache'
+2023-10-08 20:27:31.499 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rpm -e --nodeps python39'
+2023-10-08 20:27:31.663 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y python39'
+2023-10-08 20:27:39.529 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /opt/.v3.9'
+2023-10-08 20:27:39.689 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 '/usr/bin/python3.9 -m venv /opt/.v3.9'
+2023-10-08 20:27:42.223 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install pip wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-08 20:27:43.212 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export PATH=/opt/.v3.9/bin:\$PATH" ~/.bashrc'
+2023-10-08 20:27:43.371 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo -e "export PATH=/opt/.v3.9/bin:\$PATH" >> ~/.bashrc'
+2023-10-08 20:27:43.527 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "source /opt/.v3.9/bin/activate" ~/.bashrc'
+2023-10-08 20:27:43.684 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo -e "source /opt/.v3.9/bin/activate" >> ~/.bashrc'
+2023-10-08 20:27:43.840 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export LANG=en_US.UTF-8" ~/.bashrc'
+2023-10-08 20:27:43.997 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo -e "export LANG=en_US.UTF-8" >> ~/.bashrc'
+2023-10-08 20:27:44.152 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "set -o vi" ~/.bashrc'
+2023-10-08 20:27:44.309 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo -e "set -o vi" >> ~/.bashrc'
+2023-10-08 20:27:44.464 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias vi=vim" ~/.bashrc'
+2023-10-08 20:27:44.620 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo -e "alias vi=vim" >> ~/.bashrc'
+2023-10-08 20:27:44.777 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/third_party/ovs/rpms/x86_64/openvswitch-3.2.0-1.el8.x86_64.rpm root@192.168.11.99:/tmp
+2023-10-08 20:27:44.978 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-08 20:27:50.434 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-08 20:27:50.594 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable openvswitch'
+2023-10-08 20:27:50.849 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start openvswitch'
+2023-10-08 20:27:51.249 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/dist/nextstack-6.1-py3-none-any.whl root@192.168.11.99:/tmp
+2023-10-08 20:27:51.417 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install /tmp/nextstack-6.1-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-08 20:28:11.535 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/nextstack-6.1-py3-none-any.whl'
+2023-10-08 20:28:11.695 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /opt/nextstack/{bin,db,log}'
+2023-10-08 20:28:11.853 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop lnjoying-nbd.service'
+2023-10-08 20:28:12.013 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop dnsmasq.service'
+2023-10-08 20:28:12.174 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable dnsmasq.service'
+2023-10-08 20:28:12.337 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'killall -9 dnsmasq'
+2023-10-08 20:28:13.507 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/bin root@192.168.11.99:/opt/nextstack/
+2023-10-08 20:28:13.952 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias cdd=\"cd /opt/nextstack\"" ~/.bashrc'
+2023-10-08 20:28:14.109 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo -e "alias cdd=\"cd /opt/nextstack\"" >> ~/.bashrc'
+2023-10-08 20:28:14.267 | WARNING  | __main__:config_l3:563 - l3agent_ip is not set, use host 192.168.11.99
+2023-10-08 20:28:14.267 | WARNING  | __main__:config_l3:578 - l3agent wan_ip is not set, use 192.168.11.100
+2023-10-08 20:28:14.268 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f2'
+2023-10-08 20:28:14.427 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f2 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f2
+2023-10-08 20:28:14.590 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f2
+2023-10-08 20:28:14.594 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-08 20:28:14.763 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f1'
+2023-10-08 20:28:14.921 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f1 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f1
+2023-10-08 20:28:15.084 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f1
+2023-10-08 20:28:15.088 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-08 20:28:15.256 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.l3agent.yml root@192.168.11.99:/opt/nextstack/config.l3.yml
+2023-10-08 20:28:15.420 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.l3agent.yml
+2023-10-08 20:28:15.424 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-l3agent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-08 20:28:15.588 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-l3agent.service && systemctl enable lnjoying-l3agent.service && systemctl start lnjoying-l3agent.service'
+2023-10-08 20:28:15.853 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y libvirt virt-viewer virt-install libguestfs-tools'
+2023-10-08 20:29:41.190 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'usermod --append --groups libvirt root'
+2023-10-08 20:29:41.370 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable libvirtd'
+2023-10-08 20:29:41.641 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start libvirtd'
+2023-10-08 20:29:41.897 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y nbd'
+2023-10-08 20:29:46.577 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'options nbd max_part=255' >/etc/modprobe.d/nbd.conf'
+2023-10-08 20:29:46.735 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'nbd' >/etc/modules-load.d/nbd.conf'
+2023-10-08 20:29:46.893 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'modprobe nbd'
+2023-10-08 20:29:47.069 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service && cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-nbd.service /tmp
+2023-10-08 20:29:47.075 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--address=\S+/--address=0.0.0.0/g" /tmp/lnjoying-nbd.service
+2023-10-08 20:29:47.079 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--port=\S+/--port=8000/g" /tmp/lnjoying-nbd.service
+2023-10-08 20:29:47.084 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-nbd.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-08 20:29:47.250 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-nbd.service && systemctl enable lnjoying-nbd.service && systemctl start lnjoying-nbd.service'
+2023-10-08 20:29:47.533 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service
+2023-10-08 20:29:47.537 | WARNING  | __main__:config_vm:640 - vmagent_ip is not set, use 192.168.11.99
+2023-10-08 20:29:47.538 | WARNING  | __main__:config_vm:650 - vmagent ha_ip is not set
+2023-10-08 20:29:47.539 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.vmagent.yml root@192.168.11.99:/opt/nextstack/config.vm.yml
+2023-10-08 20:29:47.705 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.vmagent.yml
+2023-10-08 20:29:47.710 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-vmagent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-08 20:29:47.875 | DEBUG    | __main__:local_exec:27 - cmd: cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-novnc.service /tmp
+2023-10-08 20:29:47.880 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/tokens\/\S+\s+6090/tokens\/192.168.11.99 6090/" /tmp/lnjoying-novnc.service
+2023-10-08 20:29:47.884 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-novnc.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-08 20:29:48.050 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-novnc.service
+2023-10-08 20:29:48.054 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /vms/{backing,cdrom,migrate,volumes,tokens}'
+2023-10-08 20:29:48.213 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chown -R qemu:qemu /vms'
+2023-10-08 20:29:48.371 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-novnc.service && systemctl enable lnjoying-novnc.service && systemctl start lnjoying-novnc.service'
+2023-10-08 20:29:48.646 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-vmagent.service && systemctl enable lnjoying-vmagent.service && systemctl start lnjoying-vmagent.service'
+2023-10-09 10:49:11.193 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-09 10:49:11.614 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-09 10:49:11.618 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.99
+2023-10-09 10:49:11.870 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable firewalld'
+2023-10-09 10:49:12.191 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop firewalld'
+2023-10-09 10:49:12.373 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'setenforce 0'
+2023-10-09 10:49:12.603 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-09 10:49:12.763 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.99:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-09 10:49:12.928 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-09 10:49:12.932 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl reload NetworkManager'
+2023-10-09 10:49:13.118 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.99:/etc/resolv.conf
+2023-10-09 10:49:13.283 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-09 10:49:13.288 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-09 10:49:13.454 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-09 10:49:13.615 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-09 10:49:27.805 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-09 10:49:27.968 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-09 10:49:28.128 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum update -y'
+2023-10-09 10:49:33.178 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum makecache'
+2023-10-09 10:49:37.567 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rpm -e --nodeps python39'
+2023-10-09 10:49:37.818 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y python39'
+2023-10-09 10:49:42.383 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /opt/.v3.9'
+2023-10-09 10:49:42.696 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 '/usr/bin/python3.9 -m venv /opt/.v3.9'
+2023-10-09 10:49:45.241 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install pip wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 10:49:45.980 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export PATH=/opt/.v3.9/bin:\$PATH" ~/.bashrc'
+2023-10-09 10:49:46.140 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "source /opt/.v3.9/bin/activate" ~/.bashrc'
+2023-10-09 10:49:46.299 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export LANG=en_US.UTF-8" ~/.bashrc'
+2023-10-09 10:49:46.458 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "set -o vi" ~/.bashrc'
+2023-10-09 10:49:46.618 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias vi=vim" ~/.bashrc'
+2023-10-09 10:49:46.776 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/third_party/ovs/rpms/x86_64/openvswitch-3.2.0-1.el8.x86_64.rpm root@192.168.11.99:/tmp
+2023-10-09 10:49:46.960 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 10:49:50.403 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 10:49:50.563 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable openvswitch'
+2023-10-09 10:49:50.838 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start openvswitch'
+2023-10-09 10:49:51.003 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/dist/nextstack-6.1-py3-none-any.whl root@192.168.11.99:/tmp
+2023-10-09 10:49:51.170 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install /tmp/nextstack-6.1-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 10:50:08.749 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/nextstack-6.1-py3-none-any.whl'
+2023-10-09 10:50:08.910 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /opt/nextstack/{bin,db,log}'
+2023-10-09 10:50:09.069 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop lnjoying-nbd.service'
+2023-10-09 10:50:09.236 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop dnsmasq.service'
+2023-10-09 10:50:09.401 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable dnsmasq.service'
+2023-10-09 10:50:09.668 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'killall -9 dnsmasq'
+2023-10-09 10:50:10.840 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/bin root@192.168.11.99:/opt/nextstack/
+2023-10-09 10:50:11.251 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias cdd=\"cd /opt/nextstack\"" ~/.bashrc'
+2023-10-09 10:50:11.412 | WARNING  | __main__:config_l3:563 - l3agent_ip is not set, use host 192.168.11.99
+2023-10-09 10:50:11.412 | WARNING  | __main__:config_l3:578 - l3agent wan_ip is not set, use 192.168.11.100
+2023-10-09 10:50:11.412 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f2'
+2023-10-09 10:50:11.572 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f2 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f2
+2023-10-09 10:50:11.739 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f2
+2023-10-09 10:50:11.743 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 10:50:11.914 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f1'
+2023-10-09 10:50:12.074 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f1 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f1
+2023-10-09 10:50:12.240 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f1
+2023-10-09 10:50:12.244 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 10:50:12.413 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.l3agent.yml root@192.168.11.99:/opt/nextstack/config.l3.yml
+2023-10-09 10:50:12.578 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.l3agent.yml
+2023-10-09 10:50:12.582 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-l3agent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 10:50:12.748 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-l3agent.service && systemctl enable lnjoying-l3agent.service && systemctl start lnjoying-l3agent.service'
+2023-10-09 10:50:13.024 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y libvirt virt-viewer virt-install libguestfs-tools'
+2023-10-09 10:50:16.259 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'usermod --append --groups libvirt root'
+2023-10-09 10:50:16.444 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable libvirtd'
+2023-10-09 10:50:16.712 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start libvirtd'
+2023-10-09 10:50:16.878 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y nbd'
+2023-10-09 10:50:20.099 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'options nbd max_part=255' >/etc/modprobe.d/nbd.conf'
+2023-10-09 10:50:20.258 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'nbd' >/etc/modules-load.d/nbd.conf'
+2023-10-09 10:50:20.417 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'modprobe nbd'
+2023-10-09 10:50:20.578 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service && cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-nbd.service /tmp
+2023-10-09 10:50:20.584 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--address=\S+/--address=0.0.0.0/g" /tmp/lnjoying-nbd.service
+2023-10-09 10:50:20.589 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--port=\S+/--port=8000/g" /tmp/lnjoying-nbd.service
+2023-10-09 10:50:20.593 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-nbd.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 10:50:20.758 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-nbd.service && systemctl enable lnjoying-nbd.service && systemctl start lnjoying-nbd.service'
+2023-10-09 10:50:21.036 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service
+2023-10-09 10:50:21.040 | WARNING  | __main__:config_vm:640 - vmagent_ip is not set, use 192.168.11.99
+2023-10-09 10:50:21.041 | WARNING  | __main__:config_vm:650 - vmagent ha_ip is not set
+2023-10-09 10:50:21.041 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -E 'intel_iommu=on|iomm=pt|amd_iommu=on' /etc/default/grub'
+2023-10-09 10:55:42.233 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-09 10:55:42.664 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-09 10:55:42.670 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.99
+2023-10-09 10:55:42.946 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable firewalld'
+2023-10-09 10:55:43.223 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop firewalld'
+2023-10-09 10:55:43.386 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'setenforce 0'
+2023-10-09 10:55:43.562 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-09 10:55:43.750 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.99:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-09 10:55:43.931 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-09 10:55:43.936 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl reload NetworkManager'
+2023-10-09 10:55:44.130 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.99:/etc/resolv.conf
+2023-10-09 10:55:44.313 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-09 10:55:44.318 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-09 10:55:44.481 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-09 10:55:44.642 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-09 10:55:49.599 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-09 10:55:49.761 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-09 10:55:49.920 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum update -y'
+2023-10-09 10:55:54.047 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum makecache'
+2023-10-09 10:55:58.380 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rpm -e --nodeps python39'
+2023-10-09 10:55:58.612 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y python39'
+2023-10-09 10:56:03.216 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /opt/.v3.9'
+2023-10-09 10:56:03.516 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 '/usr/bin/python3.9 -m venv /opt/.v3.9'
+2023-10-09 10:56:06.044 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install pip wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 10:56:06.772 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export PATH=/opt/.v3.9/bin:\$PATH" ~/.bashrc'
+2023-10-09 10:56:06.931 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "source /opt/.v3.9/bin/activate" ~/.bashrc'
+2023-10-09 10:56:07.091 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export LANG=en_US.UTF-8" ~/.bashrc'
+2023-10-09 10:56:07.251 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "set -o vi" ~/.bashrc'
+2023-10-09 10:56:07.409 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias vi=vim" ~/.bashrc'
+2023-10-09 10:56:07.568 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/third_party/ovs/rpms/x86_64/openvswitch-3.2.0-1.el8.x86_64.rpm root@192.168.11.99:/tmp
+2023-10-09 10:56:07.752 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 10:56:11.182 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 10:56:11.343 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable openvswitch'
+2023-10-09 10:56:11.620 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start openvswitch'
+2023-10-09 10:56:11.784 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/dist/nextstack-6.1-py3-none-any.whl root@192.168.11.99:/tmp
+2023-10-09 10:56:11.953 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install /tmp/nextstack-6.1-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 10:56:27.521 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/nextstack-6.1-py3-none-any.whl'
+2023-10-09 10:56:27.682 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /opt/nextstack/{bin,db,log}'
+2023-10-09 10:56:27.841 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop lnjoying-nbd.service'
+2023-10-09 10:56:28.008 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop dnsmasq.service'
+2023-10-09 10:56:28.174 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable dnsmasq.service'
+2023-10-09 10:56:28.440 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'killall -9 dnsmasq'
+2023-10-09 10:56:29.610 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/bin root@192.168.11.99:/opt/nextstack/
+2023-10-09 10:56:30.020 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias cdd=\"cd /opt/nextstack\"" ~/.bashrc'
+2023-10-09 10:56:30.178 | WARNING  | __main__:config_l3:563 - l3agent_ip is not set, use host 192.168.11.99
+2023-10-09 10:56:30.179 | WARNING  | __main__:config_l3:578 - l3agent wan_ip is not set, use 192.168.11.100
+2023-10-09 10:56:30.179 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f2'
+2023-10-09 10:56:30.338 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f2 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f2
+2023-10-09 10:56:30.503 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f2
+2023-10-09 10:56:30.507 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 10:56:30.676 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f1'
+2023-10-09 10:56:30.835 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f1 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f1
+2023-10-09 10:56:31.001 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f1
+2023-10-09 10:56:31.005 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 10:56:31.174 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.l3agent.yml root@192.168.11.99:/opt/nextstack/config.l3.yml
+2023-10-09 10:56:31.342 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.l3agent.yml
+2023-10-09 10:56:31.346 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-l3agent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 10:56:31.511 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-l3agent.service && systemctl enable lnjoying-l3agent.service && systemctl start lnjoying-l3agent.service'
+2023-10-09 10:56:31.786 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y libvirt virt-viewer virt-install libguestfs-tools'
+2023-10-09 10:56:35.019 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'usermod --append --groups libvirt root'
+2023-10-09 10:56:35.189 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable libvirtd'
+2023-10-09 10:56:35.461 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start libvirtd'
+2023-10-09 10:56:35.625 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y nbd'
+2023-10-09 10:56:38.856 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'options nbd max_part=255' >/etc/modprobe.d/nbd.conf'
+2023-10-09 10:56:39.015 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'nbd' >/etc/modules-load.d/nbd.conf'
+2023-10-09 10:56:39.174 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'modprobe nbd'
+2023-10-09 10:56:39.334 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service && cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-nbd.service /tmp
+2023-10-09 10:56:39.339 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--address=\S+/--address=0.0.0.0/g" /tmp/lnjoying-nbd.service
+2023-10-09 10:56:39.344 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--port=\S+/--port=8000/g" /tmp/lnjoying-nbd.service
+2023-10-09 10:56:39.348 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-nbd.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 10:56:39.513 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-nbd.service && systemctl enable lnjoying-nbd.service && systemctl start lnjoying-nbd.service'
+2023-10-09 10:56:39.788 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service
+2023-10-09 10:56:39.792 | WARNING  | __main__:config_vm:640 - vmagent_ip is not set, use 192.168.11.99
+2023-10-09 10:56:39.793 | WARNING  | __main__:config_vm:650 - vmagent ha_ip is not set
+2023-10-09 10:56:39.793 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -E "intel_iommu=on|iomm=pt|amd_iommu=on" /etc/default/grub'
+2023-10-09 10:56:39.955 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.vmagent.yml root@192.168.11.99:/opt/nextstack/config.vm.yml
+2023-10-09 10:56:40.121 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.vmagent.yml
+2023-10-09 10:56:40.125 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-vmagent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 10:56:40.292 | DEBUG    | __main__:local_exec:27 - cmd: cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-novnc.service /tmp
+2023-10-09 10:56:40.296 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/tokens\/\S+\s+6090/tokens\/192.168.11.99 6090/" /tmp/lnjoying-novnc.service
+2023-10-09 10:56:40.301 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-novnc.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 10:56:40.468 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-novnc.service
+2023-10-09 10:56:40.472 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /vms/{backing,cdrom,migrate,volumes,tokens}'
+2023-10-09 10:56:40.632 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chown -R qemu:qemu /vms'
+2023-10-09 10:56:40.793 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-novnc.service && systemctl enable lnjoying-novnc.service && systemctl start lnjoying-novnc.service'
+2023-10-09 10:56:41.068 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-vmagent.service && systemctl enable lnjoying-vmagent.service && systemctl start lnjoying-vmagent.service'
+2023-10-09 10:59:17.472 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-09 10:59:17.894 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-09 10:59:17.899 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.99
+2023-10-09 10:59:18.166 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable firewalld'
+2023-10-09 10:59:18.438 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop firewalld'
+2023-10-09 10:59:18.633 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'setenforce 0'
+2023-10-09 10:59:18.858 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-09 10:59:19.020 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.99:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-09 10:59:19.184 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-09 10:59:19.189 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl reload NetworkManager'
+2023-10-09 10:59:19.375 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.99:/etc/resolv.conf
+2023-10-09 10:59:19.541 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-09 10:59:19.546 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-09 10:59:19.718 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-09 10:59:19.885 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-09 10:59:25.196 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-09 10:59:25.357 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-09 10:59:25.516 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum update -y'
+2023-10-09 10:59:29.597 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum makecache'
+2023-10-09 10:59:34.001 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rpm -e --nodeps python39'
+2023-10-09 10:59:34.234 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y python39'
+2023-10-09 10:59:38.691 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /opt/.v3.9'
+2023-10-09 10:59:38.991 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 '/usr/bin/python3.9 -m venv /opt/.v3.9'
+2023-10-09 10:59:41.528 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install pip wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 10:59:42.251 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export PATH=/opt/.v3.9/bin:\$PATH" ~/.bashrc'
+2023-10-09 10:59:42.411 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "source /opt/.v3.9/bin/activate" ~/.bashrc'
+2023-10-09 10:59:42.570 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export LANG=en_US.UTF-8" ~/.bashrc'
+2023-10-09 10:59:42.729 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "set -o vi" ~/.bashrc'
+2023-10-09 10:59:42.888 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias vi=vim" ~/.bashrc'
+2023-10-09 10:59:43.047 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/third_party/ovs/rpms/x86_64/openvswitch-3.2.0-1.el8.x86_64.rpm root@192.168.11.99:/tmp
+2023-10-09 10:59:43.232 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 10:59:46.650 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 10:59:46.810 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable openvswitch'
+2023-10-09 10:59:47.083 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start openvswitch'
+2023-10-09 10:59:47.248 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/dist/nextstack-6.1-py3-none-any.whl root@192.168.11.99:/tmp
+2023-10-09 10:59:47.415 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install /tmp/nextstack-6.1-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 11:00:02.340 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/nextstack-6.1-py3-none-any.whl'
+2023-10-09 11:00:02.501 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /opt/nextstack/{bin,db,log}'
+2023-10-09 11:00:02.661 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop lnjoying-nbd.service'
+2023-10-09 11:00:02.828 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop dnsmasq.service'
+2023-10-09 11:00:02.993 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable dnsmasq.service'
+2023-10-09 11:00:03.262 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'killall -9 dnsmasq'
+2023-10-09 11:00:04.433 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/bin root@192.168.11.99:/opt/nextstack/
+2023-10-09 11:00:04.843 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias cdd=\"cd /opt/nextstack\"" ~/.bashrc'
+2023-10-09 11:00:05.002 | WARNING  | __main__:config_l3:563 - l3agent_ip is not set, use host 192.168.11.99
+2023-10-09 11:00:05.003 | WARNING  | __main__:config_l3:578 - l3agent wan_ip is not set, use 192.168.11.100
+2023-10-09 11:00:05.003 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f2'
+2023-10-09 11:00:05.163 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f2 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f2
+2023-10-09 11:00:05.329 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f2
+2023-10-09 11:00:05.333 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 11:00:05.502 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f1'
+2023-10-09 11:00:05.663 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f1 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f1
+2023-10-09 11:00:05.828 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f1
+2023-10-09 11:00:05.831 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 11:00:06.002 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.l3agent.yml root@192.168.11.99:/opt/nextstack/config.l3.yml
+2023-10-09 11:00:06.168 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.l3agent.yml
+2023-10-09 11:00:06.172 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-l3agent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:00:06.338 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-l3agent.service && systemctl enable lnjoying-l3agent.service && systemctl start lnjoying-l3agent.service'
+2023-10-09 11:00:06.615 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y libvirt virt-viewer virt-install libguestfs-tools'
+2023-10-09 11:00:09.849 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'usermod --append --groups libvirt root'
+2023-10-09 11:00:10.018 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable libvirtd'
+2023-10-09 11:00:10.287 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start libvirtd'
+2023-10-09 11:00:10.452 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y nbd'
+2023-10-09 11:00:13.677 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'options nbd max_part=255' >/etc/modprobe.d/nbd.conf'
+2023-10-09 11:00:13.836 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'nbd' >/etc/modules-load.d/nbd.conf'
+2023-10-09 11:00:13.995 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'modprobe nbd'
+2023-10-09 11:00:14.183 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service && cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-nbd.service /tmp
+2023-10-09 11:00:14.188 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--address=\S+/--address=0.0.0.0/g" /tmp/lnjoying-nbd.service
+2023-10-09 11:00:14.193 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--port=\S+/--port=8000/g" /tmp/lnjoying-nbd.service
+2023-10-09 11:00:14.197 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-nbd.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:00:14.363 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-nbd.service && systemctl enable lnjoying-nbd.service && systemctl start lnjoying-nbd.service'
+2023-10-09 11:00:14.641 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service
+2023-10-09 11:00:14.645 | WARNING  | __main__:config_vm:640 - vmagent_ip is not set, use 192.168.11.99
+2023-10-09 11:00:14.645 | WARNING  | __main__:config_vm:650 - vmagent ha_ip is not set
+2023-10-09 11:00:14.645 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -E "intel_iommu=on|iomm=pt|amd_iommu=on" /etc/default/grub'
+2023-10-09 11:00:14.805 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.vmagent.yml root@192.168.11.99:/opt/nextstack/config.vm.yml
+2023-10-09 11:00:14.978 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.vmagent.yml
+2023-10-09 11:00:14.982 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-vmagent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:00:15.147 | DEBUG    | __main__:local_exec:27 - cmd: cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-novnc.service /tmp
+2023-10-09 11:00:15.151 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/tokens\/\S+\s+6090/tokens\/192.168.11.99 6090/" /tmp/lnjoying-novnc.service
+2023-10-09 11:00:15.156 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-novnc.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:00:15.323 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-novnc.service
+2023-10-09 11:00:15.327 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /vms/{backing,cdrom,migrate,volumes,tokens}'
+2023-10-09 11:00:15.486 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chown -R qemu:qemu /vms'
+2023-10-09 11:00:15.646 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-novnc.service && systemctl enable lnjoying-novnc.service && systemctl start lnjoying-novnc.service'
+2023-10-09 11:00:15.924 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-vmagent.service && systemctl enable lnjoying-vmagent.service && systemctl start lnjoying-vmagent.service'
+2023-10-09 11:01:22.969 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-09 11:01:23.411 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-09 11:01:23.417 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.99
+2023-10-09 11:01:23.670 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable firewalld'
+2023-10-09 11:01:23.942 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop firewalld'
+2023-10-09 11:01:24.121 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'setenforce 0'
+2023-10-09 11:01:24.352 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-09 11:01:24.511 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.99:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-09 11:01:24.675 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-09 11:01:24.680 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl reload NetworkManager'
+2023-10-09 11:01:24.866 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.99:/etc/resolv.conf
+2023-10-09 11:01:25.032 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-09 11:01:25.036 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-09 11:01:25.199 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-09 11:01:25.362 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-09 11:01:30.526 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-09 11:01:30.688 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-09 11:01:30.848 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum update -y'
+2023-10-09 11:01:34.999 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum makecache'
+2023-10-09 11:01:39.398 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rpm -e --nodeps python39'
+2023-10-09 11:01:39.630 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y python39'
+2023-10-09 11:01:44.115 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /opt/.v3.9'
+2023-10-09 11:01:44.414 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 '/usr/bin/python3.9 -m venv /opt/.v3.9'
+2023-10-09 11:01:46.947 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install pip wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 11:01:47.679 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export PATH=/opt/.v3.9/bin:\$PATH" ~/.bashrc'
+2023-10-09 11:01:47.839 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "source /opt/.v3.9/bin/activate" ~/.bashrc'
+2023-10-09 11:01:48.000 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export LANG=en_US.UTF-8" ~/.bashrc'
+2023-10-09 11:01:48.159 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "set -o vi" ~/.bashrc'
+2023-10-09 11:01:48.321 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias vi=vim" ~/.bashrc'
+2023-10-09 11:01:48.480 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/third_party/ovs/rpms/x86_64/openvswitch-3.2.0-1.el8.x86_64.rpm root@192.168.11.99:/tmp
+2023-10-09 11:01:48.664 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 11:01:52.093 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 11:01:52.254 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable openvswitch'
+2023-10-09 11:01:52.540 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start openvswitch'
+2023-10-09 11:01:52.705 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/dist/nextstack-6.1-py3-none-any.whl root@192.168.11.99:/tmp
+2023-10-09 11:01:52.874 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install /tmp/nextstack-6.1-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 11:02:07.947 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/nextstack-6.1-py3-none-any.whl'
+2023-10-09 11:02:08.107 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /opt/nextstack/{bin,db,log}'
+2023-10-09 11:02:08.266 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop lnjoying-nbd.service'
+2023-10-09 11:02:08.433 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop dnsmasq.service'
+2023-10-09 11:02:08.598 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable dnsmasq.service'
+2023-10-09 11:02:08.866 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'killall -9 dnsmasq'
+2023-10-09 11:02:10.038 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/bin root@192.168.11.99:/opt/nextstack/
+2023-10-09 11:02:10.448 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias cdd=\"cd /opt/nextstack\"" ~/.bashrc'
+2023-10-09 11:02:10.608 | WARNING  | __main__:config_l3:563 - l3agent_ip is not set, use host 192.168.11.99
+2023-10-09 11:02:10.608 | WARNING  | __main__:config_l3:578 - l3agent wan_ip is not set, use 192.168.11.100
+2023-10-09 11:02:10.608 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f2'
+2023-10-09 11:02:10.770 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f2 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f2
+2023-10-09 11:02:10.933 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f2
+2023-10-09 11:02:10.937 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 11:02:11.106 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f1'
+2023-10-09 11:02:11.266 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f1 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f1
+2023-10-09 11:02:11.430 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f1
+2023-10-09 11:02:11.434 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 11:02:11.604 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.l3agent.yml root@192.168.11.99:/opt/nextstack/config.l3.yml
+2023-10-09 11:02:11.769 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.l3agent.yml
+2023-10-09 11:02:11.773 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-l3agent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:02:11.939 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-l3agent.service && systemctl enable lnjoying-l3agent.service && systemctl start lnjoying-l3agent.service'
+2023-10-09 11:02:12.217 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y libvirt virt-viewer virt-install libguestfs-tools'
+2023-10-09 11:02:15.449 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'usermod --append --groups libvirt root'
+2023-10-09 11:02:15.619 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable libvirtd'
+2023-10-09 11:02:15.889 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start libvirtd'
+2023-10-09 11:02:16.053 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y nbd'
+2023-10-09 11:02:19.277 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'options nbd max_part=255' >/etc/modprobe.d/nbd.conf'
+2023-10-09 11:02:19.436 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'nbd' >/etc/modules-load.d/nbd.conf'
+2023-10-09 11:02:19.595 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'modprobe nbd'
+2023-10-09 11:02:19.755 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service && cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-nbd.service /tmp
+2023-10-09 11:02:19.760 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--address=\S+/--address=0.0.0.0/g" /tmp/lnjoying-nbd.service
+2023-10-09 11:02:19.765 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--port=\S+/--port=8000/g" /tmp/lnjoying-nbd.service
+2023-10-09 11:02:19.769 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-nbd.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:02:19.935 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-nbd.service && systemctl enable lnjoying-nbd.service && systemctl start lnjoying-nbd.service'
+2023-10-09 11:02:20.211 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service
+2023-10-09 11:02:20.215 | WARNING  | __main__:config_vm:640 - vmagent_ip is not set, use 192.168.11.99
+2023-10-09 11:02:20.216 | WARNING  | __main__:config_vm:650 - vmagent ha_ip is not set
+2023-10-09 11:02:20.216 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -E "intel_iommu=on|iomm=pt|amd_iommu=on" /etc/default/grub'
+2023-10-09 11:02:20.376 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E 's/GRUB_CMDLINE_LINUX="(.*)"/GRUB_CMDLINE_LINUX="\1 intel_iommu=on iommu=pt"/' /etc/default/grub'
+2023-10-09 11:09:20.051 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-09 11:09:20.487 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-09 11:09:20.492 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.99
+2023-10-09 11:09:20.749 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable firewalld'
+2023-10-09 11:09:21.025 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop firewalld'
+2023-10-09 11:09:21.191 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'setenforce 0'
+2023-10-09 11:09:21.404 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-09 11:09:21.616 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.99:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-09 11:09:21.819 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-09 11:09:21.823 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl reload NetworkManager'
+2023-10-09 11:09:22.009 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.99:/etc/resolv.conf
+2023-10-09 11:09:22.177 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-09 11:09:22.181 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-09 11:09:22.345 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-09 11:09:22.507 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-09 11:09:27.797 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-09 11:09:27.959 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-09 11:09:28.119 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum update -y'
+2023-10-09 11:09:32.226 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum makecache'
+2023-10-09 11:09:36.700 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rpm -e --nodeps python39'
+2023-10-09 11:09:36.932 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y python39'
+2023-10-09 11:09:41.463 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /opt/.v3.9'
+2023-10-09 11:09:41.760 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 '/usr/bin/python3.9 -m venv /opt/.v3.9'
+2023-10-09 11:09:44.293 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install pip wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 11:09:44.994 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export PATH=/opt/.v3.9/bin:\$PATH" ~/.bashrc'
+2023-10-09 11:09:45.154 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "source /opt/.v3.9/bin/activate" ~/.bashrc'
+2023-10-09 11:09:45.314 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export LANG=en_US.UTF-8" ~/.bashrc'
+2023-10-09 11:09:45.473 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "set -o vi" ~/.bashrc'
+2023-10-09 11:09:45.633 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias vi=vim" ~/.bashrc'
+2023-10-09 11:09:45.792 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/third_party/ovs/rpms/x86_64/openvswitch-3.2.0-1.el8.x86_64.rpm root@192.168.11.99:/tmp
+2023-10-09 11:09:45.978 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 11:09:49.419 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 11:09:49.579 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable openvswitch'
+2023-10-09 11:09:49.857 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start openvswitch'
+2023-10-09 11:09:50.021 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/dist/nextstack-6.1-py3-none-any.whl root@192.168.11.99:/tmp
+2023-10-09 11:09:50.190 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install /tmp/nextstack-6.1-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 11:10:06.968 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/nextstack-6.1-py3-none-any.whl'
+2023-10-09 11:10:07.129 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /opt/nextstack/{bin,db,log}'
+2023-10-09 11:10:07.289 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop lnjoying-nbd.service'
+2023-10-09 11:10:07.456 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop dnsmasq.service'
+2023-10-09 11:10:07.622 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable dnsmasq.service'
+2023-10-09 11:10:07.889 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'killall -9 dnsmasq'
+2023-10-09 11:10:09.060 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/bin root@192.168.11.99:/opt/nextstack/
+2023-10-09 11:10:09.479 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias cdd=\"cd /opt/nextstack\"" ~/.bashrc'
+2023-10-09 11:10:09.638 | WARNING  | __main__:config_l3:563 - l3agent_ip is not set, use host 192.168.11.99
+2023-10-09 11:10:09.639 | WARNING  | __main__:config_l3:578 - l3agent wan_ip is not set, use 192.168.11.100
+2023-10-09 11:10:09.639 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f2'
+2023-10-09 11:10:09.799 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f2 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f2
+2023-10-09 11:10:09.965 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f2
+2023-10-09 11:10:09.969 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 11:10:10.138 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f1'
+2023-10-09 11:10:10.298 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f1 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f1
+2023-10-09 11:10:10.463 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f1
+2023-10-09 11:10:10.467 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 11:10:10.637 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.l3agent.yml root@192.168.11.99:/opt/nextstack/config.l3.yml
+2023-10-09 11:10:10.802 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.l3agent.yml
+2023-10-09 11:10:10.806 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-l3agent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:10:10.972 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-l3agent.service && systemctl enable lnjoying-l3agent.service && systemctl start lnjoying-l3agent.service'
+2023-10-09 11:10:11.247 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y libvirt virt-viewer virt-install libguestfs-tools'
+2023-10-09 11:10:14.499 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'usermod --append --groups libvirt root'
+2023-10-09 11:10:14.668 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable libvirtd'
+2023-10-09 11:10:14.936 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start libvirtd'
+2023-10-09 11:10:15.101 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y nbd'
+2023-10-09 11:10:18.331 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'options nbd max_part=255' >/etc/modprobe.d/nbd.conf'
+2023-10-09 11:10:18.491 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'nbd' >/etc/modules-load.d/nbd.conf'
+2023-10-09 11:10:18.649 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'modprobe nbd'
+2023-10-09 11:10:18.810 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service && cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-nbd.service /tmp
+2023-10-09 11:10:18.815 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--address=\S+/--address=0.0.0.0/g" /tmp/lnjoying-nbd.service
+2023-10-09 11:10:18.820 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--port=\S+/--port=8000/g" /tmp/lnjoying-nbd.service
+2023-10-09 11:10:18.825 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-nbd.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:10:18.990 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-nbd.service && systemctl enable lnjoying-nbd.service && systemctl start lnjoying-nbd.service'
+2023-10-09 11:10:19.268 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service
+2023-10-09 11:10:19.272 | WARNING  | __main__:config_vm:640 - vmagent_ip is not set, use 192.168.11.99
+2023-10-09 11:10:19.273 | WARNING  | __main__:config_vm:650 - vmagent ha_ip is not set
+2023-10-09 11:10:19.273 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -E "intel_iommu=on|iomm=pt|amd_iommu=on" /etc/default/grub'
+2023-10-09 11:10:19.432 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/GRUB_CMDLINE_LINUX=\"(.*)\"/GRUB_CMDLINE_LINUX=\"\\1 intel_iommu=on iommu=pt\"/" /etc/default/grub'
+2023-10-09 11:10:19.593 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grub2-mkconfig -o /etc/grub2-efi.cfg'
+2023-10-09 11:10:21.623 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grub2-mkconfig -o /boot/grub2/grub.cfg'
+2023-10-09 11:10:23.469 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'reboot'
+2023-10-09 11:25:43.642 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-09 11:25:44.066 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-09 11:25:44.072 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.99
+2023-10-09 11:25:44.420 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable firewalld'
+2023-10-09 11:25:44.715 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop firewalld'
+2023-10-09 11:25:44.918 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'setenforce 0'
+2023-10-09 11:25:45.081 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-09 11:25:45.242 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.99:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-09 11:25:45.412 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-09 11:25:45.417 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl reload NetworkManager'
+2023-10-09 11:25:45.616 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.99:/etc/resolv.conf
+2023-10-09 11:25:45.783 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-09 11:25:45.788 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-09 11:25:45.954 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-09 11:25:46.115 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-09 11:25:51.711 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-09 11:25:51.879 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-09 11:25:52.039 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum update -y'
+2023-10-09 11:25:56.273 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum makecache'
+2023-10-09 11:26:00.623 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rpm -e --nodeps python39'
+2023-10-09 11:26:00.872 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y python39'
+2023-10-09 11:26:05.369 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /opt/.v3.9'
+2023-10-09 11:42:09.386 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-09 11:42:09.815 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-09 11:42:09.823 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.99
+2023-10-09 11:42:10.100 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable firewalld'
+2023-10-09 11:42:10.372 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop firewalld'
+2023-10-09 11:42:10.572 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'setenforce 0'
+2023-10-09 11:42:10.743 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-09 11:42:10.904 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.99:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-09 11:42:11.070 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-09 11:42:11.076 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl reload NetworkManager'
+2023-10-09 11:42:11.265 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.99:/etc/resolv.conf
+2023-10-09 11:42:11.460 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-09 11:42:11.465 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-09 11:42:11.627 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-09 11:42:11.795 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-09 11:42:16.901 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-09 11:42:17.060 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-09 11:42:17.220 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum update -y'
+2023-10-09 11:42:21.383 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum makecache'
+2023-10-09 11:42:26.015 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rpm -e --nodeps python39'
+2023-10-09 11:42:26.242 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y python39'
+2023-10-09 11:42:30.803 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /opt/.v3.9'
+2023-10-09 11:42:30.962 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 '/usr/bin/python3.9 -m venv /opt/.v3.9'
+2023-10-09 11:42:33.510 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install pip wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 11:42:34.235 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export PATH=/opt/.v3.9/bin:\$PATH" ~/.bashrc'
+2023-10-09 11:42:34.395 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "if [ -f /opt/.v3.9/bin/activate ]; then source /opt/.v3.9/bin/activate; fi" ~/.bashrc'
+2023-10-09 11:42:34.554 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo -e "if [ -f /opt/.v3.9/bin/activate ]; then source /opt/.v3.9/bin/activate; fi" >> ~/.bashrc'
+2023-10-09 11:42:34.712 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export LANG=en_US.UTF-8" ~/.bashrc'
+2023-10-09 11:42:34.869 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "set -o vi" ~/.bashrc'
+2023-10-09 11:42:35.028 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias vi=vim" ~/.bashrc'
+2023-10-09 11:42:35.186 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/third_party/ovs/rpms/x86_64/openvswitch-3.2.0-1.el8.x86_64.rpm root@192.168.11.99:/tmp
+2023-10-09 11:42:35.370 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 11:42:38.782 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 11:42:38.942 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable openvswitch'
+2023-10-09 11:42:39.218 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start openvswitch'
+2023-10-09 11:42:39.382 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/dist/nextstack-6.1-py3-none-any.whl root@192.168.11.99:/tmp
+2023-10-09 11:42:39.549 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install /tmp/nextstack-6.1-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 11:42:55.240 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/nextstack-6.1-py3-none-any.whl'
+2023-10-09 11:42:55.400 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /opt/nextstack/{bin,db,log}'
+2023-10-09 11:42:55.559 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop lnjoying-nbd.service'
+2023-10-09 11:42:55.726 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop dnsmasq.service'
+2023-10-09 11:42:55.890 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable dnsmasq.service'
+2023-10-09 11:42:56.156 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'killall -9 dnsmasq'
+2023-10-09 11:42:57.326 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/bin root@192.168.11.99:/opt/nextstack/
+2023-10-09 11:42:57.736 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias cdd=\"cd /opt/nextstack\"" ~/.bashrc'
+2023-10-09 11:42:57.897 | WARNING  | __main__:config_l3:563 - l3agent_ip is not set, use host 192.168.11.99
+2023-10-09 11:42:57.897 | WARNING  | __main__:config_l3:578 - l3agent wan_ip is not set, use 192.168.11.100
+2023-10-09 11:42:57.897 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f2'
+2023-10-09 11:42:58.056 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f2 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f2
+2023-10-09 11:42:58.222 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f2
+2023-10-09 11:42:58.226 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 11:42:58.396 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f1'
+2023-10-09 11:42:58.577 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f1 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f1
+2023-10-09 11:42:58.742 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f1
+2023-10-09 11:42:58.746 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 11:42:58.945 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.l3agent.yml root@192.168.11.99:/opt/nextstack/config.l3.yml
+2023-10-09 11:42:59.111 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.l3agent.yml
+2023-10-09 11:42:59.115 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-l3agent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:42:59.281 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-l3agent.service && systemctl enable lnjoying-l3agent.service && systemctl start lnjoying-l3agent.service'
+2023-10-09 11:42:59.557 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y libvirt virt-viewer virt-install libguestfs-tools'
+2023-10-09 11:43:02.810 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'usermod --append --groups libvirt root'
+2023-10-09 11:43:02.993 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable libvirtd'
+2023-10-09 11:43:03.258 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start libvirtd'
+2023-10-09 11:43:03.487 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y nbd'
+2023-10-09 11:43:06.739 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'options nbd max_part=255' >/etc/modprobe.d/nbd.conf'
+2023-10-09 11:43:06.902 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'nbd' >/etc/modules-load.d/nbd.conf'
+2023-10-09 11:43:07.061 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'modprobe nbd'
+2023-10-09 11:43:07.222 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service && cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-nbd.service /tmp
+2023-10-09 11:43:07.227 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--address=\S+/--address=0.0.0.0/g" /tmp/lnjoying-nbd.service
+2023-10-09 11:43:07.232 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--port=\S+/--port=8000/g" /tmp/lnjoying-nbd.service
+2023-10-09 11:43:07.237 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-nbd.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:43:07.403 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-nbd.service && systemctl enable lnjoying-nbd.service && systemctl start lnjoying-nbd.service'
+2023-10-09 11:43:07.684 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service
+2023-10-09 11:43:07.688 | WARNING  | __main__:config_vm:640 - vmagent_ip is not set, use 192.168.11.99
+2023-10-09 11:43:07.688 | WARNING  | __main__:config_vm:650 - vmagent ha_ip is not set
+2023-10-09 11:43:07.689 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -E "intel_iommu=on|iomm=pt|amd_iommu=on" /etc/default/grub'
+2023-10-09 11:43:07.850 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.vmagent.yml root@192.168.11.99:/opt/nextstack/config.vm.yml
+2023-10-09 11:43:08.016 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.vmagent.yml
+2023-10-09 11:43:08.020 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-vmagent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:43:08.184 | DEBUG    | __main__:local_exec:27 - cmd: cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-novnc.service /tmp
+2023-10-09 11:43:08.189 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/tokens\/\S+\s+6090/tokens\/192.168.11.99 6090/" /tmp/lnjoying-novnc.service
+2023-10-09 11:43:08.194 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-novnc.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:43:08.359 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-novnc.service
+2023-10-09 11:43:08.363 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /vms/{backing,cdrom,migrate,volumes,tokens}'
+2023-10-09 11:43:08.524 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chown -R qemu:qemu /vms'
+2023-10-09 11:43:08.683 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-novnc.service && systemctl enable lnjoying-novnc.service && systemctl start lnjoying-novnc.service'
+2023-10-09 11:43:08.959 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-vmagent.service && systemctl enable lnjoying-vmagent.service && systemctl start lnjoying-vmagent.service'
+2023-10-09 11:46:50.211 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-09 11:46:50.649 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-09 11:46:50.654 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.99
+2023-10-09 11:46:50.932 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable firewalld'
+2023-10-09 11:46:51.206 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop firewalld'
+2023-10-09 11:46:51.388 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'setenforce 0'
+2023-10-09 11:46:51.603 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-09 11:46:51.763 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.99:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-09 11:46:51.944 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-09 11:46:51.954 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl reload NetworkManager'
+2023-10-09 11:46:52.139 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.99:/etc/resolv.conf
+2023-10-09 11:46:52.304 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-09 11:46:52.308 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-09 11:46:52.507 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-09 11:46:52.667 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-09 11:46:57.686 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-09 11:46:57.849 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-09 11:46:58.039 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum update -y'
+2023-10-09 11:47:02.271 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum makecache'
+2023-10-09 11:47:06.699 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rpm -e --nodeps python39'
+2023-10-09 11:47:06.928 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y python39'
+2023-10-09 11:47:11.397 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /opt/.v3.9'
+2023-10-09 11:47:11.690 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 '/usr/bin/python3.9 -m venv /opt/.v3.9'
+2023-10-09 11:47:14.240 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install pip wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 11:47:14.960 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export PATH=/opt/.v3.9/bin:\$PATH" ~/.bashrc'
+2023-10-09 11:47:15.120 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "if [ -f /opt/.v3.9/bin/activate ]; then source /opt/.v3.9/bin/activate; fi" ~/.bashrc'
+2023-10-09 11:47:15.278 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export LANG=en_US.UTF-8" ~/.bashrc'
+2023-10-09 11:47:15.436 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "set -o vi" ~/.bashrc'
+2023-10-09 11:47:15.595 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias vi=vim" ~/.bashrc'
+2023-10-09 11:47:15.754 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/third_party/ovs/rpms/x86_64/openvswitch-3.2.0-1.el8.x86_64.rpm root@192.168.11.99:/tmp
+2023-10-09 11:47:15.936 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 11:47:19.344 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 11:47:19.503 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable openvswitch'
+2023-10-09 11:47:19.774 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start openvswitch'
+2023-10-09 11:47:19.937 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/dist/nextstack-6.1-py3-none-any.whl root@192.168.11.99:/tmp
+2023-10-09 11:47:20.105 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install /tmp/nextstack-6.1-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 11:47:35.842 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/nextstack-6.1-py3-none-any.whl'
+2023-10-09 11:47:36.002 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /opt/nextstack/{bin,db,log}'
+2023-10-09 11:47:36.205 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop lnjoying-nbd.service'
+2023-10-09 11:47:36.374 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop dnsmasq.service'
+2023-10-09 11:47:36.545 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable dnsmasq.service'
+2023-10-09 11:47:36.815 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'killall -9 dnsmasq'
+2023-10-09 11:47:38.018 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/bin root@192.168.11.99:/opt/nextstack/
+2023-10-09 11:47:38.428 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias cdd=\"cd /opt/nextstack\"" ~/.bashrc'
+2023-10-09 11:47:38.587 | WARNING  | __main__:config_l3:563 - l3agent_ip is not set, use host 192.168.11.99
+2023-10-09 11:47:38.588 | WARNING  | __main__:config_l3:578 - l3agent wan_ip is not set, use 192.168.11.100
+2023-10-09 11:47:38.588 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f2'
+2023-10-09 11:47:38.748 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f2 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f2
+2023-10-09 11:47:38.913 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f2
+2023-10-09 11:47:38.917 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 11:47:39.086 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f1'
+2023-10-09 11:47:39.245 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f1 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f1
+2023-10-09 11:47:39.410 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f1
+2023-10-09 11:47:39.414 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 11:47:39.587 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.l3agent.yml root@192.168.11.99:/opt/nextstack/config.l3.yml
+2023-10-09 11:47:39.755 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.l3agent.yml
+2023-10-09 11:47:39.759 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-l3agent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:47:39.924 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-l3agent.service && systemctl enable lnjoying-l3agent.service && systemctl start lnjoying-l3agent.service'
+2023-10-09 11:47:40.196 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y libvirt virt-viewer virt-install libguestfs-tools'
+2023-10-09 11:47:43.443 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'usermod --append --groups libvirt root'
+2023-10-09 11:47:43.613 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable libvirtd'
+2023-10-09 11:47:43.884 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start libvirtd'
+2023-10-09 11:47:44.113 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y nbd'
+2023-10-09 11:47:47.368 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'options nbd max_part=255' >/etc/modprobe.d/nbd.conf'
+2023-10-09 11:47:47.529 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'nbd' >/etc/modules-load.d/nbd.conf'
+2023-10-09 11:47:47.687 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'modprobe nbd'
+2023-10-09 11:47:47.874 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service && cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-nbd.service /tmp
+2023-10-09 11:47:47.879 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--address=\S+/--address=0.0.0.0/g" /tmp/lnjoying-nbd.service
+2023-10-09 11:47:47.884 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--port=\S+/--port=8000/g" /tmp/lnjoying-nbd.service
+2023-10-09 11:47:47.889 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-nbd.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:47:48.053 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-nbd.service && systemctl enable lnjoying-nbd.service && systemctl start lnjoying-nbd.service'
+2023-10-09 11:47:48.332 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service
+2023-10-09 11:47:48.336 | WARNING  | __main__:config_vm:640 - vmagent_ip is not set, use 192.168.11.99
+2023-10-09 11:47:48.336 | WARNING  | __main__:config_vm:650 - vmagent ha_ip is not set
+2023-10-09 11:47:48.337 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -E "intel_iommu=on|iomm=pt|amd_iommu=on" /etc/default/grub'
+2023-10-09 11:47:48.495 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/GRUB_CMDLINE_LINUX=\"(.*)\"/GRUB_CMDLINE_LINUX=\"\\1 intel_iommu=on iommu=pt\"/" /etc/default/grub'
+2023-10-09 11:47:48.653 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grub2-mkconfig -o /etc/grub2-efi.cfg'
+2023-10-09 11:47:50.501 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grub2-mkconfig -o /boot/grub2/grub.cfg'
+2023-10-09 11:47:52.350 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'reboot'
+2023-10-09 11:47:52.525 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 11:48:02.537 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 11:48:47.644 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 11:49:00.768 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 11:49:13.887 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 11:49:27.003 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 11:49:28.491 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.vmagent.yml root@192.168.11.99:/opt/nextstack/config.vm.yml
+2023-10-09 11:49:28.675 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.vmagent.yml
+2023-10-09 11:49:28.679 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-vmagent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:49:28.847 | DEBUG    | __main__:local_exec:27 - cmd: cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-novnc.service /tmp
+2023-10-09 11:49:28.852 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/tokens\/\S+\s+6090/tokens\/192.168.11.99 6090/" /tmp/lnjoying-novnc.service
+2023-10-09 11:49:28.857 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-novnc.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 11:49:29.023 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-novnc.service
+2023-10-09 11:49:29.027 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /vms/{backing,cdrom,migrate,volumes,tokens}'
+2023-10-09 11:49:29.223 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chown -R qemu:qemu /vms'
+2023-10-09 11:49:29.390 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-novnc.service && systemctl enable lnjoying-novnc.service && systemctl start lnjoying-novnc.service'
+2023-10-09 11:49:29.669 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-vmagent.service && systemctl enable lnjoying-vmagent.service && systemctl start lnjoying-vmagent.service'
+2023-10-09 13:12:40.520 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-09 13:12:40.941 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-09 13:12:40.946 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.99
+2023-10-09 13:12:41.214 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable firewalld'
+2023-10-09 13:12:41.496 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop firewalld'
+2023-10-09 13:12:41.661 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'setenforce 0'
+2023-10-09 13:12:41.821 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-09 13:12:41.982 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.99:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-09 13:12:42.156 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-09 13:12:42.169 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl reload NetworkManager'
+2023-10-09 13:12:42.355 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.99:/etc/resolv.conf
+2023-10-09 13:12:42.560 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-09 13:12:42.564 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-09 13:12:42.780 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-09 13:12:42.941 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-09 13:12:48.490 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-09 13:12:48.655 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-09 13:12:48.819 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum update -y'
+2023-10-09 13:12:53.019 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum makecache'
+2023-10-09 13:12:57.694 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rpm -e --nodeps python39'
+2023-10-09 13:12:57.941 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y python39'
+2023-10-09 13:13:03.054 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /opt/.v3.9'
+2023-10-09 13:13:03.369 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 '/usr/bin/python3.9 -m venv /opt/.v3.9'
+2023-10-09 13:13:05.916 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install pip wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 13:13:06.720 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export PATH=/opt/.v3.9/bin:\$PATH" ~/.bashrc'
+2023-10-09 13:13:06.880 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "if [ -f /opt/.v3.9/bin/activate ]; then source /opt/.v3.9/bin/activate; fi" ~/.bashrc'
+2023-10-09 13:13:07.038 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export LANG=en_US.UTF-8" ~/.bashrc'
+2023-10-09 13:13:07.198 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "set -o vi" ~/.bashrc'
+2023-10-09 13:13:07.356 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias vi=vim" ~/.bashrc'
+2023-10-09 13:13:07.516 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/third_party/ovs/rpms/x86_64/openvswitch-3.2.0-1.el8.x86_64.rpm root@192.168.11.99:/tmp
+2023-10-09 13:13:07.699 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 13:13:11.136 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 13:13:11.297 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable openvswitch'
+2023-10-09 13:13:11.572 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start openvswitch'
+2023-10-09 13:13:11.736 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/dist/nextstack-6.1-py3-none-any.whl root@192.168.11.99:/tmp
+2023-10-09 13:13:11.904 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install /tmp/nextstack-6.1-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 13:13:27.866 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/nextstack-6.1-py3-none-any.whl'
+2023-10-09 13:13:28.027 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /opt/nextstack/{bin,db,log}'
+2023-10-09 13:13:28.188 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop lnjoying-nbd.service'
+2023-10-09 13:13:28.354 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop dnsmasq.service'
+2023-10-09 13:13:28.520 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable dnsmasq.service'
+2023-10-09 13:13:28.789 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'killall -9 dnsmasq'
+2023-10-09 13:13:29.961 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/bin root@192.168.11.99:/opt/nextstack/
+2023-10-09 13:13:30.373 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias cdd=\"cd /opt/nextstack\"" ~/.bashrc'
+2023-10-09 13:13:30.532 | WARNING  | __main__:config_l3:563 - l3agent_ip is not set, use host 192.168.11.99
+2023-10-09 13:13:30.532 | WARNING  | __main__:config_l3:578 - l3agent wan_ip is not set, use 192.168.11.100
+2023-10-09 13:13:30.533 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f2'
+2023-10-09 13:13:30.692 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f2 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f2
+2023-10-09 13:13:30.857 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f2
+2023-10-09 13:13:30.861 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 13:13:31.030 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f1'
+2023-10-09 13:13:31.189 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f1 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f1
+2023-10-09 13:13:31.353 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f1
+2023-10-09 13:13:31.357 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 13:13:31.526 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.l3agent.yml root@192.168.11.99:/opt/nextstack/config.l3.yml
+2023-10-09 13:13:31.693 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.l3agent.yml
+2023-10-09 13:13:31.697 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-l3agent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 13:13:31.861 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-l3agent.service && systemctl enable lnjoying-l3agent.service && systemctl start lnjoying-l3agent.service'
+2023-10-09 13:13:32.137 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y libvirt virt-viewer virt-install libguestfs-tools'
+2023-10-09 13:13:35.381 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'usermod --append --groups libvirt root'
+2023-10-09 13:13:35.563 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable libvirtd'
+2023-10-09 13:13:35.832 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start libvirtd'
+2023-10-09 13:13:36.061 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y nbd'
+2023-10-09 13:13:39.304 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'options nbd max_part=255' >/etc/modprobe.d/nbd.conf'
+2023-10-09 13:13:39.463 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'nbd' >/etc/modules-load.d/nbd.conf'
+2023-10-09 13:13:39.622 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'modprobe nbd'
+2023-10-09 13:13:39.779 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service && cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-nbd.service /tmp
+2023-10-09 13:13:39.785 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--address=\S+/--address=0.0.0.0/g" /tmp/lnjoying-nbd.service
+2023-10-09 13:13:39.789 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--port=\S+/--port=8000/g" /tmp/lnjoying-nbd.service
+2023-10-09 13:13:39.794 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-nbd.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 13:13:39.957 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-nbd.service && systemctl enable lnjoying-nbd.service && systemctl start lnjoying-nbd.service'
+2023-10-09 13:13:40.234 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service
+2023-10-09 13:13:40.239 | WARNING  | __main__:config_vm:640 - vmagent_ip is not set, use 192.168.11.99
+2023-10-09 13:13:40.239 | WARNING  | __main__:config_vm:650 - vmagent ha_ip is not set
+2023-10-09 13:13:40.239 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -E "intel_iommu=on|iomm=pt|amd_iommu=on" /etc/default/grub'
+2023-10-09 13:13:40.397 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/gpu.pl root@192.168.11.99:/tmp
+2023-10-09 13:13:40.562 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'perl /tmp/gpu.pl'
+2023-10-09 13:21:47.521 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-09 13:21:47.944 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-09 13:21:47.950 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.99
+2023-10-09 13:21:48.228 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable firewalld'
+2023-10-09 13:21:48.549 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop firewalld'
+2023-10-09 13:21:48.788 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'setenforce 0'
+2023-10-09 13:21:48.951 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-09 13:21:49.185 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.99:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-09 13:21:49.351 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-09 13:21:49.355 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl reload NetworkManager'
+2023-10-09 13:21:49.542 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.99:/etc/resolv.conf
+2023-10-09 13:21:49.708 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-09 13:21:49.713 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-09 13:21:49.879 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-09 13:21:50.042 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-09 13:21:55.436 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-09 13:21:55.597 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-09 13:21:55.757 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum update -y'
+2023-10-09 13:22:00.012 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum makecache'
+2023-10-09 13:22:05.142 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rpm -e --nodeps python39'
+2023-10-09 13:22:05.373 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y python39'
+2023-10-09 13:22:09.907 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /opt/.v3.9'
+2023-10-09 13:22:10.205 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 '/usr/bin/python3.9 -m venv /opt/.v3.9'
+2023-10-09 13:22:12.756 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install pip wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 13:22:13.493 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export PATH=/opt/.v3.9/bin:\$PATH" ~/.bashrc'
+2023-10-09 13:22:13.654 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "if [ -f /opt/.v3.9/bin/activate ]; then source /opt/.v3.9/bin/activate; fi" ~/.bashrc'
+2023-10-09 13:22:13.813 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export LANG=en_US.UTF-8" ~/.bashrc'
+2023-10-09 13:22:13.973 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "set -o vi" ~/.bashrc'
+2023-10-09 13:22:14.132 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias vi=vim" ~/.bashrc'
+2023-10-09 13:22:14.292 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/third_party/ovs/rpms/x86_64/openvswitch-3.2.0-1.el8.x86_64.rpm root@192.168.11.99:/tmp
+2023-10-09 13:22:14.476 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 13:22:17.916 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 13:22:18.076 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable openvswitch'
+2023-10-09 13:22:18.351 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start openvswitch'
+2023-10-09 13:22:18.516 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/dist/nextstack-6.1-py3-none-any.whl root@192.168.11.99:/tmp
+2023-10-09 13:22:18.685 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install /tmp/nextstack-6.1-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 13:22:34.997 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/nextstack-6.1-py3-none-any.whl'
+2023-10-09 13:22:35.158 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /opt/nextstack/{bin,db,log}'
+2023-10-09 13:22:35.317 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop lnjoying-nbd.service'
+2023-10-09 13:22:35.484 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop dnsmasq.service'
+2023-10-09 13:22:35.651 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable dnsmasq.service'
+2023-10-09 13:22:35.922 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'killall -9 dnsmasq'
+2023-10-09 13:22:37.096 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/bin root@192.168.11.99:/opt/nextstack/
+2023-10-09 13:22:37.507 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias cdd=\"cd /opt/nextstack\"" ~/.bashrc'
+2023-10-09 13:22:37.668 | WARNING  | __main__:config_l3:563 - l3agent_ip is not set, use host 192.168.11.99
+2023-10-09 13:22:37.669 | WARNING  | __main__:config_l3:578 - l3agent wan_ip is not set, use 192.168.11.100
+2023-10-09 13:22:37.669 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f2'
+2023-10-09 13:22:37.829 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f2 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f2
+2023-10-09 13:22:37.996 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f2
+2023-10-09 13:22:38.000 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 13:22:38.170 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f1'
+2023-10-09 13:22:38.332 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f1 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f1
+2023-10-09 13:22:38.498 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f1
+2023-10-09 13:22:38.502 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 13:22:38.675 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.l3agent.yml root@192.168.11.99:/opt/nextstack/config.l3.yml
+2023-10-09 13:22:38.843 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.l3agent.yml
+2023-10-09 13:22:38.847 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-l3agent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 13:22:39.014 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-l3agent.service && systemctl enable lnjoying-l3agent.service && systemctl start lnjoying-l3agent.service'
+2023-10-09 13:22:39.294 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y libvirt virt-viewer virt-install libguestfs-tools'
+2023-10-09 13:22:42.549 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'usermod --append --groups libvirt root'
+2023-10-09 13:22:42.720 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable libvirtd'
+2023-10-09 13:22:42.990 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start libvirtd'
+2023-10-09 13:22:43.219 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y nbd'
+2023-10-09 13:22:46.474 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'options nbd max_part=255' >/etc/modprobe.d/nbd.conf'
+2023-10-09 13:22:46.635 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'nbd' >/etc/modules-load.d/nbd.conf'
+2023-10-09 13:22:46.793 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'modprobe nbd'
+2023-10-09 13:22:46.953 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service && cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-nbd.service /tmp
+2023-10-09 13:22:46.959 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--address=\S+/--address=0.0.0.0/g" /tmp/lnjoying-nbd.service
+2023-10-09 13:22:46.963 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--port=\S+/--port=8000/g" /tmp/lnjoying-nbd.service
+2023-10-09 13:22:46.968 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-nbd.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 13:22:47.136 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-nbd.service && systemctl enable lnjoying-nbd.service && systemctl start lnjoying-nbd.service'
+2023-10-09 13:22:47.421 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service
+2023-10-09 13:22:47.425 | WARNING  | __main__:config_vm:640 - vmagent_ip is not set, use 192.168.11.99
+2023-10-09 13:22:47.425 | WARNING  | __main__:config_vm:650 - vmagent ha_ip is not set
+2023-10-09 13:22:47.425 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -E "intel_iommu=on|iomm=pt|amd_iommu=on" /etc/default/grub'
+2023-10-09 13:22:47.587 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/gpu.pl root@192.168.11.99:/tmp
+2023-10-09 13:22:47.754 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'perl /tmp/gpu.pl'
+2023-10-09 13:23:08.528 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -f /tmp/gpu.pl'
+2023-10-09 13:23:08.688 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'reboot'
+2023-10-09 13:23:08.863 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 13:23:18.873 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 13:24:35.862 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 13:24:48.987 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 13:24:49.230 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.vmagent.yml root@192.168.11.99:/opt/nextstack/config.vm.yml
+2023-10-09 13:24:49.395 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.vmagent.yml
+2023-10-09 13:24:49.399 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-vmagent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 13:24:49.565 | DEBUG    | __main__:local_exec:27 - cmd: cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-novnc.service /tmp
+2023-10-09 13:24:49.569 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/tokens\/\S+\s+6090/tokens\/192.168.11.99 6090/" /tmp/lnjoying-novnc.service
+2023-10-09 13:24:49.574 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-novnc.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 13:24:49.739 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-novnc.service
+2023-10-09 13:24:49.743 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /vms/{backing,cdrom,migrate,volumes,tokens}'
+2023-10-09 13:24:49.925 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chown -R qemu:qemu /vms'
+2023-10-09 13:24:50.087 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-novnc.service && systemctl enable lnjoying-novnc.service && systemctl start lnjoying-novnc.service'
+2023-10-09 13:24:50.362 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-vmagent.service && systemctl enable lnjoying-vmagent.service && systemctl start lnjoying-vmagent.service'
+2023-10-09 14:05:37.353 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-09 14:05:37.774 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-09 14:05:37.779 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.99
+2023-10-09 14:05:38.046 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable firewalld'
+2023-10-09 14:05:38.331 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop firewalld'
+2023-10-09 14:05:38.534 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'setenforce 0'
+2023-10-09 14:05:38.714 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-09 14:05:38.877 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.99:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-09 14:05:39.044 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-09 14:05:39.048 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl reload NetworkManager'
+2023-10-09 14:05:39.236 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.99:/etc/resolv.conf
+2023-10-09 14:05:39.403 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-09 14:05:39.407 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-09 14:05:39.610 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-09 14:05:39.769 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-09 14:05:45.109 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-09 14:05:45.270 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-09 14:05:45.432 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum update -y'
+2023-10-09 14:05:49.629 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum makecache'
+2023-10-09 14:05:54.042 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rpm -e --nodeps python39'
+2023-10-09 14:05:54.288 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y python39'
+2023-10-09 14:05:58.798 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /opt/.v3.9'
+2023-10-09 14:05:59.114 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 '/usr/bin/python3.9 -m venv /opt/.v3.9'
+2023-10-09 14:06:01.683 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install pip wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 14:06:02.389 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export PATH=/opt/.v3.9/bin:\$PATH" ~/.bashrc'
+2023-10-09 14:06:02.549 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "if [ -f /opt/.v3.9/bin/activate ]; then source /opt/.v3.9/bin/activate; fi" ~/.bashrc'
+2023-10-09 14:06:02.708 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export LANG=en_US.UTF-8" ~/.bashrc'
+2023-10-09 14:06:02.866 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "set -o vi" ~/.bashrc'
+2023-10-09 14:06:03.025 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias vi=vim" ~/.bashrc'
+2023-10-09 14:06:03.184 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/third_party/ovs/rpms/x86_64/openvswitch-3.2.0-1.el8.x86_64.rpm root@192.168.11.99:/tmp
+2023-10-09 14:06:03.368 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 14:06:06.770 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 14:06:06.930 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable openvswitch'
+2023-10-09 14:06:07.202 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start openvswitch'
+2023-10-09 14:06:07.366 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/dist/nextstack-6.1-py3-none-any.whl root@192.168.11.99:/tmp
+2023-10-09 14:06:07.535 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install /tmp/nextstack-6.1-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 14:06:27.483 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/nextstack-6.1-py3-none-any.whl'
+2023-10-09 14:06:27.642 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /opt/nextstack/{bin,db,log}'
+2023-10-09 14:06:27.801 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop lnjoying-nbd.service'
+2023-10-09 14:06:27.968 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop dnsmasq.service'
+2023-10-09 14:06:28.133 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable dnsmasq.service'
+2023-10-09 14:06:28.402 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'killall -9 dnsmasq'
+2023-10-09 14:06:29.574 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/bin root@192.168.11.99:/opt/nextstack/
+2023-10-09 14:06:29.983 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias cdd=\"cd /opt/nextstack\"" ~/.bashrc'
+2023-10-09 14:06:30.143 | WARNING  | __main__:config_l3:563 - l3agent_ip is not set, use host 192.168.11.99
+2023-10-09 14:06:30.143 | WARNING  | __main__:config_l3:578 - l3agent wan_ip is not set, use 192.168.11.100
+2023-10-09 14:06:30.144 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f2'
+2023-10-09 14:06:30.302 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f2 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f2
+2023-10-09 14:06:30.468 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f2
+2023-10-09 14:06:30.472 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 14:06:30.643 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f1'
+2023-10-09 14:06:30.804 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f1 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f1
+2023-10-09 14:06:30.969 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f1
+2023-10-09 14:06:30.973 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 14:06:31.144 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.l3agent.yml root@192.168.11.99:/opt/nextstack/config.l3.yml
+2023-10-09 14:06:31.309 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.l3agent.yml
+2023-10-09 14:06:31.314 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-l3agent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 14:06:31.479 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-l3agent.service && systemctl enable lnjoying-l3agent.service && systemctl start lnjoying-l3agent.service'
+2023-10-09 14:06:31.753 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y libvirt virt-viewer virt-install libguestfs-tools'
+2023-10-09 14:06:35.013 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'usermod --append --groups libvirt root'
+2023-10-09 14:06:35.193 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable libvirtd'
+2023-10-09 14:06:35.462 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start libvirtd'
+2023-10-09 14:06:35.692 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y nbd'
+2023-10-09 14:06:38.935 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'options nbd max_part=255' >/etc/modprobe.d/nbd.conf'
+2023-10-09 14:06:39.095 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'nbd' >/etc/modules-load.d/nbd.conf'
+2023-10-09 14:06:39.252 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'modprobe nbd'
+2023-10-09 14:06:39.411 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service && cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-nbd.service /tmp
+2023-10-09 14:06:39.416 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--address=\S+/--address=0.0.0.0/g" /tmp/lnjoying-nbd.service
+2023-10-09 14:06:39.421 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--port=\S+/--port=8000/g" /tmp/lnjoying-nbd.service
+2023-10-09 14:06:39.426 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-nbd.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 14:06:39.592 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-nbd.service && systemctl enable lnjoying-nbd.service && systemctl start lnjoying-nbd.service'
+2023-10-09 14:06:39.869 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service
+2023-10-09 14:06:39.873 | WARNING  | __main__:config_vm:640 - vmagent_ip is not set, use 192.168.11.99
+2023-10-09 14:06:39.874 | WARNING  | __main__:config_vm:650 - vmagent ha_ip is not set
+2023-10-09 14:06:39.874 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -E "intel_iommu=on|iomm=pt|amd_iommu=on" /etc/default/grub'
+2023-10-09 14:06:40.036 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/gpu.pl root@192.168.11.99:/tmp
+2023-10-09 14:06:40.202 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'perl /tmp/gpu.pl'
+2023-10-09 14:07:01.343 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -f /tmp/gpu.pl'
+2023-10-09 14:07:01.504 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'reboot'
+2023-10-09 14:07:01.714 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 14:07:11.727 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 14:08:29.087 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 14:08:42.208 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 14:08:42.448 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.vmagent.yml root@192.168.11.99:/opt/nextstack/config.vm.yml
+2023-10-09 14:08:42.618 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.vmagent.yml
+2023-10-09 14:08:42.622 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-vmagent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 14:08:42.819 | DEBUG    | __main__:local_exec:27 - cmd: cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-novnc.service /tmp
+2023-10-09 14:08:42.823 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/tokens\/\S+\s+6090/tokens\/192.168.11.99 6090/" /tmp/lnjoying-novnc.service
+2023-10-09 14:08:42.828 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-novnc.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 14:08:42.995 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-novnc.service
+2023-10-09 14:08:42.999 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /vms/{backing,cdrom,migrate,volumes,tokens}'
+2023-10-09 14:08:43.186 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chown -R qemu:qemu /vms'
+2023-10-09 14:08:43.354 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-novnc.service && systemctl enable lnjoying-novnc.service && systemctl start lnjoying-novnc.service'
+2023-10-09 14:08:43.632 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-vmagent.service && systemctl enable lnjoying-vmagent.service && systemctl start lnjoying-vmagent.service'
+2023-10-09 14:30:20.444 | DEBUG    | __main__:local_exec:27 - cmd: rm -rf dist && python setup.py bdist_wheel
+2023-10-09 14:30:20.867 | DEBUG    | __main__:local_exec:27 - cmd: find /root/work/nextstack/agents/third_party/ovs/rpms -name 'openvswitch-3.2.0-*.x86_64.rpm'
+2023-10-09 14:30:20.872 | DEBUG    | __main__:local_exec:27 - cmd: sshpass -p lnjoying ssh-copy-id -o StrictHostKeyChecking=no root@192.168.11.99
+2023-10-09 14:30:21.159 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable firewalld'
+2023-10-09 14:30:21.445 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop firewalld'
+2023-10-09 14:30:21.673 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'setenforce 0'
+2023-10-09 14:30:21.832 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+2023-10-09 14:30:22.037 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/90-dns-none.conf root@192.168.11.99:/etc/NetworkManager/conf.d/90-dns-none.conf
+2023-10-09 14:30:22.200 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/90-dns-none.conf
+2023-10-09 14:30:22.205 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl reload NetworkManager'
+2023-10-09 14:30:22.393 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/resolv.conf root@192.168.11.99:/etc/resolv.conf
+2023-10-09 14:30:22.557 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/resolv.conf
+2023-10-09 14:30:22.562 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+2023-10-09 14:30:22.729 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+2023-10-09 14:30:22.889 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y epel-release vim-enhanced net-tools'
+2023-10-09 14:30:28.399 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+2023-10-09 14:30:28.562 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+2023-10-09 14:30:28.723 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum update -y'
+2023-10-09 14:30:33.000 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum makecache'
+2023-10-09 14:30:37.584 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rpm -e --nodeps python39'
+2023-10-09 14:30:37.830 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y python39'
+2023-10-09 14:30:42.332 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /opt/.v3.9'
+2023-10-09 14:30:42.646 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 '/usr/bin/python3.9 -m venv /opt/.v3.9'
+2023-10-09 14:30:45.192 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install pip wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 14:30:45.938 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export PATH=/opt/.v3.9/bin:\$PATH" ~/.bashrc'
+2023-10-09 14:30:46.099 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "if [ -f /opt/.v3.9/bin/activate ]; then source /opt/.v3.9/bin/activate; fi" ~/.bashrc'
+2023-10-09 14:30:46.258 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "export LANG=en_US.UTF-8" ~/.bashrc'
+2023-10-09 14:30:46.417 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "set -o vi" ~/.bashrc'
+2023-10-09 14:30:46.576 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias vi=vim" ~/.bashrc'
+2023-10-09 14:30:46.735 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/third_party/ovs/rpms/x86_64/openvswitch-3.2.0-1.el8.x86_64.rpm root@192.168.11.99:/tmp
+2023-10-09 14:30:46.918 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 14:30:50.329 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/openvswitch-3.2.0-1.el8.x86_64.rpm'
+2023-10-09 14:30:50.489 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable openvswitch'
+2023-10-09 14:30:50.767 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start openvswitch'
+2023-10-09 14:30:50.930 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/dist/nextstack-6.1-py3-none-any.whl root@192.168.11.99:/tmp
+2023-10-09 14:30:51.098 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'source /opt/.v3.9/bin/activate && pip install /tmp/nextstack-6.1-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+2023-10-09 14:31:07.494 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -rf /tmp/nextstack-6.1-py3-none-any.whl'
+2023-10-09 14:31:07.653 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /opt/nextstack/{bin,db,log}'
+2023-10-09 14:31:07.812 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop lnjoying-nbd.service'
+2023-10-09 14:31:07.979 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl stop dnsmasq.service'
+2023-10-09 14:31:08.145 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl disable dnsmasq.service'
+2023-10-09 14:31:08.415 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'killall -9 dnsmasq'
+2023-10-09 14:31:09.586 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/bin root@192.168.11.99:/opt/nextstack/
+2023-10-09 14:31:09.997 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -F "alias cdd=\"cd /opt/nextstack\"" ~/.bashrc'
+2023-10-09 14:31:10.157 | WARNING  | __main__:config_l3:563 - l3agent_ip is not set, use host 192.168.11.99
+2023-10-09 14:31:10.157 | WARNING  | __main__:config_l3:578 - l3agent wan_ip is not set, use 192.168.11.100
+2023-10-09 14:31:10.157 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f2'
+2023-10-09 14:31:10.317 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f2 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f2
+2023-10-09 14:31:10.482 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f2
+2023-10-09 14:31:10.486 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 14:31:10.657 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'ip link show ens31f1'
+2023-10-09 14:31:10.817 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ifcfg-ens31f1 root@192.168.11.99:/etc/sysconfig/network-scripts/ifcfg-ens31f1
+2023-10-09 14:31:10.982 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ifcfg-ens31f1
+2023-10-09 14:31:10.986 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'nmcli connection reload'
+2023-10-09 14:31:11.154 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.l3agent.yml root@192.168.11.99:/opt/nextstack/config.l3.yml
+2023-10-09 14:31:11.319 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.l3agent.yml
+2023-10-09 14:31:11.323 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-l3agent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 14:31:11.487 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-l3agent.service && systemctl enable lnjoying-l3agent.service && systemctl start lnjoying-l3agent.service'
+2023-10-09 14:31:11.764 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y libvirt virt-viewer virt-install libguestfs-tools'
+2023-10-09 14:31:14.992 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'usermod --append --groups libvirt root'
+2023-10-09 14:31:15.206 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl enable libvirtd'
+2023-10-09 14:31:15.483 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'systemctl start libvirtd'
+2023-10-09 14:31:15.649 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'yum install -y nbd'
+2023-10-09 14:31:18.909 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'options nbd max_part=255' >/etc/modprobe.d/nbd.conf'
+2023-10-09 14:31:19.069 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'echo 'nbd' >/etc/modules-load.d/nbd.conf'
+2023-10-09 14:31:19.228 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'modprobe nbd'
+2023-10-09 14:31:19.386 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service && cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-nbd.service /tmp
+2023-10-09 14:31:19.392 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--address=\S+/--address=0.0.0.0/g" /tmp/lnjoying-nbd.service
+2023-10-09 14:31:19.396 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/--port=\S+/--port=8000/g" /tmp/lnjoying-nbd.service
+2023-10-09 14:31:19.401 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-nbd.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 14:31:19.566 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-nbd.service && systemctl enable lnjoying-nbd.service && systemctl start lnjoying-nbd.service'
+2023-10-09 14:31:19.843 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-nbd.service
+2023-10-09 14:31:19.847 | WARNING  | __main__:config_vm:640 - vmagent_ip is not set, use 192.168.11.99
+2023-10-09 14:31:19.847 | WARNING  | __main__:config_vm:650 - vmagent ha_ip is not set
+2023-10-09 14:31:19.848 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'grep -E "intel_iommu=on|iomm=pt|amd_iommu=on" /etc/default/grub'
+2023-10-09 14:31:20.007 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/gpu.pl root@192.168.11.99:/tmp
+2023-10-09 14:31:20.172 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'perl /tmp/gpu.pl'
+2023-10-09 14:31:40.929 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'rm -f /tmp/gpu.pl'
+2023-10-09 14:31:41.089 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'reboot'
+2023-10-09 14:31:41.264 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 14:31:51.282 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 14:33:08.246 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 14:33:21.375 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'uptime'
+2023-10-09 14:33:21.618 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/ndeploy.vmagent.yml root@192.168.11.99:/opt/nextstack/config.vm.yml
+2023-10-09 14:33:21.785 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/ndeploy.vmagent.yml
+2023-10-09 14:33:21.789 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /root/work/nextstack/agents/nextstack/scripts/lnjoying-vmagent.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 14:33:21.954 | DEBUG    | __main__:local_exec:27 - cmd: cp /root/work/nextstack/agents/nextstack/scripts/lnjoying-novnc.service /tmp
+2023-10-09 14:33:21.959 | DEBUG    | __main__:local_exec:27 - cmd: sed -i -E "s/tokens\/\S+\s+6090/tokens\/192.168.11.99 6090/" /tmp/lnjoying-novnc.service
+2023-10-09 14:33:21.963 | DEBUG    | __main__:local_exec:27 - cmd: scp -o StrictHostKeyChecking=no -r /tmp/lnjoying-novnc.service root@192.168.11.99:/usr/lib/systemd/system/
+2023-10-09 14:33:22.128 | DEBUG    | __main__:local_exec:27 - cmd: rm -f /tmp/lnjoying-novnc.service
+2023-10-09 14:33:22.132 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'mkdir -p /vms/{backing,cdrom,migrate,volumes,tokens}'
+2023-10-09 14:33:22.321 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chown -R qemu:qemu /vms'
+2023-10-09 14:33:22.489 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-novnc.service && systemctl enable lnjoying-novnc.service && systemctl start lnjoying-novnc.service'
+2023-10-09 14:33:22.764 | DEBUG    | __main__:local_exec:27 - cmd: ssh -o StrictHostKeyChecking=no root@192.168.11.99 'chmod 644 /usr/lib/systemd/system/lnjoying-vmagent.service && systemctl enable lnjoying-vmagent.service && systemctl start lnjoying-vmagent.service'

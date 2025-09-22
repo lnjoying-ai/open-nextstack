@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.lnjoying.vm.mapper.VmInstanceMapper">
+
+    <resultMap id="hypervisorNodeVmsInfo" type="com.lnjoying.vm.domain.dto.response.HypervisorNodeVmsInfo">
+    <id column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="manage_ip" jdbcType="VARCHAR" property="manageIp" />
+    <result column="vm_count" jdbcType="INTEGER" property="vmCount" />
+    </resultMap>
+
+
+    <select id="sumRootDiskSizeByUserId" resultType="java.lang.Long">
+        select COALESCE(sum(tbl_flavor.root_disk),0) from  tbl_flavor,tbl_vm_instance where tbl_vm_instance.flavor_id = tbl_flavor.flavor_id
+        and tbl_vm_instance.phase_status != -1
+        <if test="userId != null">
+            and tbl_vm_instance.user_id=#{userId}
+        </if>
+    </select>
+
+    <select id="sumDataDiskSizeByUserId" resultType="java.lang.Long">
+        select COALESCE(sum(tbl_disk_info."size"),0) from tbl_disk_info,tbl_vm_instance where tbl_vm_instance.vm_instance_id = tbl_disk_info.vm_instance_id
+        and tbl_vm_instance.phase_status != -1
+        <if test="userId != null">
+            and tbl_vm_instance.user_id=#{userId}
+        </if>
+    </select>
+
+    <select id="sumCpusByUserId" resultType="java.lang.Long">
+        select COALESCE(sum(tbl_flavor.cpu),0) from tbl_vm_instance LEFT JOIN
+        tbl_flavor on tbl_vm_instance.flavor_id = tbl_flavor.flavor_id where
+        tbl_vm_instance.phase_status != -1
+        <if test="userId != null">
+            and tbl_vm_instance.user_id=#{userId}
+        </if>
+    </select>
+
+    <select id="sumMemByUserId" resultType="java.lang.Long">
+        select COALESCE(sum(tbl_flavor.mem),0) from tbl_vm_instance LEFT JOIN
+        tbl_flavor on tbl_vm_instance.flavor_id = tbl_flavor.flavor_id where
+        tbl_vm_instance.phase_status != -1
+        <if test="userId != null">
+            and tbl_vm_instance.user_id=#{userId}
+        </if>
+    </select>
+
+    <select id="selectNodeVmInfo" resultMap="hypervisorNodeVmsInfo">
+        select tbl_hypervisor_node.node_id,  COALESCE(sub.vm_count, 0) as vm_count, tbl_hypervisor_node.manage_ip
+        from tbl_hypervisor_node LEFT JOIN (
+        SELECT
+        tbl_hypervisor_node.node_id,
+        COUNT(tbl_vm_instance.vm_instance_id) AS vm_count
+        FROM
+        tbl_vm_instance
+        LEFT JOIN tbl_hypervisor_node
+        ON tbl_hypervisor_node.node_id = tbl_vm_instance.node_id
+        where  tbl_vm_instance.phase_status != -1
+        GROUP BY
+        tbl_hypervisor_node.node_id) sub on tbl_hypervisor_node.node_id = sub.node_id
+        where tbl_hypervisor_node.phase_status = 40 and tbl_hypervisor_node.error_count = 0
+        <if test="topK != null">
+           limit #{topK}
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="10">
+    <Appenders>
+        <RollingFile name="RollingFileInfo"
+                     fileName="${env:LOG_DIR:-/usr/app/log}/scheduler.log"
+                     filePattern="${env:LOG_DIR:-/usr/app/log}/$${date:yyyy-MM}/scheduler-%d{yyyy-MM-dd}-%i.log"
+                     filePermissions="rw-------">
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout
+                    pattern="[%d{yyyy-MM-dd} %d{HH:mm:ss:SSS}] %-5p [%t] [%C %M %L]: %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="50"/>
+        </RollingFile>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="[%d{yyyy-MM-dd} %d{HH:mm:ss:SSS}] %-5p [%t] [%C %M %L]: %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFileInfo"/>
+        </Root>
+    </Loggers>
+</Configuration>

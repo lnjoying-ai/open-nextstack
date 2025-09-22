@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.repo.mapper.NodeImageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lnjoying.justice.repo.entity.NodeImage">
+        <id column="node_image_id" property="nodeImageId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="user_id" property="userId" />
+        <result column="image_id" property="imageId" />
+        <result column="storage_pool_id_from_agent" property="storagePoolIdFromAgent" />
+        <result column="node_image_id_from_agent" property="nodeImageIdFromAgent" />
+        <result column="phase_status" property="phaseStatus" />
+        <result column="node_ip" property="nodeIp"/>
+    </resultMap>
+</mapper>

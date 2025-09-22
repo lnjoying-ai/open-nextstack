@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.operation.mapper.TblAlarmRuleDao">
+
+    <resultMap type="com.lnjoying.justice.operation.entity.TblAlarmRule" id="TblAlarmRuleMap">
+        <result property="ruleId" column="rule_id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="expr" column="expr" jdbcType="VARCHAR"/>
+        <result property="durationTime" column="duration_time" jdbcType="INTEGER"/>
+        <result property="notice" column="notice" jdbcType="BOOLEAN"/>
+        <result property="interval" column="interval" jdbcType="INTEGER"/>
+        <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="phaseStatus" column="phase_status" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="comparison" column="comparison" jdbcType="INTEGER"/>
+        <result property="alarmValue" column="alarm_value" jdbcType="NUMERIC"/>
+    </resultMap>
+
+
+    <select id="selectAlaRuPage" resultType="com.lnjoying.justice.operation.domain.dto.response.AlarmRuleResp">
+        SELECT tar.rule_id AS ruleId, tar.name AS name, concat(tar.expr, tarru.unit) AS expr
+             , tar.level AS level, tar.interval AS interval, tarru.resource_type AS resourceType
+             , tarru.alarm_element AS alarmElement, tar.create_time AS createTime
+             , CASE WHEN tar.notice = 't' THEN string_agg ( DISTINCT tr.contact_info, ',' ) ELSE NULL END AS contactInfo
+             , tar.update_time AS updateTime
+        FROM tbl_alarm_rule tar
+        LEFT JOIN tbl_alarm_rule_resource tarru ON tarru.rule_id = tar.rule_id
+        LEFT JOIN tbl_alarm_rule_receiver tarri ON tarri.rule_id = tar.rule_id
+        LEFT JOIN tbl_receiver tr ON tr.receiver_id = tarri.receiver_id
+        <where>
+            tar.user_id = #{userId}
+            and tar.phase_status != -1
+            AND (tar.notice = 'f' OR tarri.phase_status != - 1)
+            AND tarru.phase_status != - 1
+            <if test="name != null and name != ''">
+                AND tar.NAME like '%' || #{name} || '%'
+            </if>
+            <if test="resourceType != null">
+                AND tarru.resource_type = #{resourceType}
+            </if>
+        </where>
+        GROUP BY tar.rule_id, tar.name, tar.expr, tarru.unit, tar.level, tar.interval, tarru.resource_type, tarru.alarm_element, tar.create_time, tar.update_time
+        order by tar.create_time desc
+    </select>
+
+    <select id="selectCountAlaRu" resultType="com.lnjoying.justice.operation.domain.dto.response.AlarmRuleResp">
+        SELECT tar.rule_id AS ruleId, tar.name AS name, concat(tar.expr, tarru.unit) AS expr, tar.level AS level, tar.interval AS interval, tarru.resource_type AS resourceType, tarru.alarm_element AS alarmElement, tar.create_time AS createTime, string_agg(DISTINCT tr.contact_info, ',') AS contactInfo, tar.update_time AS updateTime
+        FROM tbl_alarm_rule tar
+        LEFT JOIN tbl_alarm_rule_resource tarru ON tarru.rule_id = tar.rule_id
+        LEFT JOIN tbl_alarm_rule_receiver tarri ON tarri.rule_id = tar.rule_id
+        LEFT JOIN tbl_receiver tr ON tr.receiver_id = tarri.receiver_id
+        <where>
+            tar.user_id = #{userId}
+            and tar.phase_status != -1
+            AND (tar.notice = 'f' OR tarri.phase_status != - 1)
+            AND tarru.phase_status != - 1
+            <if test="name != null and name != ''">
+                AND tar.NAME like '%' || #{name} || '%'
+            </if>
+            <if test="resourceType != null">
+                AND tarru.resource_type = #{resourceType}
+            </if>
+        </where>
+        GROUP BY tar.rule_id, tar.name, tar.expr, tarru.unit, tar.level, tar.interval, tarru.resource_type, tarru.alarm_element, tar.create_time, tar.update_time
+    </select>
+    <select id="getAlarmRuleById" resultType="com.lnjoying.justice.operation.domain.dto.response.AlarmRuleDetailsResp">
+        SELECT tar.rule_id       AS ruleId,
+               tar.NAME          AS NAME,
+               tar.expr          AS expr,
+               tar.LEVEL         AS LEVEL,
+               tar.description         AS description,
+               tar.comparison         AS comparison,
+               tar.alarm_value         AS alarmValue,
+               tar.duration_time         AS durationTime,
+               tarru.resource_id AS resourceId,
+               tar.INTERVAL AS INTERVAL,
+	tarru.resource_type AS resourceType,
+	tarru.alarm_element AS alarmElement,
+	tar.create_time AS createTime,
+	tarri.receiver_id AS receiverId,
+	tar.update_time AS updateTime,
+	tar.notice AS notice
+        FROM
+            tbl_alarm_rule tar
+            LEFT JOIN tbl_alarm_rule_resource tarru
+        ON tarru.rule_id = tar.rule_id
+            LEFT JOIN tbl_alarm_rule_receiver tarri ON tarri.rule_id = tar.rule_id
+        WHERE tarru.rule_id = #{ruleId}
+          AND tar.phase_status != -1
+          AND tarru.phase_status != -1
+          AND (tar.notice = 'f' OR tarri.phase_status != - 1)
+        order by tar.create_time desc
+    </select>
+
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="ruleId" useGeneratedKeys="true">
+        insert into public.tbl_alarm_rule(name, expr, duration_time, notice, interval, level, user_id, phase_status,
+        create_time, update_time, describe)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.expr}, #{entity.durationTime}, #{entity.notice}, #{entity.interval},
+            #{entity.level}, #{entity.userId}, #{entity.phaseStatus}, #{entity.createTime}, #{entity.updateTime},
+            #{entity.describe})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="ruleId" useGeneratedKeys="true">
+        insert into public.tbl_alarm_rule(name, expr, duration_time, notice, interval, level, user_id, phase_status,
+        create_time, update_time, describe)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.expr}, #{entity.durationTime}, #{entity.notice}, #{entity.interval},
+            #{entity.level}, #{entity.userId}, #{entity.phaseStatus}, #{entity.createTime}, #{entity.updateTime},
+            #{entity.describe})
+        </foreach>
+        on duplicate key update
+        name = values(name) , expr = values(expr) , duration_time = values(duration_time) , notice = values(notice) ,
+        interval = values(interval) , level = values(level) , user_id = values(user_id) , phase_status =
+        values(phase_status) , create_time = values(create_time) , update_time = values(update_time) , describe =
+        values(describe)
+    </insert>
+
+</mapper>
+

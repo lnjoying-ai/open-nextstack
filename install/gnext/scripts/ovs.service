@@ -1,0 +1,13 @@
+[Unit]
+Description=Open vSwitch server daemon
+After=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/share/openvswitch/scripts/ovs-ctl start
+ExecStop=/usr/local/share/openvswitch/scripts/ovs-ctl stop
+
+[Install]
+WantedBy=multi-user.target
+

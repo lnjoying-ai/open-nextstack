@@ -1,0 +1,15 @@
+[Unit]
+Description=Gunicorn instance to serve repo agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/opt/nextstack
+Environment="PATH=/opt/.venv/bin:/usr/local/bin:/usr/sbin:/usr/bin:/usr/local/share/openvswitch/scripts"
+ExecStart=/opt/.venv/bin/gunicorn --backlog 4096 --config python:nextstack.gunicorn_repo
+ExecStop=/usr/bin/kill -9 $MAINPID
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.vm.mapper.InstanceNetworkRefMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lnjoying.vm.entity.InstanceNetworkRef">
+        <id column="instance_network_id" property="instanceNetworkId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="instance_id" property="instanceId" />
+        <result column="vpc_id" property="vpcId" />
+        <result column="subnet_id" property="subnetId" />
+        <result column="port_id" property="portId" />
+        <result column="instance_type" property="instanceType" />
+        <result column="static_ip" property="staticIp" />
+        <result column="phase_status" property="phaseStatus" />
+        <result column="is_vip" property="isVip" />
+    </resultMap>
+</mapper>

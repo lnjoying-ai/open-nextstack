@@ -1,0 +1,8 @@
+pxeAgentUrl: http://need_update_ip:8898
+waitingRemoveTime: 0.01
+monitorServer: http://need_update_ip:3000
+prometheusServer: http://need_update_ip:9090
+vmPhoneHomePort: 8901
+vmAgentPort: 8899
+baremetalPhoneHomePort: 8900
+agentIps: need_update_ip

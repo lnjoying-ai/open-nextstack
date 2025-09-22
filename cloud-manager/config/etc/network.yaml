@@ -1,0 +1,8 @@
+networkAgentService: http://192.168.1.21:8899
+vpcUrl: /v1/vpcs
+subnetUrl: /v1/subnets
+nicUrl: /v1/nics
+portUrl: /v1/ports
+slotUrl: /v1/slots
+switchUrl: /v1/switches
+sgUrl: /v1/sgs

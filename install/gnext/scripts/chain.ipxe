@@ -1,0 +1,4 @@
+#!ipxe
+dhcp
+chain http://${next-server}:8898/v1/baremetals/${net0/mac}/menu?lan_ip=${net0/ip}
+

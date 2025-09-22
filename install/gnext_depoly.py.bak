@@ -1,0 +1,1829 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# This is a script to deploy nextstack agents to network and computer nodes
+import socket
+import sys
+import os
+import argparse
+import subprocess
+import yaml
+import re
+import time
+import ipaddress
+import uuid
+from loguru import logger
+
+
+class Settings:
+    def __init__(self):
+        self.config_file = "/opt/nextstack/config.deploy.yml"
+        self.config: dict = None
+
+
+g_settings = Settings()
+manager_dir = "/opt/gnext/mount"
+
+
+def local_exec(cmd, mode="check_call"):
+    _cmd = cmd
+    logger.debug("cmd: %s" % (_cmd))
+    # 执行命令返回错误码
+    if mode == "call":
+        return subprocess.call(_cmd, shell=True, env=dict(os.environ, LANG="en_US.UTF-8"))
+    # 执行命令返回输出, 出错抛异常
+    elif mode == "check_output":
+        return subprocess.check_output(_cmd, shell=True, env=dict(os.environ, LANG="en_US.UTF-8")).decode()
+    # 执行命令, 等待命令结束后返回进程对象，不抛异常
+    elif mode == "run":
+        return subprocess.run(_cmd, stdout=subprocess.PIPE, shell=True, env=dict(os.environ, LANG="en_US.UTF-8"))
+    # 执行命令, 出错时抛异常，否则返回0
+    else:
+        return subprocess.check_call(_cmd, shell=True, env=dict(os.environ, LANG="en_US.UTF-8"))
+
+
+def remote_exec(host, user, cmd, mode="check_call"):
+    proxy = g_settings.config.get("proxy")
+    if proxy:
+        if cmd.find("sudo -S") != -1:
+            cmd = cmd.replace(
+                "sudo -S", "sudo -S http_proxy=http://localhost:%s https_proxy=http://localhost:%s" % (proxy, proxy)
+            )
+        else:
+            cmd = "http_proxy=http://localhost:%s https_proxy=http://localhost:%s %s" % (proxy, proxy, cmd)
+    _cmd = "ssh -o StrictHostKeyChecking=no %s@%s '%s'" % (user, host, cmd)
+    return local_exec(_cmd, mode)
+
+
+def scp(host, user, src, dst):
+    cmd = "scp -o StrictHostKeyChecking=no -r %s %s@%s:%s" % (src, user, host, dst)
+    local_exec(cmd)
+
+
+def load_config(config_file):
+    if config_file:
+        g_settings.config_file = os.path.abspath(config_file)
+    if not os.path.exists(g_settings.config_file):
+        raise Exception("config file %s not exists" % (g_settings.config_file))
+    with open(g_settings.config_file, "r", encoding="UTF-8") as file:
+        g_settings.config = yaml.safe_load(file)
+    nextstack_src = g_settings.config.get("nextstack_src")
+    if not nextstack_src or not os.path.exists(nextstack_src):
+        raise Exception("nextstack_src %s not exists" % (nextstack_src))
+
+
+def init_log():
+    dirname = os.path.dirname(g_settings.config_file)
+    log_file = os.path.join(dirname, "log", "deploy.log")
+    logger.add(sink=g_settings.config.get("log_file", log_file), rotation="100 MB", retention=10)
+
+
+def add2bashrc(host, user, env):
+    cmd = 'grep -F "%s" ~/.bashrc' % (env)
+
+    rtn = remote_exec(host, user, cmd, mode="call")
+    if rtn != 0:
+        cmd = 'echo -e "%s" >> ~/.bashrc' % (env)
+        remote_exec(host, user, cmd)
+
+
+def disable_firewall(host, user):
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        cmd = "systemctl stop firewalld"
+        remote_exec(host, user, cmd)
+        cmd = "systemctl disable firewalld"
+        remote_exec(host, user, cmd)
+    elif linux_dist == "ubuntu":
+        cmd = "systemctl stop ufw"
+        remote_exec(host, user, cmd)
+        cmd = "systemctl disable ufw"
+        remote_exec(host, user, cmd)
+
+
+def disable_selinux(host, user):
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        cmd = "setenforce 0"
+        remote_exec(host, user, cmd, mode="call")
+        cmd = 'sed -i -E "s/^\s*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config'
+        remote_exec(host, user, cmd)
+    elif linux_dist == "ubuntu":
+        # AppArmor需要看看是否需要处理, ubuntu下没有selinux，不需要处理
+        pass
+
+
+def update_os(host, user):
+    # TODO 需要支持本地源，以应对无法访问外网的情况
+    # 修改为阿里源
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        cmd = 'cd /etc/yum.repos.d && find . -name "*.repo" |grep -v Sources# | xargs sed -i -E -e "s!^mirrorlist=!#mirrorlist=!g" -e "s!^#baseurl=http.?://mirror.centos.org/.contentdir!baseurl=https://mirrors.aliyun.com/centos!g"'
+        remote_exec(host, user, cmd)
+
+        # 启用PowerTools源
+        cmd = 'sed -i -E "s!^enabled=.*!enabled=1!g" /etc/yum.repos.d/CentOS-Stream-PowerTools.repo'
+        remote_exec(host, user, cmd)
+
+        cmd = "yum install -y epel-release centos-release-nfs-ganesha30 vim-enhanced net-tools lsof"
+        remote_exec(host, user, cmd)
+
+        cmd = 'cd /etc/yum.repos.d && sed -i "s!^#baseurl=https://download.example/pub!baseurl=https://mirrors.aliyun.com!" epel*'
+        remote_exec(host, user, cmd)
+        remote_exec(host, user, cmd)
+        
+        
+
+        cmd = 'cd /etc/yum.repos.d && sed -i "s!^metalink!#metalink!" epel*'
+        remote_exec(host, user, cmd)
+
+        cmd = "rpm -e runc --nodeps"
+        remote_exec(host, user, cmd, mode="call")
+
+        if g_settings.config.get("upgrade", False):
+            cmd = "yum update -y"
+            remote_exec(host, user, cmd)
+
+        # 生成缓存
+        cmd = "yum makecache"
+        remote_exec(host, user, cmd)
+    elif linux_dist == "ubuntu":
+        cmd = 'sed -i -E "s!^deb \S+!deb http://mirrors.aliyun.com/ubuntu!" /etc/apt/sources.list'
+        remote_exec(host, user, cmd)
+        cmd = "add-apt-repository -L|grep glusterfs-10"
+        if remote_exec(host, user, cmd, mode="call") != 0:
+            cmd = "add-apt-repository ppa:gluster/glusterfs-10"
+            remote_exec(host, user, cmd)
+        cmd = "DEBIAN_FRONTEND=noninteractive apt-get update -y; DEBIAN_FRONTEND=noninteractive apt-get --fix-broken install; DEBIAN_FRONTEND=noninteractive apt autoremove -y;"
+        if g_settings.config.get("upgrade", False):
+            cmd += "DEBIAN_FRONTEND=noninteractive apt-get upgrade -y"
+        remote_exec(host, user, cmd)
+
+
+def prepare_nextstack_package():
+    """
+    获取gnext二进制文件路径
+    返回: gnext二进制文件的绝对路径
+    """
+    nextstack_src = g_settings.config.get("nextstack_src")
+    gnext_path = os.path.join(nextstack_src, "gnext")
+    
+    if not os.path.exists(gnext_path):
+        raise Exception(f"gnext binary not found at {gnext_path}")
+    
+    return os.path.abspath(gnext_path)
+
+
+def prepare_openvswitch_package():
+    ovs_version = "3.2.0"
+
+    # 进入源代码目录
+    nextstack_src = g_settings.config.get("nextstack_src")
+    ovs_dir = os.path.join(nextstack_src, "..", "third_party/ovs")
+    if not os.path.exists(ovs_dir):
+        os.makedirs(ovs_dir)
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        ovs_rpm_dir = os.path.abspath(os.path.join(ovs_dir, "rpms"))
+        if not os.path.exists(ovs_rpm_dir):
+            os.makedirs(ovs_rpm_dir)
+
+        # 检查是否已经有ovs rpm
+        cmd = "find %s -name 'openvswitch-%s-*.x86_64.rpm'" % (ovs_rpm_dir, ovs_version)
+        output = local_exec(cmd, mode="check_output")
+        if output:
+            lines = output.split("\n")
+            if lines:
+                ovs_rpm = lines[0]
+                if os.path.exists(ovs_rpm):
+                    return os.path.abspath(ovs_rpm)
+
+        # 检查是否已经有ovs源码包
+        ovs_src_pkg = os.path.abspath(os.path.join(ovs_dir, "openvswitch-%s.tar.gz" % (ovs_version)))
+        if not os.path.exists(ovs_src_pkg):
+            cmd = "cd %s && wget https://www.openvswitch.org/releases/openvswitch-%s.tar.gz" % (ovs_dir, ovs_version)
+            local_exec(cmd)
+
+        # 解压到临时目录
+        cmd = "cd /tmp && rm -rf openvswitch-%s && tar xvfz %s" % (ovs_version, ovs_src_pkg)
+        local_exec(cmd)
+
+        # 安装依赖包
+        cmd = 'yum install -y @"Development Tools" rpm-build yum-utils python3-sphinx groff libbpf-devel libcap-ng-devel libxdp-devel numactl-devel python3-devel unbound'
+        local_exec(cmd)
+
+        # 修改spec文件
+        cmd = 'cd /tmp/openvswitch-%s && sed -i -E "s/python-six/python3-six/g" ./rhel/openvswitch.spec' % (
+            ovs_version
+        )
+        local_exec(cmd)
+
+        # 编译rpm
+        cmd = (
+            "cd /tmp/openvswitch-%s && yum-builddep -y ./rhel/openvswitch.spec && ./boot.sh && ./configure --prefix=/usr --localstatedir=/var --sysconfdir=/etc && make -j$(nproc) rpm-fedora"
+            % (ovs_version)
+        )
+        local_exec(cmd)
+
+        # copy rpms to ovs_rpm_dir
+        cmd = "cp -r /tmp/openvswitch-%s/rpm/rpmbuild/RPMS/* %s" % (ovs_version, ovs_rpm_dir)
+        local_exec(cmd)
+
+        cmd = "find %s -name 'openvswitch-%s-*.x86_64.rpm'" % (ovs_rpm_dir, ovs_version)
+        output = local_exec(cmd, mode="check_output")
+        if output:
+            lines = output.split("\n")
+            if lines:
+                ovs_rpm = lines[0]
+                if os.path.exists(ovs_rpm):
+                    return os.path.abspath(ovs_rpm)
+        raise Exception("openvswitch rpm not found")
+    elif linux_dist == "ubuntu":
+        ovs_deb_dir = os.path.abspath(os.path.join(ovs_dir, "debs"))
+        pkg_list = []
+        if os.path.exists(ovs_deb_dir):
+            # 检查openvswitch-common，openvswitch-switch，python3-openvswitch这 3个包是否存在
+            pkgs = ["openvswitch-common", "openvswitch-switch", "python3-openvswitch"]
+            for pkg in pkgs:
+                cmd = "ls %s/%s_*.deb" % (ovs_deb_dir, pkg)
+                output = local_exec(cmd, mode="check_output")
+                if output:
+                    lines = output.split("\n")
+                    if lines:
+                        ovs_deb = lines[0]
+                        if os.path.exists(ovs_deb):
+                            pkg_list.append(os.path.abspath(ovs_deb))
+            return pkg_list
+
+
+def install_libvirt(host, user):
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        cmd = "yum install -y libvirt virt-viewer virt-install libguestfs-tools"
+        remote_exec(host, user, cmd)
+    elif linux_dist == "ubuntu":
+        cmd = "DEBIAN_FRONTEND=noninteractive apt-get install -y qemu-kvm virtinst libvirt-daemon virt-manager cloud-image-utils"
+        remote_exec(host, user, cmd)
+
+    cmd = "usermod --append --groups libvirt root"
+    remote_exec(host, user, cmd)
+
+    cmd = "systemctl enable libvirtd"
+    remote_exec(host, user, cmd)
+
+    cmd = "systemctl restart libvirtd"
+    remote_exec(host, user, cmd)
+
+
+def install_fmvm(host, user, vm):
+    fm_ip = vm.get("fm_ip")
+    if not fm_ip:
+        return
+    fm_script = os.path.join(g_settings.config.get("nextstack_src"), "scripts", "fm_vm.pl")
+    if not os.path.exists(fm_script):
+        raise Exception("fm script %s not found" % (fm_script))
+    scp(host, user, fm_script, "/tmp")
+    proxy = g_settings.config.get("proxy", "0")
+    cmd = "perl /tmp/%s '%s' %s" % (os.path.basename(fm_script), fm_ip, proxy)
+    remote_exec(host, user, cmd)
+    cmd = "rm -f /tmp/%s" % (os.path.basename(fm_script))
+
+
+def install_nginx(host, user, vm):
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        cmd = "yum install -y nginx"
+        remote_exec(host, user, cmd)
+        nginx_user = "nginx"
+    elif linux_dist == "ubuntu":
+        cmd = "DEBIAN_FRONTEND=noninteractive apt-get install -y nginx"
+        remote_exec(host, user, cmd)
+        nginx_user = "www-data"
+
+    cmd = "systemctl enable nginx"
+    remote_exec(host, user, cmd)
+
+    nginx_conf = """
+user %s;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile            on;
+    tcp_nopush          on;
+    tcp_nodelay         on;
+    keepalive_timeout   65;
+    types_hash_max_size 2048;
+
+    include             /etc/nginx/mime.types;
+    default_type        application/octet-stream;
+
+    include /etc/nginx/conf.d/*.conf;
+
+    server {
+        listen       8901;
+        location /v1/phonehome/ {
+            proxy_pass http://127.0.0.1:%s;
+        }
+    }
+}
+""" % (
+        nginx_user,
+        gnext["agent_port"],
+    )
+    tmp_nginx_conf = "/tmp/nginx.conf"
+    with open(tmp_nginx_conf, "w", encoding="UTF-8") as file:
+        file.write(nginx_conf)
+    scp(host, user, tmp_nginx_conf, "/etc/nginx/nginx.conf")
+    cmd = "rm -f %s" % (tmp_nginx_conf)
+    cmd = "systemctl restart nginx"
+    remote_exec(host, user, cmd)
+
+
+def install_ovs(host, user, ovs_pkg):
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        scp(host, user, ovs_pkg, "/tmp")
+
+        cmd = "yum install -y /tmp/%s" % (os.path.basename(ovs_pkg))
+        remote_exec(host, user, cmd)
+
+        cmd = "rm -rf /tmp/%s" % (os.path.basename(ovs_pkg))
+        remote_exec(host, user, cmd)
+        cmd = "systemctl enable openvswitch"
+        remote_exec(host, user, cmd)
+
+        cmd = "systemctl restart openvswitch"
+        remote_exec(host, user, cmd)
+    elif linux_dist == "ubuntu":
+        pkg_list = []
+        pkgs = ovs_pkg
+        for pkg in pkgs:
+            scp(host, user, pkg, "/tmp")
+            pkg_list.append("/tmp/%s" % (os.path.basename(pkg)))
+
+        cmd = "DEBIAN_FRONTEND=noninteractive apt-get install -y %s" % (
+            " ".join(["libunbound8", "python3-sortedcontainers"])
+        )
+        remote_exec(host, user, cmd, mode="call")
+
+        cmd = "dpkg -i %s" % (" ".join(pkg_list))
+        remote_exec(host, user, cmd)
+
+        cmd = "rm -rf %s" % (" ".join(pkg_list))
+        remote_exec(host, user, cmd)
+
+        cmd = "systemctl enable ovs-vswitchd"
+        remote_exec(host, user, cmd)
+
+        cmd = "systemctl enable ovsdb-server"
+        remote_exec(host, user, cmd)
+
+        cmd = "systemctl restart ovs-vswitchd"
+        remote_exec(host, user, cmd)
+
+        cmd = "systemctl restart ovsdb-server"
+        remote_exec(host, user, cmd)
+
+
+def install_gluster(host, user):
+    cmd = "systemctl stop glusterd"
+    remote_exec(host, user, cmd, mode="call")
+
+    # 杀掉所有gluster进程，否则可能出现/vms目录无法访问，也无法卸载的问题
+    cmd = "ps -ef |grep gluster |grep -v grep |awk '{print $2}' |xargs kill -9 2>/dev/null"
+    remote_exec(host, user, cmd, mode="call")
+
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        cmd = "rpm -e --nodeps glusterfs-server"
+        remote_exec(host, user, cmd, mode="call")
+
+        cmd = "rm -rf /var/lib/glusterd/vols/* /var/lib/glusterd/peers/* /var/log/glusterfs/*"
+        remote_exec(host, user, cmd, mode="call")
+
+        cmd = "yum install -y centos-release-gluster && yum update -y && yum install -y glusterfs-server"
+        remote_exec(host, user, cmd)
+
+        # cmd = "yum install -y nfs-ganesha nfs-ganesha-gluster"
+        # remote_exec(host, user, cmd)
+    elif linux_dist == "ubuntu":
+        cmd = "DEBIAN_FRONTEND=noninteractive apt-get --purge remove -y glusterfs-server; DEBIAN_FRONTEND=noninteractive apt-get autoremove -y"
+        remote_exec(host, user, cmd, mode="call")
+
+        cmd = "rm -rf /var/lib/glusterd/vols/* /var/lib/glusterd/peers/* /var/log/glusterfs/*"
+        remote_exec(host, user, cmd, mode="call")
+
+        cmd = "DEBIAN_FRONTEND=noninteractive apt-get install -y glusterfs-server"
+        remote_exec(host, user, cmd)
+
+        # cmd = "DEBIAN_FRONTEND=noninteractive apt-get install -y nfs-ganesha nfs-ganesha-gluster"
+        # remote_exec(host, user, cmd)
+
+    cmd = "systemctl enable glusterd"
+    remote_exec(host, user, cmd)
+
+    cmd = "systemctl restart glusterd"
+    remote_exec(host, user, cmd)
+
+    # cmd = "systemctl enable nfs-ganesha"
+    # remote_exec(host, user, cmd)
+
+    # cmd = "systemctl restart nfs-ganesha"
+    # remote_exec(host, user, cmd)
+
+
+def install_python(host, user):
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        # install python39 if not exists
+        cmd = "rpm -e --nodeps python39"
+        remote_exec(host, user, cmd, mode="call")
+        cmd = "yum install -y python39"
+        remote_exec(host, user, cmd)
+        cmd = "rm -rf /opt/.venv"
+        remote_exec(host, user, cmd)
+        cmd = "mkdir -p /opt"
+        remote_exec(host, user, cmd)
+        cmd = "/usr/bin/python3.9 -m venv /opt/.venv"
+        remote_exec(host, user, cmd)
+
+    elif linux_dist == "ubuntu":
+        cmd = "DEBIAN_FRONTEND=noninteractive apt-get install -y python3.10-venv"
+        remote_exec(host, user, cmd, mode="call")
+        cmd = "mkdir -p /opt"
+        remote_exec(host, user, cmd)
+        cmd = "/usr/bin/python3.10 -m venv /opt/.venv"
+        remote_exec(host, user, cmd)
+
+    # TODO 需要支持本地源，以应对无法访问外网的情况
+    proxy = g_settings.config.get("proxy")
+    if proxy:
+        cmd = (
+            "source /opt/.venv/bin/activate && pip install --proxy http://localhost:%s wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple"
+            % (proxy)
+        )
+    else:
+        cmd = "source /opt/.venv/bin/activate && pip install wheel setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple"
+    remote_exec(host, user, cmd)
+
+    envs = [
+        r"export PATH=/opt/.venv/bin:\$PATH",
+        r"if [ -f /opt/.venv/bin/activate ]; then source /opt/.venv/bin/activate; fi",
+        r"export LANG=en_US.UTF-8",
+        r"set -o vi",
+        r"alias vi=vim",
+    ]
+    for env in envs:
+        add2bashrc(host, user, env)
+
+
+def install_agents(host, user, agents_pkg):
+    # 创建必要的目录
+    #cmd = "mkdir -p /opt/gnext/{bin,db,log}"
+    #remote_exec(host, user, cmd)
+
+    cmd = "systemctl stop dnsmasq.service"
+    remote_exec(host, user, cmd, mode="call")
+
+    cmd = "systemctl disable dnsmasq.service"
+    remote_exec(host, user, cmd, mode="call")
+
+    cmd = "killall -9 dnsmasq"
+    remote_exec(host, user, cmd, mode="call")
+
+    # 传输gnext二进制文件
+    # 备份已存在的etcd二进制文件
+    cmd = """
+    if [ -d /opt/gnext ]; then
+        mv /opt/gnext /opt/gnext.bak.$(date +%Y%m%d_%H%M%S)
+    fi
+    """
+    remote_exec(host, user, cmd)
+
+    scp(host, user, agents_pkg, "/opt/")
+
+    # 添加环境变量
+    envs = [r"alias cdd=\"cd /opt/gnext\""]
+    for env in envs:
+        add2bashrc(host, user, env)
+
+
+def install_nbd(host, user, nbd_lisen_ip="0.0.0.0", nbd_lisen_port=8000):
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        cmd = "yum install -y nbd"
+        remote_exec(host, user, cmd)
+    elif linux_dist == "ubuntu":
+        cmd = "DEBIAN_FRONTEND=noninteractive apt-get install -y nbd-server nbd-client"
+        remote_exec(host, user, cmd)
+
+    cmd = "echo 'options nbd max_part=255' >/etc/modprobe.d/nbd.conf"
+    remote_exec(host, user, cmd)
+
+    cmd = "echo 'nbd' >/etc/modules-load.d/nbd.conf"
+    remote_exec(host, user, cmd)
+
+    cmd = "modprobe nbd"
+    remote_exec(host, user, cmd)
+
+    nextstack_src = g_settings.config.get("nextstack_src")
+    nbdscript = os.path.join(nextstack_src, "scripts", "lnjoying-nbd.service")
+    if not os.path.exists(nbdscript):
+        raise Exception("nbd script %s not found" % (nbdscript))
+
+    cmd = "rm -f /tmp/%s && cp %s /tmp" % (os.path.basename(nbdscript), nbdscript)
+    local_exec(cmd)
+    # 替换nbd监听ip和端口
+    cmd = 'sed -i -E "s/--address=\S+/--address=%s/g" /tmp/%s' % (nbd_lisen_ip, os.path.basename(nbdscript))
+    local_exec(cmd)
+
+    cmd = 'sed -i -E "s/--port=\S+/--port=%s/g" /tmp/%s' % (nbd_lisen_port, os.path.basename(nbdscript))
+    local_exec(cmd)
+
+    scp(host, user, "/tmp/%s" % (os.path.basename(nbdscript)), "/usr/lib/systemd/system/")
+
+    cmd = "chmod 644 /usr/lib/systemd/system/%s && systemctl enable %s && systemctl restart %s" % (
+        os.path.basename(nbdscript),
+        os.path.basename(nbdscript),
+        os.path.basename(nbdscript),
+    )
+    remote_exec(host, user, cmd)
+
+    cmd = "rm -f /tmp/%s" % (os.path.basename(nbdscript))
+    local_exec(cmd)
+
+
+def config_ssh(host, user, passwd):
+    if not os.path.exists(os.path.expanduser("~/.ssh/id_rsa.pub")):
+        cmd = "ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa"
+        local_exec(cmd)
+    cmd = "sshpass -p '%s' ssh-copy-id -o StrictHostKeyChecking=no %s@%s" % (passwd, user, host)
+    local_exec(cmd)
+    # 如果user不是root，检查是否有sudo权限
+    if user != "root":
+        linux_dist = g_settings.config.get("linux_dist", "centos")
+        if linux_dist == "centos":
+            cmd = "echo %s| sudo -S yum install -y sshpass" % (passwd)
+        elif linux_dist == "ubuntu":
+            cmd = "echo %s| sudo -S DEBIAN_FRONTEND=noninteractive apt --fix-broken -y install" % (passwd)
+            remote_exec(host, user, cmd, mode="call")
+            cmd = "echo %s| sudo -S DEBIAN_FRONTEND=noninteractive apt-get install -y sshpass" % (passwd)
+        remote_exec(host, user, cmd, mode="call")
+        # 使用sudo权限，设置免密码登录到root用户
+        cmd = "cat ~/.ssh/id_rsa.pub | ssh %s@%s \"sshpass -p '%s' sudo mkdir -p /root/.ssh\"" % (user, host, passwd)
+        local_exec(cmd)
+        cmd = "cat ~/.ssh/id_rsa.pub | ssh %s@%s \"sshpass -p '%s' sudo tee /root/.ssh/authorized_keys\"" % (
+            user,
+            host,
+            passwd,
+        )
+        local_exec(cmd)
+
+
+# 安装节点需要能访问外网, 安装节点启动代理，然后建立ssh隧道，让目标节点能访问外网
+def config_proxy(host, user, proxy):
+    if not proxy:
+        return
+
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        cmd = "yum install -y squid;systemctl enable squid;systemctl start squid"
+        local_exec(cmd, mode="call")
+    elif linux_dist == "ubuntu":
+        cmd = "DEBIAN_FRONTEND=noninteractive apt-get install -y squid;systemctl enable squid;systemctl start squid"
+        local_exec(cmd, mode="call")
+
+    cmd = "ps -ef |grep %s|grep %s|awk '{print $2}'|xargs kill -9" % (proxy, host)
+    local_exec(cmd, mode="call")
+    cmd = (
+        "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -o ServerAliveCountMax=3 -fN -R 0.0.0.0:%s:127.0.0.1:%s %s@%s"
+        % (proxy, proxy, user, host)
+    )
+    local_exec(cmd)
+
+
+def config_dns(host, user, dns):
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        tmp_dnsconf = "/tmp/90-dns-none.conf"
+        with open(tmp_dnsconf, "w", encoding="UTF-8") as file:
+            file.write("[main]\ndns=none\n")
+        scp(host, user, tmp_dnsconf, "/etc/NetworkManager/conf.d/90-dns-none.conf")
+        cmd = "rm -f %s" % (tmp_dnsconf)
+        local_exec(cmd)
+
+        cmd = "systemctl reload NetworkManager"
+        remote_exec(host, user, cmd)
+
+        tmp_resolvconf = "/tmp/resolv.conf"
+        with open(tmp_resolvconf, "w", encoding="UTF-8") as file:
+            print("%s" % (type(dns)))
+            if type(dns) is list or type(dns) is tuple:
+                for d in dns:
+                    file.write("nameserver %s\n" % (d))
+            else:
+                file.write("nameserver %s\n" % (dns))
+        scp(host, user, tmp_resolvconf, "/etc/resolv.conf")
+        cmd = "rm -f %s" % (tmp_resolvconf)
+        local_exec(cmd)
+    elif linux_dist == "ubuntu":
+        pass
+
+
+def config_nic(host, user, nic, ip=None, prefix=None, gateway=None):
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        # 检查网卡是否存在
+        cmd = "ip link show %s" % (nic)
+        remote_exec(host, user, cmd)
+
+        # 生成网卡配置文件
+        tmp_nic_cfg = "/tmp/ifcfg-%s" % (nic)
+        if ip:
+            if not prefix:
+                raise Exception("ip is set, but prefix or gateway is not set")
+            with open(tmp_nic_cfg, "w", encoding="UTF-8") as file:
+                file.write("DEVICE=%s\n" % (nic))
+                file.write("BOOTPROTO=static\n")
+                file.write("ONBOOT=yes\n")
+                file.write("IPADDR=%s\n" % (ip))
+                file.write("PREFIX=%s\n" % (prefix))
+                if gateway:
+                    file.write("GATEWAY=%s\n" % (gateway))
+        else:
+            with open(tmp_nic_cfg, "w", encoding="UTF-8") as file:
+                file.write("DEVICE=%s\n" % (nic))
+                file.write("BOOTPROTO=none\n")
+                file.write("ONBOOT=yes\n")
+        scp(host, user, tmp_nic_cfg, "/etc/sysconfig/network-scripts/ifcfg-%s" % (nic))
+        cmd = "rm -f %s" % (tmp_nic_cfg)
+        local_exec(cmd)
+        # 使网卡配置文件生效
+        cmd = "nmcli connection reload"
+        remote_exec(host, user, cmd)
+    elif linux_dist == "ubuntu":
+        cmd = "ip link show %s" % (nic)
+        output = remote_exec(host, user, cmd, mode="check_output")
+        mac = None
+        for line in output.split("\n"):
+            if "link/ether" in line:
+                # get mac address from line
+                mac = line.split()[1]
+                logger.debug("mac: %s" % (mac))
+                break
+        if mac:
+            # 生成yaml格式的netplan配置文件
+            tmp_netplan_cfg = "/tmp/%s-config.yaml" % (nic)
+            with open(tmp_netplan_cfg, "w", encoding="UTF-8") as file:
+                file.write("network:\n")
+                file.write("  version: 2\n")
+                file.write("  renderer: networkd\n")
+                file.write("  ethernets:\n")
+                file.write("    %s:\n" % (nic))
+                if ip:
+                    file.write("      dhcp4: no\n")
+                    file.write("      dhcp6: no\n")
+                    file.write("      addresses: [%s/%s]\n" % (ip, prefix))
+                    if gateway:
+                        file.write("      gateway4: %s\n" % (gateway))
+                    file.write("      match:\n")
+                    file.write("        macaddress: %s\n" % (mac))
+                else:
+                    file.write("      dhcp4: no\n")
+                    file.write("      dhcp6: no\n")
+                    file.write("      match:\n")
+                    file.write("        macaddress: %s\n" % (mac))
+            scp(host, user, tmp_netplan_cfg, "/etc/netplan/%s-config.yaml" % (nic))
+            cmd = "rm -f %s" % (tmp_netplan_cfg)
+            local_exec(cmd)
+            # 使网卡配置文件生效
+            #cmd = "chmod 600 /etc/netplan/*.yaml;netplan apply"
+            #remote_exec(host, user, cmd)
+
+
+
+def config_etcd(node):
+    etcd = node.get("etcd")
+    if not etcd:
+        return
+    if not etcd.get("etcd_host"):
+        etcd["etcd_host"] = node.get("host")
+
+    etcd_port = etcd.get("etcd_port", 2389)
+
+
+    nextstack_src = g_settings.config.get("nextstack_src")
+    etcd_bin = os.path.join(nextstack_src, "bin", "etcd")
+    etcdctl_bin = os.path.join(nextstack_src, "bin", "etcdctl")
+
+    if not os.path.exists(etcd_bin) or not os.path.exists(etcdctl_bin):
+        raise Exception("etcd binary files not found in %s/bin" % nextstack_src)
+   
+    host = node.get("host")
+    user = node.get("user")
+    
+    # 创建etcd配置目录
+    cmd = "mkdir -p /etc/etcd"
+    remote_exec(node.get("host"), node.get("user"), cmd)
+    # 备份已存在的etcd二进制文件
+    cmd = """
+    if [ -f /usr/local/bin/etcd ]; then
+        mv /usr/local/bin/etcd /usr/local/bin/etcd.bak.$(date +%Y%m%d_%H%M%S)
+    fi
+    if [ -f /usr/local/bin/etcdctl ]; then
+        mv /usr/local/bin/etcdctl /usr/local/bin/etcdctl.bak.$(date +%Y%m%d_%H%M%S)
+    fi
+    """
+    remote_exec(host, user, cmd)
+    # 传输etcd二进制文件
+    scp(host, user, etcd_bin, "/usr/local/bin/etcd")
+    scp(host, user, etcdctl_bin, "/usr/local/bin/etcdctl")
+
+    # 创建etcd服务文件
+    etcd_service = """
+[Unit]
+Description=etcd key-value store
+Documentation=https://github.com/etcd-io/etcd
+After=network.target
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/etcd \\
+    --name %s \\
+    --data-dir /var/lib/etcd \\
+    --listen-client-urls http://0.0.0.0:%s \\
+    --advertise-client-urls http://%s:%s \\
+    --listen-peer-urls http://0.0.0.0:2385 \\
+    --initial-advertise-peer-urls http://%s:2385 \\
+    --initial-cluster %s=http://%s:2385 \\
+    --initial-cluster-token etcd-cluster \\
+    --initial-cluster-state new
+Restart=always
+RestartSec=10
+LimitNOFILE=40000
+
+[Install]
+WantedBy=multi-user.target
+""" % (
+        host,
+        etcd_port,
+        host,
+        etcd_port,
+        host,
+        host,
+        host
+    )
+
+    # 写入服务文件
+    tmp_service_file = "/tmp/lnjoying-etcd.service"
+    with open(tmp_service_file, "w", encoding="UTF-8") as file:
+        file.write(etcd_service)
+
+    # 传输服务文件
+    scp(host, user, tmp_service_file, "/etc/systemd/system/lnjoying-etcd.service")
+
+    cmd = "rm -f %s" % tmp_service_file
+    local_exec(cmd)
+    
+    # 重新加载systemd配置
+    cmd = "systemctl daemon-reload"
+    remote_exec(host, user, cmd)
+    
+    # 启动etcd服务
+    cmd = "systemctl enable lnjoying-etcd && systemctl restart lnjoying-etcd"
+    remote_exec(host, user, cmd)
+
+
+
+def config_gnext(node):
+    gnext = node.get("gnext")
+    if not gnext:
+        return
+    if not gnext.get("agent_ip"):
+        gnext["agent_ip"] = node.get("host")
+        logger.warning("gnext_ip is not set, use host %s" % (gnext["agent_ip"]))
+    if not gnext.get("agent_port"):
+        gnext["agent_port"] = 8899
+    if not gnext.get("log_level"):
+        gnext["log_level"] = "debug"
+    if not gnext.get("l3_mode"):
+        gnext["l3_mode"] = True
+    if not gnext.get("vm_mode"):
+        gnext["vm_mode"] = True
+        
+    if not gnext.get("uuid"):
+        gnext["uuid"] = str(uuid.uuid4())
+        #raise Exception("uuid is not set")
+    if not gnext.get("ha_uuid"):
+        gnext["ha_uuid"] = str(uuid.uuid4())
+        #raise Exception("ha_uuid is not set")
+    if not gnext.get("default_eip"):
+        raise Exception("default eip is not set")
+    if not gnext.get("etcd_endpoints"):
+        gnext["etcd_endpoints"] = {"[http://localhost:2389]"}
+        raise Exception("etcd_endpoints is not set")
+
+    if not gnext.get("vlan_range"):
+        raise Exception("agent vlan_range is not set")
+    if not gnext.get("wan_gw_ip"):
+        ip = gnext["agent_ip"]
+        ip = ip.split(".")
+        ip[-1] = str(int(ip[-1]) + 1)
+        if int(ip[-1]) > 254:
+            ip[-1] = "1"
+        gnext["wan_gw_ip"] = ".".join(ip)
+        logger.warning("agent wan_ip is not set, use %s" % (gnext["wan_gw_ip"]))
+    if not gnext.get("wan_gw_mac"):
+        #raise Exception("agent wan_gw_mac is not set")
+        #gnext ["wan_gw_mac"] = 
+        try:
+            result = subprocess.run(
+                ["arping", "-I", wan_nic, "-c", "3", wan_gw_ip],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                check=True
+            )
+
+            # 解析输出中的 MAC 地址（根据实际输出格式调整）
+            for line in result.stdout.splitlines():
+                if "Unicast reply" in line:
+                    # 示例行：Unicast reply from xx:xx:xx:xx:xx:xx
+                    parts = line.strip().split()
+                    if len(parts) >= 5:
+                        mac_address = parts[4]
+                        gnext["wan_gw_mac"] = mac_address
+                        print(f"Found gateway MAC: {mac_address}")
+                        return
+        except subprocess.CalledProcessError as e:
+            raise Exception(f"Arping failed: {e.stderr}")
+    if not gnext.get("ovs_wan_bridge"):
+        gnext["ovs_wan_bridge"] = "br1"
+    if not gnext.get("ovs_lan_bridge"):
+        gnext["ovs_lan_bridge"] = "br0"
+    if not gnext.get("lan_nic"):
+        raise Exception("agent lan_nic is not set")
+    if not gnext.get("wan_nic"):
+        raise Exception("agent wan_nic is not set")
+    
+    for lan_nic in gnext["lan_nic"]:
+        config_nic(node.get("host"), node.get("user"), gnext["lan_nic"])
+    config_nic(node.get("host"), node.get("user"), gnext["wan_nic"])
+
+    # write config to local tmp config file
+    tmp_config_file = "/tmp/ndeploy.agent.yml"
+    with open(tmp_config_file, "w", encoding="UTF-8") as file:
+        yaml.safe_dump(gnext, file)
+
+    scp(node.get("host"), node.get("user"), tmp_config_file, "/opt/gnext/config.yml")
+
+    cmd = "rm -f /tmp/ndeploy.agent.yml"
+    local_exec(cmd)
+
+    gnext_service = os.path.join(g_settings.config.get("nextstack_src"), "scripts", "lnjoying-gnext.service")
+    if not os.path.exists(gnext_service):
+        raise Exception("gnext_service script %s not found" % (gnext_service))
+
+    scp(node.get("host"), node.get("user"), gnext_service, "/usr/lib/systemd/system/")
+
+    cmd = "chmod 644 /usr/lib/systemd/system/%s && systemctl enable %s && systemctl restart %s" % (
+        os.path.basename(gnext_service),
+        os.path.basename(gnext_service),
+        os.path.basename(gnext_service),
+    )
+    remote_exec(node.get("host"), node.get("user"), cmd)
+
+
+def config_vm(node):
+    vm = node.get("gnext")
+    if not vm:
+        return
+    # vmagent和l3agent配置在同一个节点上
+    if "gpu" in vm:
+        vfio_ids = vm["gpu"].get(
+            "vfio_ids", "10de:2684,10de:22ba,10de:26ba,10de:2330,10de:2324,10de:1c82,10de:22a3,8086:1bb0,11f8:4128"
+        )
+        hugepages = vm["gpu"].get("hugepages", 0)
+        gpu_script = os.path.join(g_settings.config.get("nextstack_src"), "scripts", "gpu.pl")
+        if not os.path.exists(gpu_script):
+            raise Exception("gpu script %s not found" % (gpu_script))
+
+        if vm.get("fm_ip"):
+            libnvfm_file = os.path.join(g_settings.config.get("nextstack_src"), "bin", "libnvfm.so.1")
+            scp(node.get("host"), node.get("user"), libnvfm_file, "/lib/x86_64-linux-gnu/")
+
+        scp(node.get("host"), node.get("user"), gpu_script, "/tmp")
+        cmd = "perl /tmp/%s '%s' %s" % (os.path.basename(gpu_script), vfio_ids, hugepages)
+        remote_exec(node.get("host"), node.get("user"), cmd)
+        cmd = "rm -f /tmp/%s" % (os.path.basename(gpu_script))
+        remote_exec(node.get("host"), node.get("user"), cmd)
+        cmd = "reboot"
+        remote_exec(node.get("host"), node.get("user"), cmd, mode="call")
+        time.sleep(5)
+        proxy = g_settings.config.get("proxy")
+        while True:
+            try:
+                remote_exec(node.get("host"), node.get("user"), "uptime")
+                if proxy:
+                    cmd = (
+                        "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -o ServerAliveCountMax=3 -fN -R 0.0.0.0:%s:127.0.0.1:%s %s@%s"
+                        % (proxy, proxy, node.get("user"), node.get("host"))
+                    )
+                    local_exec(cmd)
+                break
+            except:
+                time.sleep(10)
+        del vm["gpu"]
+
+    mount_service = os.path.join(g_settings.config.get("nextstack_src"), "scripts", "lnjoying-mount.service")
+    if not os.path.exists(mount_service):
+        raise Exception("vms mount script %s not found" % (mount_service))
+    scp(node.get("host"), node.get("user"), mount_service, "/usr/lib/systemd/system/")
+
+    loopvolume_service = os.path.join(g_settings.config.get("nextstack_src"), "scripts", "lnjoying-loopvolume.service")
+    if not os.path.exists(vms_service):
+        raise Exception("loop volume script %s not found" % (vms_service))
+    scp(node.get("host"), node.get("user"), loopvolume_service, "/usr/lib/systemd/system/")
+
+    novnc_service = os.path.join(g_settings.config.get("nextstack_src"), "scripts", "lnjoying-novnc.service")
+    if not os.path.exists(novnc_service):
+        raise Exception("novnc script %s not found" % (novnc_service))
+    cmd = "cp %s /tmp" % (novnc_service)
+    local_exec(cmd)
+    
+    #替换novnc监听ip
+    cmd = 'sed -i -E "s/tokens\/\S+\s+6090/tokens\/%s 6090/" /tmp/%s' % (
+        vm["uuid"],
+        os.path.basename(novnc_service),
+    )
+    local_exec(cmd)
+    
+    scp(node.get("host"), node.get("user"), "/tmp/%s" % (os.path.basename(novnc_service)), "/usr/lib/systemd/system/")
+    cmd = "rm -f /tmp/%s" % (os.path.basename(novnc_service))
+    local_exec(cmd)
+
+    cmd = "mkdir -p /vms/{backing,cdrom,migrate,volumes,tokens}"
+    remote_exec(node.get("host"), node.get("user"), cmd)
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        cmd = "chown -R qemu:qemu /vms"
+        remote_exec(node.get("host"), node.get("user"), cmd)
+    elif linux_dist == "ubuntu":
+        cmd = "chown -R libvirt-qemu:libvirt-qemu /vms"
+        remote_exec(node.get("host"), node.get("user"), cmd)
+
+    cmd = "chmod 644 /usr/lib/systemd/system/%s && systemctl enable %s && systemctl restart %s" % (
+        os.path.basename(novnc_service),
+        os.path.basename(novnc_service),
+        os.path.basename(novnc_service),
+    )
+    remote_exec(node.get("host"), node.get("user"), cmd)
+
+    cmd = "chmod 644 /usr/lib/systemd/system/%s && systemctl enable %s && systemctl restart %s" % (
+        os.path.basename(mount_service),
+        os.path.basename(mount_service),
+        os.path.basename(mount_service),
+    )
+    remote_exec(node.get("host"), node.get("user"), cmd)
+
+    cmd = "chmod 644 /usr/lib/systemd/system/%s && systemctl enable %s && systemctl restart %s" % (
+        os.path.basename(vms_service),
+        os.path.basename(vms_service),
+        os.path.basename(vms_service),
+    )
+    remote_exec(node.get("host"), node.get("user"), cmd)
+
+    cmd = "chmod 644 /usr/lib/systemd/system/%s && systemctl enable %s && systemctl restart %s" % (
+        os.path.basename(loopvolume_service),
+        os.path.basename(loopvolume_service),
+        os.path.basename(loopvolume_service),
+    )
+    remote_exec(node.get("host"), node.get("user"), cmd)
+
+    if g_settings.config.get("exporter"):
+        config_exporter(node.get("host"), node.get("user"))
+        if "gpu" in vm:
+            config_gpu_exporter(node.get("host"), node.get("user"))
+
+
+def config_hosts(host, user, name, ip):
+    cmd = "cat /etc/hosts"
+    logger.debug("cmd: %s" % (cmd))
+    output = remote_exec(host, user, cmd, mode="check_output")
+    print(output)
+    for line in output.strip().split("\n"):
+        line = line.strip()
+        if not line:
+            continue
+        parts = line.split()
+        if parts[0] == ip:
+            if name in parts[1:]:
+                return
+            else:
+                raise Exception("ip %s already used by %s" % (ip, parts[1]))
+        else:
+            if name in parts[1:]:
+                raise Exception("name %s already used by %s" % (name, parts[0]))
+    cmd = "echo '%s %s' >> /etc/hosts" % (ip, name)
+    remote_exec(host, user, cmd)
+
+
+def config_nfs_server(volume, node):
+    ganesha = """
+NFS_CORE_PARAM {
+    mount_path_pseudo = true;
+    Protocols = 3,4;
+}
+EXPORT_DEFAULTS {
+    Access_Type = RW;
+}
+EXPORT {
+    Export_Id = 1;
+    Path = /vms;
+    Pseudo = /vms;
+    Access_Type = RW;
+    Squash = no_root_squash;
+    Sectype = sys;
+    Transports = "UDP", "TCP";
+    Disable_ACL = true;
+    FSAL {
+            Name = GLUSTER;
+            hostname = "localhost";
+            volume = "%s";
+            volpath = "/";
+    }
+}
+LOG {
+    Default_Log_Level = WARN;
+}
+""" % (
+        volume
+    )
+    with open("/tmp/ganesha.conf", "w") as file:
+        file.write(ganesha)
+    scp(node.get("host"), node.get("user"), "/tmp/ganesha.conf", "/etc/ganesha/ganesha.conf")
+    cmd = "rm -f /tmp/ganesha.conf"
+    local_exec(cmd)
+
+    cmd = "systemctl enable nfs-ganesha && systemctl restart nfs-ganesha"
+    remote_exec(node.get("host"), node.get("user"), cmd)
+
+    cmd = "showmount -e localhost|grep /vms"
+    remote_exec(node.get("host"), node.get("user"), cmd)
+
+
+def config_gluster():
+    # 检查是否有gluster配置
+    gluster = g_settings.config.get("gluster")
+    if not gluster:
+        logger.warning("no gluster config found")
+        return
+    # 副本数
+    replica = gluster.get("replica", 2)
+    # 卷名
+    volume = gluster.get("volume", "gvms")
+    # 砖块挂载点
+    brick = gluster.get("brick", "/data")
+    # 砖块设备
+    block = gluster.get("block")
+
+    brick_nodes = []  # 砖块节点
+    arbiter_nodes = []  # 仲裁节点
+    hosts = []  # 所有gluster节点
+    pnode = None
+    for node in g_settings.config.get("nodes"):
+        # 检查是否有gluster配置
+        gluster = node.get("gluster")
+        if not gluster:
+            continue
+        # 先配置gluster集群节点
+        if not gluster.get("is_brick", False) and not gluster.get("is_arbiter", False):
+            continue
+
+        # 用pnode指向gluster集群的第一个节点，用于后续配置gluster集群
+        if not pnode:
+            pnode = node
+
+        # 安装gluster
+        install_gluster(node.get("host"), node.get("user"))
+
+        # 节点名
+        name = gluster.get("name")
+        if not name:
+            raise Exception("gluster node name is not set")
+
+        # 节点ip
+        ip = gluster.get("ip")
+
+        # 节点网络地址位数
+        prefix = gluster.get("prefix")
+
+        # 节点网卡
+        nic = gluster.get("nic")
+
+        # 节点brick路径
+        brick_mountpoint = gluster.get("brick", brick)
+        if not brick_mountpoint:
+            raise Exception("gluster node brick is not set")
+
+        # 检查brick路径是否存在
+        cmd = "ls %s" % (brick_mountpoint)
+        rtn = remote_exec(node.get("host"), node.get("user"), cmd, mode="call")
+        if rtn != 0:
+            cmd = "mkdir -p %s" % (brick_mountpoint)
+            remote_exec(node.get("host"), node.get("user"), cmd)
+
+        # 节点块设备
+        brick_block = gluster.get("block", block)
+        if not brick_block:
+            # 如果没有设置block，那意味着brick是预先设置好的，此脚本不做相关配置。
+            logger.warning("gluster node block is not set, use brick %s directly" % (brick_mountpoint))
+        else:
+            # 检查brick路径是否已经挂载
+            cmd = "df %s|grep -v Filesystem" % (brick_mountpoint)
+            output = remote_exec(node.get("host"), node.get("user"), cmd, mode="check_output")
+            if not output:
+                raise Exception("cannot get output of df on brick %s" % (brick_mountpoint))
+            output = output.strip()
+            # 已经挂载
+            if output.endswith(brick_mountpoint):
+                cmd = "findmnt %s" % (brick_mountpoint)
+                result = remote_exec(node.get("host"), node.get("user"), cmd, mode="run")
+                if result.returncode != 0:
+                    raise Exception("findmnt on %s failed" % (brick_mountpoint))
+                # 已经挂载则取得设备名，文件系统类型，挂载点
+                mnt, dev, fs = None, None, None
+                for line in result.stdout.decode("utf-8").split("\n"):
+                    if line.startswith(brick_mountpoint):
+                        mnt, dev, fs = line.split(maxsplit=3)[0:3]
+                        break
+                if not (mnt and dev and fs):
+                    raise Exception("cannot get mount info for %s" % (brick_mountpoint))
+                if fs != "xfs":
+                    raise Exception("brick %s is not xfs" % (brick_mountpoint))
+                # 如果配置了块设备，则检查是否一致
+                if mnt != brick_mountpoint or (brick_block and dev != brick_block):
+                    raise Exception("block %s is not mounted to %s" % (brick_block, brick_mountpoint))
+                # 已经挂载，检查是否已经配置到/etc/fstab
+                cmd = "grep %s /etc/fstab" % (brick_mountpoint)
+                if rtn != remote_exec(node.get("host"), node.get("user"), cmd, mode="call"):
+                    # 配置到/etc/fstab, 以便开机自动挂载
+                    cmd = "echo '%s %s %s defaults 0 0' >> /etc/fstab" % (dev, mnt, fs)
+                    remote_exec(node.get("host"), node.get("user"), cmd)
+                else:
+                    # 已经配置到/etc/fstab, 检查是否一致
+                    cmd = "cat /etc/fstab"
+                    output = remote_exec(node.get("host"), node.get("user"), cmd, mode="check_output")
+                    for line in output.split("\n"):
+                        line = line.strip()
+                        if not line:
+                            continue
+                        parts = line.split(maxsplit=3)
+                        if len(parts) != 4:
+                            continue
+                        if parts[1] == brick_mountpoint:
+                            if parts[0:3] != [dev, mnt, fs]:
+                                raise Exception("mount info for %s in /etc/fstab is not correct" % (brick_mountpoint))
+                            break
+            else:  # brick未挂载
+                if not brick_block:
+                    raise Exception("brick %s is not mounted, but block is not set" % (brick_mountpoint))
+                # 检查块设备是否存在
+                cmd = "lsblk %s|grep -v NAME" % (brick_block)
+                output = remote_exec(node.get("host"), node.get("user"), cmd, mode="check_output")
+                parts = output.split()
+                if len(parts) == 7:  # mounted
+                    raise Exception("gluster node blk %s is mounted to %s" % (brick_block, parts[6]))
+                # 检查块设备上是否有文件系统
+                xfs_exists = False
+                cmd = "blkid %s" % (brick_block)
+                result = remote_exec(node.get("host"), node.get("user"), cmd, mode="run")
+                if result.returncode == 0 and result.stdout:
+                    output = result.stdout.decode("utf-8")
+                    ret = re.search(r"\sTYPE=\"(\w+)\"", output)
+                    if ret:
+                        fs = ret.group(1)
+                        if fs == "xfs":
+                            xfs_exists = True
+                        else:
+                            raise Exception("block %s has fs %s" % (brick_block, fs))
+                if not xfs_exists:
+                    # 创建xfs文件系统
+                    cmd = "mkfs.xfs %s" % (brick_block)
+                    remote_exec(node.get("host"), node.get("user"), cmd)
+                # 检查是否已经配置到/etc/fstab
+                cmd = "grep %s /etc/fstab" % (brick_mountpoint)
+                rtn = remote_exec(node.get("host"), node.get("user"), cmd, mode="call")
+                if rtn != 0:
+                    # 配置到/etc/fstab, 以便开机自动挂载
+                    cmd = "echo '%s %s %s defaults 0 0' >> /etc/fstab" % (brick_block, brick_mountpoint, "xfs")
+                    remote_exec(node.get("host"), node.get("user"), cmd)
+                else:
+                    # 已经配置到/etc/fstab, 检查是否一致
+                    cmd = "cat /etc/fstab"
+                    output = remote_exec(node.get("host"), node.get("user"), cmd, mode="check_output")
+                    for line in output.split("\n"):
+                        if line.startswith(dev):
+                            if line.split(maxsplit=3)[1:3] != [brick_mountpoint, "xfs"]:
+                                raise Exception("mount info for %s in /etc/fstab is not correct" % (brick_mountpoint))
+                            break
+                # 挂载
+                cmd = "mount %s" % (brick_mountpoint)
+                remote_exec(node.get("host"), node.get("user"), cmd)
+
+        cmd = "rm -rf %s/brick1;mkdir -p %s/brick1" % (brick_mountpoint, brick_mountpoint)
+        remote_exec(node.get("host"), node.get("user"), cmd)
+
+        # 如果有配置gluster专用网卡
+        if ip and prefix and nic:
+            config_nic(node.get("host"), node.get("user"), nic, ip, prefix)
+            hosts.append((name, ip))
+        else:
+            host = node.get("host")
+            # get ip address from host which is a domain name or ip address
+            ip = socket.gethostbyname(host)
+            if not ip:
+                raise Exception("cannot get ip address from host %s" % (host))
+            hosts.append((name, ip))
+
+        # 是否是仲裁节点
+        is_arbiter = gluster.get("is_arbiter", False)
+        if is_arbiter:
+            arbiter_nodes.append("%s:%s/brick1" % (name, brick_mountpoint))
+        else:
+            brick_nodes.append("%s:%s/brick1" % (name, brick_mountpoint))
+    if not pnode:
+        return
+
+    # 1, 砖块节点的个数必须是副本数的倍数，如果倍数大于1，则此集群是分布式集群，这个分布式集群包括倍数个复制卷。
+    if len(brick_nodes) % replica != 0:
+        raise Exception("brick_nodes count %s is not multiple of replica %s" % (len(brick_nodes), replica))
+
+    # 2, 如果副本数为奇数(包括1），则应该没有仲裁卷， 否则每个复制卷都应该有一个仲裁卷，即仲裁卷的个数应该是复制卷的个数。
+    if replica % 2 == 1:
+        if arbiter_nodes:
+            raise Exception("replica %s is odd, does not need arbiter node" % (replica))
+    else:
+        if len(arbiter_nodes) != len(brick_nodes) // replica:
+            raise Exception(
+                "replica %s is even, but arbiter_nodes count %s is not correct" % (replica, len(arbiter_nodes))
+            )
+    # 配置gluster集群
+    for node in g_settings.config.get("nodes"):
+        # 跳过非gluster server节点
+        gluster = node.get("gluster")
+        if not gluster:
+            continue
+        # 配置hosts，gluster节点间使用此主机名进行通讯
+        for name, ip in hosts:
+            config_hosts(node.get("host"), node.get("user"), name, ip)
+
+        # 先尝试卸载/vms，因为有时会出现ls /vms卡住的情况
+        # TODO 需要改进，有时还会卡住
+        cmd = "lsof +D /vms|grep -v PID |awk '{print $2}'|xargs kill -9 2>/dev/null"
+        remote_exec(node.get("host"), node.get("user"), cmd, mode="call")
+        cmd = "umount /vms"
+        remote_exec(node.get("host"), node.get("user"), cmd, mode="call")
+
+        # 删除原有配置行
+        cmd = 'sed -i -E "/\s+\/vms\s+/d" /etc/fstab'
+        remote_exec(node.get("host"), node.get("user"), cmd, mode="call")
+
+    # 将gluster节点加入集群
+    for name, ip in hosts:
+        cmd = "gluster peer probe %s" % (name)
+        remote_exec(pnode.get("host"), pnode.get("user"), cmd)
+
+    # 创建卷
+    if arbiter_nodes:
+        cmd = "gluster volume create %s replica %s arbiter 1 " % (volume, replica)
+    else:
+        if replica == 1:
+            cmd = "gluster volume create %s " % (volume)
+        else:
+            cmd = "gluster volume create %s replica %s " % (volume, replica)
+
+    while brick_nodes:
+        for i in range(replica):
+            cmd += " %s" % (brick_nodes.pop(0))
+        if arbiter_nodes:
+            cmd += " %s" % (arbiter_nodes.pop(0))
+    cmd += " force"
+    remote_exec(pnode.get("host"), pnode.get("user"), cmd)
+
+    # 启动卷
+    cmd = "gluster volume start %s" % (volume)
+    remote_exec(pnode.get("host"), pnode.get("user"), cmd)
+
+    # 设置服务器端仲裁
+    cmd = "gluster volume set %s cluster.server-quorum-type server" % (volume)
+    remote_exec(pnode.get("host"), pnode.get("user"), cmd)
+    if replica == 1:
+        # 设置服务器端仲裁为99%, 只要有一个节点离线，卷就不可用
+        cmd = "gluster volume set all cluster.server-quorum-ratio 99"
+        remote_exec(pnode.get("host"), pnode.get("user"), cmd)
+    else:
+        # 设置服务器端仲裁为51%
+        cmd = "gluster volume set all cluster.server-quorum-ratio 51"
+        remote_exec(pnode.get("host"), pnode.get("user"), cmd)
+
+    # TODO 配置nfs-ganesha HA
+    # cmd = "gluster volume set %s features.cache-invalidation on" % (volume)
+    # remote_exec(pnode.get("host"), pnode.get("user"), cmd)
+
+    # cmd = "gluster volume set all cluster.enable-shared-storage enable"
+    # remote_exec(pnode.get("host"), pnode.get("user"), cmd)
+
+    # 检查卷是否正常
+    while i in range(3):
+        cmd = "gluster volume status %s|grep -E '^Brick'" % (volume)
+        output = remote_exec(pnode.get("host"), pnode.get("user"), cmd, mode="check_output")
+        volume_is_ok = True
+        for line in output.split("\n"):
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split()
+            if parts[2] == "N/A" or parts[4] != "Y":
+                volume_is_ok = False
+                break
+        if not volume_is_ok:
+            # 启动卷
+            cmd = "echo 'y' | gluster volume stop %s force" % (volume)
+            remote_exec(pnode.get("host"), pnode.get("user"), cmd, mode="call")
+            cmd = "gluster volume start %s" % (volume)
+            remote_exec(pnode.get("host"), pnode.get("user"), cmd)
+            time.sleep(5)
+        else:
+            break
+    if not volume_is_ok:
+        raise Exception("volume %s is not ok" % (volume))
+
+    # 挂载卷到/vms
+    for node in g_settings.config.get("nodes"):
+        # 跳过非gluster客户端
+        gluster = node.get("gluster")
+        if not gluster:
+            continue
+        if not gluster.get("is_client", False):
+            continue
+
+        # gluster server节点, hosts前面已经配置过了
+        if not gluster.get("is_brick", False) and not gluster.get("is_arbiter", False):
+            # 配置hosts，gluster节点间使用此主机名进行通讯
+            for name, ip in hosts:
+                config_hosts(node.get("host"), node.get("user"), name, ip)
+            # 安装gluster
+            install_gluster(node.get("host"), node.get("user"))
+
+            # 节点ip
+            ip = gluster.get("ip")
+
+            # 节点网络地址位数
+            prefix = gluster.get("prefix")
+
+            # 节点网卡
+            nic = gluster.get("nic")
+
+            # 客户端也可能使用专用的网卡用于和gluster集群通讯
+            if ip and prefix and nic:
+                config_nic(node.get("host"), node.get("user"), nic, ip, prefix)
+
+        # 检查/vms是否存在
+        cmd = 'ls -l / |grep -E " vms$"|grep -v grep||true'
+        output = remote_exec(node.get("host"), node.get("user"), cmd, mode="check_output")
+        if output:
+            # /vms不能访问，尝试卸载
+            if output.strip().endswith("? vms"):
+                for i in range(3):
+                    cmd = "umount /vms"
+                    ret = remote_exec(node.get("host"), node.get("user"), cmd, mode="call")
+                    if ret != 0:
+                        if i < 2:
+                            time.sleep(1)
+                        else:
+                            raise Exception("umount /vms failed")
+                    else:
+                        break
+        else:
+            # 不存在，创建
+            cmd = "mkdir -p /vms"
+            remote_exec(node.get("host"), node.get("user"), cmd)
+
+        cmd = "lsof +D /vms|grep -v PID |awk '{print $2}'|xargs kill -9 2>/dev/null"
+        remote_exec(node.get("host"), node.get("user"), cmd, mode="call")
+        cmd = "umount /vms"
+        remote_exec(node.get("host"), node.get("user"), cmd, mode="call")
+
+        # 删除原有配置行
+        cmd = 'sed -i -E "/\s+\/vms\s+/d" /etc/fstab'
+        remote_exec(node.get("host"), node.get("user"), cmd, mode="call")
+
+        # 配置/etc/fstab
+        if len(hosts) > 1:
+            cmd = (
+                "echo '%s:/%s \t/vms \tglusterfs \tdefaults,backup-volfile-servers=%s,_netdev \t0 \t0' >> /etc/fstab"
+                % (hosts[0][0], volume, ":".join([host[0] for host in hosts[1:]]))
+            )
+        else:
+            cmd = "echo '%s:/%s /vms glusterfs defaults,_netdev 0 0' >> /etc/fstab" % (hosts[0][0], volume)
+        remote_exec(node.get("host"), node.get("user"), cmd)
+
+        cmd = "systemctl daemon-reload"
+        remote_exec(node.get("host"), node.get("user"), cmd)
+
+        time.sleep(2)
+        # 挂载
+        cmd = "mount /vms"
+        remote_exec(node.get("host"), node.get("user"), cmd, mode="run")
+
+        # 更新nfs-ganesha的配置
+        if gluster.get("is_nfs", False):
+            config_nfs_server(volume, node)
+
+
+def install_vnc(host, user, vnc_passwd):
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        cmd = 'yum groupinstall -y "Server with GUI" --skip-broken'
+        remote_exec(host, user, cmd)
+        cmd = "yum install -y tigervnc-server"
+        remote_exec(host, user, cmd)
+        # set vncpasswd with non-interactive mode
+        cmd = 'mkdir -p /root/.vnc && echo "%s" | vncpasswd -f >/root/.vnc/passwd' % (vnc_passwd)
+        remote_exec(host, user, cmd)
+        cmd = "chmod 400 /root/.vnc/passwd"
+        remote_exec(host, user, cmd)
+
+        cfg = ["session=gnome", "geometry=1920x1200", "localhost=no", "alwaysshared"]
+
+        with open("/tmp/config", "w") as f:
+            f.write("\n".join(cfg))
+        scp(host, user, "/tmp/config", "/root/.vnc/config")
+        cmd = "rm -f /tmp/config"
+        local_exec(cmd)
+
+        cmd = "echo ':1=root' > /etc/tigervnc/vncserver.users"
+        remote_exec(host, user, cmd)
+
+        cmd = "systemctl enable vncserver@:1"
+        remote_exec(host, user, cmd)
+
+        cmd = "systemctl restart vncserver@:1"
+        remote_exec(host, user, cmd)
+    elif linux_dist == "ubuntu":
+        # TODO 为ubuntu配置vnc
+        pass
+
+
+def config_basic():
+    dns = g_settings.config.get("dns", ("114.114.114.114", "114.114.115.115"))
+    proxy = g_settings.config.get("proxy")
+    for node in g_settings.config.get("nodes"):
+        host = node.get("host")
+        user = node.get("user")
+        passwd = node.get("passwd")
+        # 设置无密码登录
+        config_ssh(host, user, passwd)
+        # 禁用防火墙
+        if user != "root":
+            node["user"] = "root"
+            user = "root"
+        disable_firewall(host, user)
+        # 禁用selinux
+        disable_selinux(host, user)
+
+        # 配置代理
+        #config_proxy(host, user, proxy)
+        # 配置dns
+        #config_dns(host, user, dns)
+        # 更新系统
+        #update_os(host, user)
+        # 设置python环境
+        install_python(host, user)
+        install_docker(host, user)
+
+
+def main_handle(args):
+    load_config(args.config)
+    init_log()
+
+    agents_pkg = prepare_nextstack_package()
+    ovs_pkg = prepare_openvswitch_package()
+
+    config_basic()
+
+    config_gluster()
+    manager_host = ""
+    manager_user = ""
+
+    for node in g_settings.config.get("nodes"):
+        host = node.get("host")
+        user = node.get("user")
+
+        if (
+            not node.get("gnext")
+            and not node.get("vm")
+            and not node.get("vnc")
+            and not node.get("manager")
+        ):
+            continue
+        if node.get("vnc"):
+            vnc_passwd = node.get("vnc").get("passwd", "lnjoying")
+            install_vnc(host, user, vnc_passwd)
+        # 安装ovs, l3和vm都需要ovs
+        #if node.get("gnext") or node.get("vm"):
+            install_ovs(host, user, ovs_pkg)
+        # 安装nextstack agents
+        install_agents(host, user, agents_pkg)
+        if node.get("pxe"):
+            config_pxe(node)
+        if node.get("etcd"):
+            config_etcd(node)
+        if node.get("gnext"):
+            config_gnext(node)
+        if node.get("vm"):
+            # 安装libvirt
+            install_libvirt(host, user)
+            # 安装nbd
+            install_nbd(host, user)
+            config_vm(node)
+            # 安装nginx, vmagent需要配置phonehome的请求从8901转发到本地的8896
+            install_nginx(host, user, node["vm"])
+            # 部署fabric manager service vm
+            install_fmvm(host, user, node["vm"])
+
+        if node.get("manager"):
+            manager_host = host
+            manager_user = user
+    # 配置云管理
+    if manager_host and manager_user:
+        config_cloud_manager(manager_host, manager_user)
+
+
+# 获取Java 云管的所有node的ip(promethus 需要)
+def get_hosts():
+    nodes = g_settings.config.get("nodes")
+    node_ip_list = list()
+    for node in nodes:
+        node_ip_list.append(node.get("host"))
+    return node_ip_list
+
+
+# 安装docker/docker-compose
+def install_docker(host, user):
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        install_yum_utils_cmd = "yum install -y yum-utils"
+        remote_exec(host, user, install_yum_utils_cmd)
+        add_repo_cmd = "yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo"
+        remote_exec(host, user, add_repo_cmd)
+        install_docker_cmd = (
+            "yum install -y --allowerasing docker-ce docker-ce-cli containerd.io docker-compose-plugin"
+        )
+        remote_exec(host, user, install_docker_cmd)
+        start_docker_cmd = "systemctl start docker && systemctl enable docker"
+        remote_exec(host, user, start_docker_cmd)
+    elif linux_dist == "ubuntu":
+        tmp_docker_install_script = "/tmp/docker_install.sh"
+        content = """
+for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+apt-get update
+apt-get install ca-certificates curl gnupg
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+chmod a+r /etc/apt/keyrings/docker.gpg
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+apt-get update -y
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+"""
+        with open(tmp_docker_install_script, "w") as f:
+            f.write(content)
+        scp(host, user, tmp_docker_install_script, tmp_docker_install_script)
+        cmd = "bash %s" % (tmp_docker_install_script)
+        remote_exec(host, user, cmd)
+
+
+# 修改prometheus 配置
+def config_prometheus(host, user):
+    libvirt_port = 9000
+    node_port = 9100
+    libvirt_server_list = list()
+    node_server_list = list()
+    for node in g_settings.config.get("nodes"):
+        node_ip = node.get("host")
+        libvirt_server = "%s:%d" % (node_ip, libvirt_port)
+        node_server = "%s:%d" % (node_ip, node_port)
+        if node.get("gnext"):
+            libvirt_server_list.append(libvirt_server)
+            node_server_list.append(node_server)
+    node_cmd = 'sed -i "s/list/%s/" %s/prometheus/node.json' % (str(node_server_list).replace("'", '\\"'), manager_dir)
+    libvirt_cmd = 'sed -i "s/list/%s/" %s/prometheus/libvirt.json' % (
+        str(libvirt_server_list).replace("'", '\\"'),
+        manager_dir,
+    )
+    prometheus_config_cmd = 'sed -i "s/need_update_ip/%s/" %s/prometheus/prometheus.yml' % (host, manager_dir)
+    remote_exec(host, user, node_cmd)
+    remote_exec(host, user, libvirt_cmd)
+    remote_exec(host, user, prometheus_config_cmd)
+
+
+# 修改grafana 配置
+def config_grafana(host, user):
+    grafana_cmd = 'sed -i "/^root_url/s/need_update_ip/%s/" %s/grafana/grafana.ini' % (host, manager_dir)
+    datesource_cmd = 'sed -i "s/need_update_ip/%s/" %s/grafana/provisioning/datasources/datasources.yaml' % (
+        host,
+        manager_dir,
+    )
+    remote_exec(host, user, grafana_cmd)
+    remote_exec(host, user, datesource_cmd)
+
+
+# 同步文件，并复制*.temp 到对应的目录下，如docker-compose.yml.temp->docker-compose.yml
+def sync_files(host, user):
+    cloud_manager_mount = os.path.join(g_settings.config.get("nextstack_src"), "gnext/mount.tar.gz")
+    if not os.path.exists(cloud_manager_mount):
+        raise Exception("cloud manager mount file %s" % (cloud_manager_mount))
+    scp(host, user, cloud_manager_mount, "/opt/gnext")
+    unzip_cmd = "tar xvfz /opt/gnext/mount.tar.gz -C /opt/gnext"
+    remote_exec(host, user, unzip_cmd)
+    cp_temp_files_cmd = 'find %s -name "*.temp"  -exec cp -f {} {}.bak \;' % manager_dir
+    remote_exec(host, user, cp_temp_files_cmd)
+
+    rename_script = os.path.join(g_settings.config.get("nextstack_src"), "gnext/mount/exporter/rename.sh")
+    scp(host, user, rename_script, "/tmp")
+    rename_cmd = 'sed -i "s#manager_dir#%s#" /tmp/rename.sh && chmod +x /tmp/rename.sh' % (manager_dir)
+    remote_exec(host, user, rename_cmd)
+
+    #rename_temp_files_cmd = 'find %s -name "*.temp.bak" -exec rename ".temp.bak" "" {} \;' % manager_dir
+    #rename_temp_files_cmd = 'find %s -name "*.temp.bak" -exec bash -c \'mv $0 ${0%.temp.bak}\' {} \;' % manager_dir
+
+    remote_exec(host, user, "/tmp/rename.sh")
+    remote_exec(host, user, "rm -f /tmp/rename.sh")
+
+
+# 配置openresty
+def config_openresty(host, user):
+    openresty_cmd = 'sed -i "s/need_update_ip:3000/%s:3000/g" %s/openresty/nginx.conf' % (host, manager_dir)
+    remote_exec(host, user, openresty_cmd)
+
+
+# 配置nginx
+def config_nginx(host, user):
+    nginx_cmd = 'sed -i "s/need_update_ip:3000/%s:3000/" %s/nginx/nginx.conf' % (host, manager_dir)
+    remote_exec(host, user, nginx_cmd)
+
+
+# 配置java 云管的计算服务
+def config_java_compute(host, pxe_agent_ip, user):
+    grafana_cmd = 'sed -i "/^monitorServer/s/need_update_ip/%s/" %s/justice/config/etc/compute.yaml' % (
+        host,
+        manager_dir,
+    )
+    prometheus_cmd = 'sed -i "/^prometheusServer/s/need_update_ip/%s/" %s/justice/config/etc/compute.yaml' % (
+        host,
+        manager_dir,
+    )
+    pxe_cmd = 'sed -i "s/need_update_ip/%s/" %s/justice/config/etc/compute.yaml' % (pxe_agent_ip, manager_dir)
+    remote_exec(host, user, grafana_cmd)
+    remote_exec(host, user, prometheus_cmd)
+    remote_exec(host, user, pxe_cmd)
+
+
+# 配置java 云管的网络服务
+def config_java_network(host, user):
+    network_cmd = 'sed -i "s/need_update_ip/%s/" %s/justice/config/etc/network.yaml' % (host, manager_dir)
+    remote_exec(host, user, network_cmd)
+
+
+# 配置docker-compose.yml
+def config_docker_compose(host, user):
+    config_yaml_file_cmd = 'sed -i "s/need_update_ip/%s/" %s/docker-compose.yml' % (host, manager_dir)
+    remote_exec(host, user, config_yaml_file_cmd)
+    run_docker_compose_cmd = (
+        "[ -f /usr/local/bin/docker-compose ] || ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin/docker-compose; cd %s && docker-compose down && docker-compose up -d"
+        % manager_dir
+    )
+    remote_exec(host, user, run_docker_compose_cmd)
+
+
+# 配置gpu_exporter
+def config_gpu_exporter(host, user):
+    gpu_exporter = os.path.join(
+        g_settings.config.get("nextstack_src"), "../../cloud-manager/exporter/nvidia_gpu_exporter"
+    )
+    if not os.path.exists(gpu_exporter):
+        raise Exception("gpu exporter %s not found" % (gpu_exporter))
+
+    gpu_exporter_script = os.path.join(g_settings.config.get("nextstack_src"), "../../cloud-manager/exporter/gpu.sh")
+    if not os.path.exists(gpu_exporter_script):
+        raise Exception("gpu exporter script %s not found" % (gpu_exporter_script))
+
+    gpu_exporter_service = os.path.join(
+        g_settings.config.get("nextstack_src"), "../../cloud-manager/exporter/gpu_exporter.service"
+    )
+    if not os.path.exists(gpu_exporter_service):
+        raise Exception("gpu exporter service script %s not found" % (gpu_exporter_service))
+
+    scp(host, user, gpu_exporter_service, "/usr/lib/systemd/system")
+    remote_exec(host, user, "systemctl daemon-reload")
+    remote_exec(host, user, "systemctl stop gpu_exporter", mode="call")
+
+    scp(host, user, gpu_exporter, "/opt/gnext/bin")
+    scp(host, user, gpu_exporter_script, "/opt/gnext/bin")
+
+    remote_exec(host, user, "chmod +x /opt/gnext/bin/nvidia_gpu_exporter && chmod +x /opt/gnext/bin/gpu.sh")
+    remote_exec(host, user, "systemctl enable gpu_exporter && systemctl restart gpu_exporter")
+
+
+# 配置node_exporter, libvirt_exporter
+def config_exporter(host, user):
+    linux_dist = g_settings.config.get("linux_dist", "centos")
+    if linux_dist == "centos":
+        install_node_exporter_cmd = (
+            "yum install -y golang-github-prometheus-node-exporter libguestfs-winsupport libguestfs-tools"
+        )
+
+    elif linux_dist == "ubuntu":
+        install_node_exporter_cmd = "apt install -y prometheus-node-exporter libguestfs-tools"
+
+    remote_exec(host, user, install_node_exporter_cmd)
+    # remote_exec(host, user, "systemctl stop libvirt_exporter.service; systemctl stop node_exporter.service")
+
+    node_exporter_service = os.path.join(
+        g_settings.config.get("nextstack_src"), "../../cloud-manager/exporter/node_exporter.service"
+    )
+    if not os.path.exists(node_exporter_service):
+        raise Exception("node exporter service script %s not found" % (node_exporter_service))
+    scp(host, user, node_exporter_service, "/usr/lib/systemd/system")
+
+    libvirt_exporter_service = os.path.join(
+        g_settings.config.get("nextstack_src"), "../../cloud-manager/exporter/libvirt_exporter.service"
+    )
+    if not os.path.exists(libvirt_exporter_service):
+        raise Exception("libvirt exporter service script %s not found" % (libvirt_exporter_service))
+    scp(host, user, libvirt_exporter_service, "/usr/lib/systemd/system")
+
+    virt_monitor_exporter = os.path.join(
+        g_settings.config.get("nextstack_src"), "../../cloud-manager/exporter/virt-monitor-exporter"
+    )
+    if not os.path.exists(virt_monitor_exporter):
+        raise Exception("virt monitor exporter %s not found" % (virt_monitor_exporter))
+    virt_monitor_file_cmd = "ls /usr/lib/systemd/system/libvirt_exporter.service && systemctl stop libvirt_exporter"
+    remote_exec(host, user, virt_monitor_file_cmd)
+    node_exporter_file_cmd = "ls /usr/lib/systemd/system/node_exporter.service && systemctl stop node_exporter"
+    remote_exec(host, user, node_exporter_file_cmd)
+    scp(host, user, virt_monitor_exporter, "/opt/nextstack/bin")
+
+    remote_exec(host, user, "chmod +x /opt/nextstack/bin/virt-monitor-exporter")
+    systemctl_daemon_reload_cmd = (
+        "systemctl daemon-reload && systemctl enable node_exporter && systemctl enable libvirt_exporter"
+    )
+    remote_exec(host, user, "systemctl restart libvirt_exporter && systemctl restart node_exporter")
+    remote_exec(host, user, systemctl_daemon_reload_cmd)
+
+
+# 配置云管
+def config_cloud_manager(host, user):
+    sync_files(host, user)
+    config_prometheus(host, user)
+    config_grafana(host, user)
+    config_openresty(host, user)
+    config_nginx(host, user)
+    config_java_compute(host, host, user)
+    config_java_network(host, user)
+    config_docker_compose(host, user)
+
+
+def main():
+    args = sys.argv[1:]
+    parser = argparse.ArgumentParser(description="nextstack deployment utility")
+    parser.add_argument("-C", "--config", help="configation file", required=False)
+
+    parser.set_defaults(func=main_handle)
+
+    _args = parser.parse_args(args)
+    if not hasattr(_args, "func"):
+        parser.parse_args(["-h"])
+    else:
+        _args.func(_args)
+
+
+if __name__ == "__main__":
+    main()

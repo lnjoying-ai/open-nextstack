@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~  Copyright 2020 Huawei Technologies Co., Ltd.
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.lnjoying</groupId>
+    <artifactId>com.lnjoying.justice.usermanager</artifactId>
+    <version>1.0.0</version>
+
+    <name>ums</name>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>com.lnjoying</groupId>
+        <artifactId>com.lnjoying</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring-framework-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--<dependency>-->
+            <!--<groupId>org.apache.servicecomb</groupId>-->
+            <!--<artifactId>java-chassis-dependencies</artifactId>-->
+            <!--<version>${servicecomb.version}</version>-->
+            <!--<type>pom</type>-->
+            <!--<scope>import</scope>-->
+            <!--</dependency>-->
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.67</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.1.5.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+        <!--<dependency>-->
+        <!--<groupId>org.apache.tomcat.embed</groupId>-->
+        <!--<artifactId>tomcat-embed-jasper</artifactId>-->
+        <!--<version>9.0.37</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>commons-codec</groupId>-->
+        <!--<artifactId>commons-codec</artifactId>-->
+        <!--<version>1.14</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>es.moki.ratelimitj</groupId>
+            <artifactId>ratelimitj-inmemory</artifactId>
+            <version>0.6.0</version>
+        </dependency>
+
+        <!-- Either<> java -->
+        <!--<dependency>-->
+        <!--<groupId>org.functionaljava</groupId>-->
+        <!--<artifactId>functionaljava</artifactId>-->
+        <!--<version>4.8.1</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>org.apache.commons</groupId>-->
+        <!--<artifactId>commons-pool2</artifactId>-->
+        <!--<version>2.7.0</version>-->
+        <!--</dependency>-->
+
+        <!-- gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+
+        <!-- postgresql and mybatis-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+            <version>42.2.16</version>
+        </dependency>
+
+        <!-- unit test -->
+        <!--<dependency>-->
+        <!--<groupId>junit</groupId>-->
+        <!--<artifactId>junit</artifactId>-->
+        <!--<version>4.13</version>-->
+        <!--<scope>test</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>org.powermock</groupId>-->
+        <!--<artifactId>powermock-module-junit4</artifactId>-->
+        <!--<version>2.0.4</version>-->
+        <!--<scope>test</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>org.jmockit</groupId>-->
+        <!--<artifactId>jmockit</artifactId>-->
+        <!--<version>1.19</version>-->
+        <!--<scope>test</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>org.jmockit</groupId>-->
+        <!--<artifactId>jmockit-coverage</artifactId>-->
+        <!--<version>1.19</version>-->
+        <!--<scope>test</scope>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>org.springframework</groupId>-->
+        <!--<artifactId>spring-web</artifactId>-->
+        <!--<version>5.2.9.RELEASE</version>-->
+        <!--<scope>compile</scope>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>com.lnjoying</groupId>
+            <artifactId>com.micro.core</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>io.vertx</groupId>-->
+        <!--<artifactId>vertx-redis-client</artifactId>-->
+        <!--<version>3.9.7</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>io.jsonwebtoken</groupId>-->
+        <!--<artifactId>jjwt</artifactId>-->
+        <!--<version>0.9.1</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>com.auth0</groupId>-->
+        <!--<artifactId>java-jwt</artifactId>-->
+        <!--<version>3.4.0</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>org.apache.servicecomb</groupId>-->
+        <!--<artifactId>java-chassis-spring-boot-starter-servlet</artifactId>-->
+        <!--<version>${servicecomb.version}</version>-->
+        <!--</dependency>-->
+
+
+        <!--<dependency>-->
+        <!--<groupId>org.apache.servicecomb</groupId>-->
+        <!--<artifactId>transport-rest-vertx</artifactId>-->
+        <!--<version>2.1.5</version>-->
+        <!--<exclusions>-->
+        <!--<exclusion>-->
+        <!--<groupId>log4j</groupId>-->
+        <!--<artifactId>log4j</artifactId>-->
+        <!--</exclusion>-->
+        <!--<exclusion>-->
+        <!--<groupId>org.apache.httpcomponents</groupId>-->
+        <!--<artifactId>httpclient</artifactId>-->
+        <!--</exclusion>-->
+        <!--</exclusions>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>org.apache.servicecomb</groupId>-->
+        <!--<artifactId>transport-rest-servlet</artifactId>-->
+        <!--<version>2.1.5</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.servicecomb</groupId>
+            <artifactId>foundation-common</artifactId>
+            <version>${servicecomb.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.servicecomb</groupId>
+            <artifactId>registry-service-center</artifactId>
+            <version>${servicecomb.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.servicecomb</groupId>
+            <artifactId>transport-rest-servlet</artifactId>
+            <version>${servicecomb.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- import this jar for rpc-->
+        <dependency>
+            <groupId>org.apache.servicecomb</groupId>
+            <artifactId>java-chassis-spring-boot-starter-servlet</artifactId>
+            <version>${servicecomb.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.servicecomb</groupId>
+                    <artifactId>transport-rest-servlet</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>jakarta.servlet</groupId>
+                    <artifactId>jakarta.servlet-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.servicecomb</groupId>
+                    <artifactId>foundation-test-scaffolding</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jackson-databind</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>tomcat-embed-core</artifactId>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>tomcat-embed-websocket</artifactId>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>snakeyaml</artifactId>
+                    <groupId>org.yaml</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-web</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>tomcat-embed-el</artifactId>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.servicecomb</groupId>
+            <artifactId>java-chassis-spring-boot-starter</artifactId>
+            <version>${servicecomb.version}</version>
+            <scope>compile</scope>
+            <exclusions>
+                <!--<exclusion>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-starter-logging</artifactId>-->
+                <!--</exclusion>-->
+                <exclusion>
+                    <artifactId>jackson-databind</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>tomcat-embed-core</artifactId>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>tomcat-embed-websocket</artifactId>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>snakeyaml</artifactId>
+                    <groupId>org.yaml</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-web</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>tomcat-embed-el</artifactId>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.servicecomb</groupId>
+            <artifactId>inspector</artifactId>
+            <version>${servicecomb.version}</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>nl.jworks.markdown_to_asciidoc</groupId>
+                    <artifactId>markdown_to_asciidoc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>ch.netzwerg</groupId>
+                    <artifactId>paleo-core</artifactId>
+                </exclusion>
+            </exclusions>
+
+        </dependency>
+
+
+        <!--<dependency>-->
+        <!--<groupId>org.apache.servicecomb</groupId>-->
+        <!--<artifactId>provider-rest-common</artifactId>-->
+        <!--<version>2.1.5</version>-->
+        <!--<scope>compile</scope>-->
+        <!--</dependency>-->
+
+
+        <!--<dependency>-->
+        <!--<groupId>org.apache.servicecomb</groupId>-->
+        <!--<artifactId>registry-schema-discovery</artifactId>-->
+        <!--<version>2.1.5</version>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>com.lnjoying</groupId>
+            <artifactId>com.lnjoying.justice.schema</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.lnjoying</groupId>
+            <artifactId>com.lnjoying.justice.commonweb</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>all-tests</id>
+            <properties>
+                <build.profile.id>all-tests</build.profile.id>
+                <skip.unit.tests>false</skip.unit.tests>
+            </properties>
+        </profile>
+    </profiles>
+    <build>
+        <finalName>com.lnjoying.justice.ums</finalName>
+        <plugins>
+            <!-- Used for unit tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20</version>
+                <configuration>
+                    <forkCount>1</forkCount>
+                    <reuseForks>false</reuseForks>
+                    <skip>${maven.test.skip}</skip>
+                    <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.1.2.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <failOnViolation>true</failOnViolation>
+                    <failurePriority>2</failurePriority>
+                    <maxAllowedViolations>0</maxAllowedViolations>
+                    <printFailingErrors>true</printFailingErrors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.7.201606060606</version>
+                <configuration>
+                    <destFile>target/coverage-reports/jacoco-unit.exec</destFile>
+                    <dataFile>target/coverage-reports/jacoco-unit.exec</dataFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

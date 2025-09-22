@@ -1,0 +1,12 @@
+imageAgentService: http://192.168.1.21:8897
+fileUrl: /v1/files
+shareUrl: /v1/shares
+imageUrl: /v1/imgs
+poolUrl: /v1/pools
+volumeUrl: /v1/vols
+poolSid: "1"
+poolType: "fs"
+poolParas: "dir:/vms"
+poolName: gfsPool
+vmAgentPort: 8896
+volumeSnapUrl: /v1/snaps

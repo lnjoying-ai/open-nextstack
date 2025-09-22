@@ -1,0 +1,11 @@
+networkAgentService: http://need_update_ip:8899
+vpcUrl: /v1/vpcs
+subnetUrl: /v1/subnets
+nicUrl: /v1/nics
+portUrl: /v1/ports
+slotUrl: /v1/slots
+switchUrl: /v1/switches
+sgUrl: /v1/sgs
+lbAgent: need_update_ip
+hostUrl: /v1/hosts
+networkAgentPort: 8899

@@ -1,0 +1,10 @@
+agent:
+  image_name: lnjoying/edge-agent:v1.0.0
+  volumn: [/var/run/docker.sock:/var/run/docker.sock]
+  rest_port: 41107
+gw:
+  image_name: lnjoying/edge-gw:v1.0.0
+  volumn: [/var/run/docker.sock:/var/run/docker.sock]
+  rest_port: 41107
+  local_port: 31107
+  cloud: 27.221.79.185:9188

@@ -1,0 +1,17 @@
+[Unit]
+Description=NBD over websocket service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/opt/nextstack
+Environment="PATH=/opt/.venv/bin:/usr/local/bin:/usr/sbin:/usr/bin:/usr/local/share/openvswitch/scripts"
+ExecStart=/opt/nextstack/bin/websocketd --passenv PATH,REQUEST_URI --closems=1 --address=0.0.0.0 --port=8000 --binary /opt/nextstack/bin/nbd-proxy
+ExecStop=/usr/bin/kill -9 $MAINPID
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

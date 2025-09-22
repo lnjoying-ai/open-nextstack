@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.vm.mapper.VmInstanceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lnjoying.vm.entity.VmInstance">
+        <id column="vm_instance_id" property="vmInstanceId" />
+        <result column="user_id" property="userId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="instance_id_from_agent" property="instanceIdFromAgent" />
+        <result column="name" property="name" />
+        <result column="phase_status" property="phaseStatus" />
+        <result column="node_id" property="nodeId" />
+        <result column="flavor_id" property="flavorId" />
+        <result column="image_id" property="imageId" />
+        <result column="vpc_id" property="vpcId" />
+        <result column="subnet_id" property="subnetId" />
+        <result column="port_id" property="portId" />
+        <result column="static_ip" property="staticIp" />
+        <result column="host_name" property="hostName" />
+        <result column="sys_username" property="sysUsername" />
+        <result column="sys_password" property="sysPassword" />
+        <result column="pubkey_id" property="pubkeyId" />
+        <result column="description" property="description" />
+        <result column="last_node_id" property="lastNodeId" />
+        <result column="dest_node_id" property="destNodeId" />
+        <result column="volume_id" property="volumeId" />
+        <result column="instance_group_id" property="instanceGroupId" />
+    </resultMap>
+</mapper>

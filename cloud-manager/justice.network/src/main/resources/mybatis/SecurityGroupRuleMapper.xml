@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.network.mapper.SecurityGroupRuleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lnjoying.justice.network.entity.SecurityGroupRule">
+        <id column="rule_id" property="ruleId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="sg_id" property="sgId" />
+        <result column="phase_status" property="phaseStatus" />
+        <result column="priority" property="priority" />
+        <result column="direction" property="direction" />
+        <result column="protocol" property="protocol" />
+        <result column="address_type" property="addressType" />
+        <result column="port" property="port" />
+        <result column="cidr" property="cidr" />
+        <result column="sg_id_reference" property="sgIdReference" />
+        <result column="description" property="description" />
+        <result column="pool_id" property="poolId" />
+        <result column="action" property="action" />
+    </resultMap>
+</mapper>

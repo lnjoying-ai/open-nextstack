@@ -1,0 +1,11 @@
+groups:
+  - name: node_down
+    rules:
+      - alert: InstanceDown
+        expr: [(${expr})]
+        for: [(${forTime})]
+        annotations:
+          ruleId: [(${ruleId})]
+          summary: "云主机异常"
+          threshold: "停机超过[(${forTime})]"
+          description: "instance: {{ $labels.instance }} 已经停机超过 [(${forTime})]."

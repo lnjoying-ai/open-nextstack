@@ -1,0 +1,8 @@
+pxeAgentUrl: http://192.168.1.21:8898
+waitingRemoveTime: 0.01
+monitorServer: http://192.168.1.112:3000
+prometheusServer: http://192.168.1.112:9090
+vmPhoneHomePort: 8901
+vmAgentPort: 8896
+baremetalPhoneHomePort: 8900
+

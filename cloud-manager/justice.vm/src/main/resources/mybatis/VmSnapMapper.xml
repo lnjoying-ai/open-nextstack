@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.vm.mapper.VmSnapMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lnjoying.vm.entity.VmSnap">
+        <id column="snap_id" property="snapId" />
+        <result column="user_id" property="userId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="vm_instance_id" property="vmInstanceId" />
+        <result column="name" property="name" />
+        <result column="snap_id_from_agent" property="snapIdFromAgent" />
+        <result column="phase_status" property="phaseStatus" />
+        <result column="description" property="description" />
+        <result column="is_current" property="isCurrent" />
+    </resultMap>
+</mapper>
