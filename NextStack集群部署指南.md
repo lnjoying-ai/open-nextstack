@@ -52,8 +52,8 @@
 ---
 
 ### 2.2 网络拓扑图
+![Uploading 图片.png…]()
 
-![截屏2025-08-06 09.52.36](/Users/astayang/Library/Application Support/typora-user-images/截屏2025-08-06 09.52.36.png)
 
 ---
 
