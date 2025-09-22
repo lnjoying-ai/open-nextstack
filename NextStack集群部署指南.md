@@ -52,7 +52,7 @@
 ---
 
 ### 2.2 网络拓扑图
-assets/Nextstack架构.jpg
+![Nextstack架构](assets/Nextstack架构.jpg)
 
 
 ---
