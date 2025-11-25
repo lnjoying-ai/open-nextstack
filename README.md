@@ -130,7 +130,7 @@ sudo apt install -y arping
 下载安装所需文件
 
 ```bash
-git clone git@codehub.devcloud.huaweicloud.com:79576738980b48eda79db6408798aa83/open-nextstack.git
+git clone git@github.com:lnjoying-ai/open-nextstack.git
 
 #切换至install目录
 cd open-nextstack/install
@@ -367,8 +367,6 @@ gnext vpc list --host string
 gnext vpc get -U uuid --host string 
 ```
 
-📌 **完整 CLI 文档**：[NextStack CLI Guide](https://your-cli-guide-link)
-
 ---
 
 ## 📈 监控与日志
@@ -415,7 +413,7 @@ A:   可通过访问Nextstack WebUI页面进行修改,如下图所示：
 
 ### Q： 需要更多技术支持
 
-技术支持群联系方式：
+技术支持联系方式：service@lnjoying.com
 
 ---
 
@@ -431,8 +429,6 @@ A:   可通过访问Nextstack WebUI页面进行修改,如下图所示：
 4. **推送到远程仓库** (`git push origin feature-xyz`)
 5. **创建 PR（Pull Request）**，等待审核
 
-📌 **详细贡献指南**：[Contributing Guide](https://your-contribution-guide)
-
 ### 我们需要你的帮助！
 
 - 🛠 **修复 Bug**
@@ -444,4 +440,4 @@ A:   可通过访问Nextstack WebUI页面进行修改,如下图所示：
 
 ## 📜 许可证（License）
 
-NextStack 采用 **Apache 2.0 开源协议**，详情请查看 [LICENSE](LICENSE) 文件。
+NextStack 采用 **Apache 2.0 开源协议**，详情请查看 [LICENSE](/LICENSE.TXT) 文件。
