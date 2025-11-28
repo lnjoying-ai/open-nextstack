@@ -46,7 +46,7 @@ NextStack 采用**微服务架构**，具备**轻量化、可扩展性、高可�
 
 ## 🧩 部署准备
 
-### ⚠️ 注意事项（Notes）
+### ⚠️ 注意事项
 
 在使用本项目/文档/脚本前，请注意以下事项：
 
@@ -95,7 +95,7 @@ NextStack 采用**微服务架构**，具备**轻量化、可扩展性、高可�
 
 ---
 
-## 🚀 快速开始（Getting Started）
+## 🚀 快速开始
 
 此指南仅为单机版本，若进行集群化部署或接入Lnjoying云管平台，请仔细阅读[NextStack集群部署指南](./NextStack集群部署指南.md)
 
@@ -378,7 +378,7 @@ NextStack 集群支持以下监控方式：
 
 ---
 
-## 🧪 常见问题（FAQ）
+## 🧪 常见问题
 
 ### Q：如何升级集群版本？
 
@@ -417,7 +417,7 @@ A:   可通过访问Nextstack WebUI页面进行修改,如下图所示：
 
 ---
 
-## 🤝 贡献指南（Contributing）
+## 🤝 贡献指南
 
 我们欢迎社区开发者贡献代码，改进 NextStack！
 
@@ -429,16 +429,17 @@ A:   可通过访问Nextstack WebUI页面进行修改,如下图所示：
 4. **推送到远程仓库** (`git push origin feature-xyz`)
 5. **创建 PR（Pull Request）**，等待审核
 
-### 我们需要你的帮助！
-
-- 🛠 **修复 Bug**
-- 🚀 **新增功能**
-- 📖 **完善文档**
-- 💡 **分享使用案例**
-
 ---
 
 ## 📜 许可证（License）
 
-NextStack 采用 **Apache 2.0 开源协议**，详情请查看 [LICENSE](/LICENSE.TXT) 文件。
+本项目采用 **Apache 2.0 开源协议**，详情请查看 [LICENSE](LICENSE) 文件。
+
+---
+
+## 📣 联系我们
+
+- 官网：[https://91gpu.cloud](https://91gpu.cloud)
+- 邮箱：service@lnjoying.com
+- 社区：微信交流群+V：lnjoying-ai
 
