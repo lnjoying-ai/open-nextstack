@@ -435,7 +435,7 @@ A:   可通过访问Nextstack WebUI页面进行修改,如下图所示：
 
 ## 📜 许可证（License）
 
-本项目采用 **Apache 2.0 开源协议** ，详情请查看 [LICENSE](LICENSE)文件。
+本项目采用 **基于 Apache 2.0 修改的开源许可协议** ，完整内容请参见仓库中的[LICENSE](LICENSE)文件。
 
 ---
 
