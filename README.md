@@ -1,42 +1,45 @@
 # 🌐 NextStack
 
-## 📌 项目简介
+English | [简体中文](README_CN.md)
 
-**NextStack** 是一款 **新一代云计算 IaaS（基础设施即服务）平台**，专注于智能数据中心的构建与管理。它提供了灵活的 API 和高效的计算、存储、网络资源调度能力，支持 **裸金属计算、虚拟机管理**，以及 **分布式存储**，帮助企业快速搭建私有云、公有云或混合云环境。
+## 📌 Project Overview
 
-NextStack 采用**微服务架构**，具备**轻量化、可扩展性、高可用、兼容国产硬件**等特点，致力于成为企业级 IT 基础设施的首选解决方案。
+**NextStack** is a **next‑generation IaaS (Infrastructure‑as‑a‑Service) platform** designed for modern intelligent data centers. It provides flexible APIs and efficient scheduling for compute, storage, and network resources, supporting **bare‑metal compute, virtual machines**, and **distributed storage** so you can quickly build private, public, or hybrid cloud environments.
 
-### 🚀 **极致轻量化**
+NextStack adopts a **microservices architecture** and is **lightweight, scalable, highly available, and compatible with mainstream & domestic hardware**. Our goal is to become the preferred foundation for enterprise‑grade IT infrastructure.
 
-- **最小 10MB 运行程序**，可在计算资源受限环境（如 IoT、边缘计算）中使用
-- 低资源消耗，适用于 **轻量级私有云和本地部署**
+### 🚀 Ultra‑lightweight by Design
 
-### 🔗 **GPU直通**
+- Minimal runtime size of **~10 MB**
+- Can run in resource‑constrained environments such as IoT and edge nodes
+- Low overhead, suitable for **lightweight private clouds and on‑prem deployments**
 
-- 支持虚拟机直通物理机GPU
+### 🔗 GPU Passthrough
 
-### ⚡ **弹性计算**
+- Supports direct passthrough of physical GPUs into virtual machines
 
-- 提供 **虚拟机、裸金属服务器、容器** 统一管理
-- 支持 **虚拟机热迁移**，保证业务连续性
-- 动态资源调度，按需扩容计算能力
+### ⚡ Elastic Compute
 
-### 📡 **多种网络模式**
+- Unified management for **virtual machines, bare‑metal servers, and containers**
+- **Live migration** support to keep workloads online during maintenance
+- Dynamic resource scheduling to scale compute capacity on demand
 
-- 支持 **VLAN/VXLAN网络架构**
-- 内置 **防火墙、安全组、NAT、负载均衡**
-- 支持 **虚拟私有云（VPC）**
+### 📡 Rich Networking Models
 
-### 💾 **强大存储支持**
+- Supports **VLAN/VXLAN‑based network architectures**
+- Built‑in **firewall, security groups, NAT, and load balancing**
+- Supports **Virtual Private Cloud (VPC)**
 
-- **本地存储、NFS 存储、分布式存储（GlusterFS、Ceph）**
-- **快照备份** 和 **弹性块存储**，保证数据高可靠性
+### 💾 Powerful Storage Capabilities
 
-### 📊 **智能监控与运维**
+- Supports **local storage, NFS, and distributed storage (GlusterFS, Ceph)**
+- **Snapshots** and **elastic block storage** for high data reliability
 
-- **RESTful API、CLI、Web 控制台** 提供全方位管理
-- **实时资源监控、告警系统、自动化任务调度**
-- **Prometheus + Grafana 监控方案支持**
+### 📊 Monitoring & Operations
+
+- Full‑stack management via **RESTful APIs, CLI, and Web console**
+- **Real‑time resource monitoring, alerting, and automated job scheduling**
+- Native support for **Prometheus + Grafana** monitoring stack
 
 ![image](./assets/Info.png)
 ![image](./assets/Function%20Architecture.png)
@@ -44,78 +47,78 @@ NextStack 采用**微服务架构**，具备**轻量化、可扩展性、高可�
 
 ---
 
-## 🧩 部署准备
+## 🧩 Before You Start
 
-### ⚠️ 注意事项
+### ⚠️ Important Notes
 
-在使用本项目/文档/脚本前，请注意以下事项：
+Before using this project / documentation / scripts, please keep the following in mind:
 
-- **环境依赖** ：请确保已安装所需的运行环境和依赖库。
-- **网络要求**： 请确保已按照文档规划好指定网络。
-- **部署参数配置**：请确保在执行脚本时已按照文档将必填参数配好。
-- **系统环境** ：确保操作系统为纯净的Ubuntu22.04以上的操作系统。
-- **错误处理** ：遇到异常请查看日志信息，默认Agent日志在/opt/gnext/log 下。
-- **集群部署标准**：若进行集群化部署或接入Lnjoying云管平台，请仔细阅读[NextStack集群部署指南](./NextStack集群部署指南.md)。
-- **持续更新** ：本文档/项目将持续更新，请关注最新版本。
-- **存储位置**：默认存储位置为/vms。
-- **镜像库位置**：默认镜像存放位置在/vms/backing下，目前镜像仅支持Ubuntu20.04，如需更多系统镜像请联系技术支持。
-- **平台预置镜像**：平台目前预置Ubuntu20.04，并预装以下驱动组件：
+- **Runtime dependencies**: Make sure all required system packages and libraries are installed.
+- **Network planning**: Ensure that your network layout matches the design described in the documentation.
+- **Deployment parameters**: Confirm that all required parameters have been properly configured before running any scripts.
+- **OS environment**: A clean **Ubuntu 22.04 or later** environment is required.
+- **Error handling**: When errors occur, check the logs first. By default, the Agent logs are under: `/opt/gnext/log`.
+- **Cluster deployment**: For clustered deployments or for integrating with the Lnjoying cloud management platform, please read the **NextStack Cluster Deployment Guide** (`NextStack集群部署指南.md`) carefully.
+- **Continuous updates**: This project and documentation are continuously updated. Please always refer to the latest version in this repository.
+- **Default storage location**: VM data is stored under `/vms` by default.
+- **Image repository path**: VM images are stored under `/vms/backing` by default. Currently only **Ubuntu 20.04** images are pre‑validated. For additional OS images, please contact technical support.
+- **Pre‑built platform image**: The platform currently ships with a pre‑built **Ubuntu 20.04** VM image with the following GPU stack:
 
-| 预装软件          | 版本号          |
-| ---------------- | -------------- |
-| **GPU Driver**   | 550.78    |
-| **CUDA**         | 12.4 |
-| **CUDNN**        | 9.1.1      |
+| Preinstalled Software | Version   |
+| --------------------- | --------- |
+| **GPU Driver**        | 550.78    |
+| **CUDA**              | 12.4      |
+| **cuDNN**             | 9.1.1     |
 
-- **存储池**：推荐接入自有存储，不建议使用NFS共享存储。
+- **Storage pool**: It is recommended to connect your own storage system. NFS shared storage is **not** recommended for production.
 
-### 核心组件
+### Core Components
 
-| 组件                     | 功能                                                  |
-| ------------------------ | ----------------------------------------------------- |
-| **Nextstack Cloud**      | 集群控制中心，负责全局资源调度、API 接入、状态同步    |
-| **Gnext Agent**          | 各个计算节点，执行实际资源操作（如创建 VM、挂载卷等） |
-| **ETCD Cluster**         | 数据库，用于保存集群状态、配置信息                    |
-| **Open vSwitch (OVS)**   | 提供 VLAN/VXLAN 网络虚拟化能力                        |
-| **Prometheus + Grafana** | 监控方案，提供实时性能监控                            |
+| Component               | Description                                                                 |
+| ----------------------- | --------------------------------------------------------------------------- |
+| **NextStack Cloud**     | Cluster control plane, responsible for global resource scheduling, APIs, and state sync |
+| **Gnext Agent**         | Runs on each compute node and performs real operations (create VMs, attach volumes, etc.) |
+| **ETCD Cluster**        | Key‑value store used to persist cluster state and configuration            |
+| **Open vSwitch (OVS)**  | Provides VLAN/VXLAN‑based network virtualization                           |
+| **Prometheus + Grafana**| Monitoring stack for real‑time metrics and dashboards                      |
 
-### 系统要求
+### System Requirements
 
-| 类型               | 最低要求                      |
-| ------------------ | ----------------------------- |
-| 操作系统           | Ubuntu 22.04+                 |
-| CPU 架构           | x86_64                        |
-| Python 版本        | 3.9+                          |
-| 内存（每节点）     | ≥ 64GB                        |
-| 存储空间（系统盘） | ≥ 512GB SSD                   |
-| NTP                | 所有节点互通，时间同步（NTP） |
-| 存储池（可选）     | 可选单独接入已有存储池        |
-| 交换机             | 推荐型号H3C S6800系列         |
-| 网卡               | 10Gbps * 3 ，分别用于NextStack的管理网络/南北向网络/东西向网络 |
+| Item                | Minimum Requirement                          |
+| ------------------- | ---------------------------------------------|
+| Operating System    | Ubuntu 22.04+                                |
+| CPU Architecture    | x86_64                                       |
+| Python Version      | 3.9+                                         |
+| Memory (per node)   | ≥ 64 GB                                      |
+| System Disk         | ≥ 512 GB SSD                                 |
+| NTP                 | All nodes must be time‑synchronized (NTP)    |
+| Storage Pool (opt.) | Optional external storage pool               |
+| Switch              | Recommended: H3C S6800 series                |
+| NICs                | 3 × 10 Gbps NICs for: management / north‑south / east‑west traffic |
 
 ---
 
-## 🚀 快速开始
+## 🚀 Quick Start (Single‑Node)
 
-此指南仅为单机版本，若进行集群化部署或接入Lnjoying云管平台，请仔细阅读[NextStack集群部署指南](./NextStack集群部署指南.md)
+This quick start guide covers **single‑node** deployment only. For clustered deployments or integration with the Lnjoying cloud management platform, please refer to the **NextStack Cluster Deployment Guide** (`NextStack集群部署指南.md`).
 
-### 开始前环境准备
+### Environment Preparation
 
-部署平台前，请确定系统是否安装pip依赖，可通过以下命令来判断是否已安装：
+Before deployment, verify that `pip` is available:
 
 ```bash
 # Ubuntu
 pip3 --version
 ```
 
-如依赖未安装，请使用以下命令进行安装：
+If `pip` is not installed, install it with:
 
 ```bash
 # Ubuntu
 sudo apt install -y python3-pip
 ```
 
-安装sshpass 、arping等必要依赖软件
+Install required tools like `sshpass` and `arping`:
 
 ```bash
 # Ubuntu
@@ -123,32 +126,29 @@ sudo apt install -y sshpass
 sudo apt install -y arping
 ```
 
+### Step 1: Clone the Repository
 
-
-### 步骤 1：克隆代码到本地
-
-下载安装所需文件
+Download the project:
 
 ```bash
 git clone git@github.com:lnjoying-ai/open-nextstack.git
 
-#切换至install目录
+# Switch to the install directory
 cd open-nextstack/install
 ```
 
-### 步骤 2：配置参数
+### Step 2: Configure Deployment Parameters
 
-修改config.yml文件，配置参数如下所示：
+Edit the config file, for example:
 
 ```bash
-# Ubuntu
 sudo vim config.deploy.allinone.yml
 ```
 
-配置文件示例如下（**请注意：此配置文件中所有内容均为必填项**）：
+Sample configuration (**all fields are required**):
 
 ```bash
-#config配置文件示例
+# Configuration example
 gnext_src: /root/dev-gnext
 linux_dist: ubuntu
 exporter: True
@@ -160,7 +160,7 @@ nodes:
   etcd:
     etcd_name: etcd-single
 
-# 业务节点
+# Business node
 - host: 192.168.8.114
   user: root
   passwd: lnjoying
@@ -174,10 +174,10 @@ nodes:
     wan_gw_mac: C0:B8:E6:ED:4D:1F
     lan_nic: eno6
     wan_nic: eno7
-    # 对于单节点模式，使用单个etcd endpoint
+    # For single‑node mode, use a single etcd endpoint
     etcd_endpoints:
       - http://localhost:2379
-    # 对于集群模式，使用多个etcd endpoints
+    # For cluster mode, use multiple etcd endpoints
     # etcd_endpoints: 
     #   - http://192.168.8.111:2379
     #   - http://192.168.8.112:2379
@@ -185,69 +185,70 @@ nodes:
   manager: True
 ```
 
-配置文件说明（必配置项）
+Configuration field reference (required items):
 
-| 参数           | 描述                                                         |
-| -------------- | :----------------------------------------------------------- |
-| nextstack_src  | 部署脚本所在的位置的绝对路径，可使用 pwd 命令查看当前脚本所在位置      |
-| linux_dist     | 部署机器所在的系统类型 ，ubuntu或centos                      |
-| host           | Gnext Agent节点的可通信IP，可通过ip -br a查看                |
-| user           | Gnext Agnet节点的 SSH 登录用户名，该用户必须为 **root** 用户或其他具有 **sudo** 命令执行权限的用户 |
-| passwd         | Gnext Agent的 SSH 登录密码                      |
-| manager         | Nextstack中的云端管理平面参数，该参数为True时则在该节点安装云端管理平面，False则不安装 |
-| agent_ip       | Gnext Agent的 节点IP，正常情况下可与host共用，如需区分，可使用 ip -br a查看 |
-| lan_nic        | Gnext Agent中东西向网络工作网卡，由ovs服务接管，需要独立于管理网络之外，确保无其他服务使用当前网卡，可通过ip -br a查看空余网卡 |
-| wan_nic        | Gnext Agent中南北向网络工作网卡，由ovs服务接管，需要独立于管理网络之外，确保无其他服务使用当前网卡，可通过ip -br a查看空余网卡 |
-| vlan_range     | Gnext Agent中vlan的规划范围，默认即可                |
-| wan_gw_ip      | Gnext Agent中 wan口网卡的出口网关地址，一般为上层交换机地址，通常可通过ip route show命令查看wan网卡出口默认网关地址，请注意：如果wan口网卡没有配置ip ，请先通过 ip a a [IP地址/子网掩码] dev [网卡设备名称]  命令配置临时ip，最后在进行获取默认网关操作 |
-| default_eip    | Gnext Agent中默认的出口eip，通常是出口网络内没有被占用的空闲IP，此参数需要根据实情况填写，机器侧无法直接获取,请注意：EIP为Nextstack中虚拟机出外网所用到的IP，若填写错误或ip无法出外网，将无法为vm提供外网服务 |
-| wan_gw_mac     | Gnext Agent中 wan口网卡的出口网关地址的MAC地址，在已经获取到wan_gw_ip参数后，通过arping -I [网关IP地址] 获取网关mac地址, 如果wan_nic没有配置ip，请先通过 ip a a [IP地址/子网掩码] dev [网卡设备名称]  命令配置临时ip |
-| etcd_endpoints | Gnext Agent中ETCD数据库的连接参数，单机中一般无需更改配置，lcoalhost即可 |
-| exporter | Gnext Agent中安装监控组件选项：True/False |
-| etcd_name | Gnext Agent中ETCD数据库的节点名称 |
+| Parameter       | Description                                                                 |
+| --------------- | --------------------------------------------------------------------------- |
+| `nextstack_src` | Absolute path to the deployment scripts. You can run `pwd` in the script directory to get it. |
+| `linux_dist`    | OS type of the deployment machine, e.g. `ubuntu` or `centos`.              |
+| `host`          | Reachable IP of the Gnext Agent node. Run `ip -br a` to check.            |
+| `user`          | SSH username for the Gnext Agent node. Must be **root** or a user with **sudo** privileges. |
+| `passwd`        | SSH password for the Gnext Agent node.                                     |
+| `manager`       | Whether to install the NextStack cloud control plane on this node (`True`/`False`). |
+| `agent_ip`      | Node IP of the Gnext Agent. Usually the same as `host`. Use `ip -br a` to confirm. |
+| `lan_nic`       | NIC used for east‑west traffic, taken over by OVS. Must be dedicated and not used by other services. |
+| `wan_nic`       | NIC used for north‑south traffic, taken over by OVS. Must be dedicated and not used by other services. |
+| `vlan_range`    | VLAN ID range used by the Gnext Agent. Default values are usually fine.    |
+| `wan_gw_ip`     | Gateway IP for the WAN NIC. Typically the upstream switch IP. Use `ip route show` to check the default gateway. If the WAN NIC has no IP, assign a temporary IP with `ip a a [IP/CIDR] dev [iface]` first. |
+| `default_eip`   | Default EIP used by VMs for outbound Internet access. Must be a free IP in the external network segment. If set incorrectly, VMs will not be able to reach the Internet. |
+| `wan_gw_mac`    | MAC address of the WAN gateway. Once `wan_gw_ip` is known, use `arping -I [iface] [gateway-ip]` to obtain the MAC. If WAN NIC has no IP, assign a temporary IP as above. |
+| `etcd_endpoints`| ETCD connection endpoints. For single‑node deployments, `localhost` is sufficient. |
+| `exporter`      | Whether to install monitoring exporters on the Gnext Agent (`True`/`False`). |
+| `etcd_name`     | Node name for the ETCD instance.                                           |
 
-### 步骤 3：安装依赖
+### Step 3: Install Python Dependencies
 
 ```bash
-# 使用pip安装依赖，注意：运行命令需要pip3.9+版本
-# 若不确定全局pip版本，请使用以下命令确认：
+# Install Python dependencies with pip (requires pip 3.9+)
+# Check global pip version first:
 pip3 --version
-#若pip版本为3.9+，请使用以下命令:
+
+# If pip is 3.9+:
 pip3 install -r requirements.txt
-# 若pip版本低于3.9版本，则通过强指定pip3.9版本使用以下命令：
+
+# If global pip is < 3.9, explicitly use pip3.9:
 pip3.9 install -r requirements.txt
 ```
 
-### 步骤 4：启动部署脚本
+### Step 4: Run the Deployment Script
 
 ```bash
-# 启动安装部署脚本，并制定配置文件 ，注意：运行命令需要python3.9+版本
-# 若不确定全局python版本，请使用以下命令确认：
+# Run the deployment script with the specified config file (requires Python 3.9+)
+# Check Python version:
 python --version
-#若python版本为3.9+，请使用以下命令:
-python3 gnext_deploy.py  -C config.deploy.allinone.yml
-# 若python版本低于3.9版本，则通过强指定python3.9版本使用以下命令：
-python3.9 gnext_deploy.py  -C config.deploy.allinone.yml
 
+# If Python is 3.9+:
+python3 gnext_deploy.py -C config.deploy.allinone.yml
+
+# If global Python is < 3.9, explicitly use python3.9:
+python3.9 gnext_deploy.py -C config.deploy.allinone.yml
 ```
 
+### Step 5: Verify Services
 
-
-### 步骤 5：检查服务状态
-
-检查ETCD数据库状态：
+Check ETCD status:
 
 ```bash
 systemctl status lnjoying-etcd
 ```
 
-检查gnext服务状态：
+Check `gnext` service status:
 
 ```bash
 systemctl status lnjoying-gnext
 ```
 
-检查vnc服务状态：
+Check VNC service status:
 
 ```bash
 systemctl status lnjoying-novnc
@@ -255,22 +256,22 @@ systemctl status lnjoying-novnc
 
 ---
 
-## 修改Agent配置
+## 🔧 Updating Agent Configuration
 
-### 步骤 1：停止服务
+### Step 1: Stop the Service
 
 ```bash
 systemctl stop lnjoying-gnext
 ```
 
-### 步骤 2：修改配置文件
+### Step 2: Edit the Config File
 
 ```bash
 cd /opt/gnext
 vim config.yml
 ```
 
-### 步骤 3：重启服务
+### Step 3: Restart the Service
 
 ```bash
 systemctl restart lnjoying-gnext
@@ -278,22 +279,24 @@ systemctl restart lnjoying-gnext
 
 ---
 
-## 📊 使用 Web 控制台
+## 📊 Web Console
 
-使用浏览器访问任意节点的 Web 控制台：
+Access the Web console from any node via:
 
 ```bash
 http://<controller-ip>
 ```
 
-默认账户：
+Default credentials:
 
-- 用户名：admin
-- 密码：Lnjoying2023!
+- Username: `admin`
+- Password: `Lnjoying2023!`
+
+> ⚠️ For security reasons, **please change the default password immediately after first login.**
 
 ---
 
-## 📦使用 CLI 进行管理
+## 📦 CLI Usage
 
 ```bash
 gnext --help
@@ -330,116 +333,136 @@ Flags:
 Use "gnext [command] --help" for more information about a command.
 ```
 
-### gnext CLI示例
+### CLI Examples
 
 ```bash
-#查看agent节点
-gnext agent list --host string 
+# List agent nodes
+gnext agent list --host <host-ip>
 ```
 
 ```bash
-#查看gpu数量
-gnext gpu list --host string 
+# List GPUs
+gnext gpu list --host <host-ip>
 ```
 
 ```bash
-#查看具体gpu信息
-gnext gpu get -U uuid --host string 
+# Get details of a specific GPU
+gnext gpu get -U <uuid> --host <host-ip>
 ```
 
 ```bash
-#查看vm数量
-gnext vm list --host string 
+# List VMs
+gnext vm list --host <host-ip>
 ```
 
 ```bash
-#查看vm信息
-gnext vm get -U uuid --host string 
+# Get details of a specific VM
+gnext vm get -U <uuid> --host <host-ip>
 ```
 
 ```bash
-#查看vpc数量
-gnext vpc list --host string 
+# List VPCs
+gnext vpc list --host <host-ip>
 ```
 
 ```bash
-#查看vpc信息
-gnext vpc get -U uuid --host string 
+# Get details of a specific VPC
+gnext vpc get -U <uuid> --host <host-ip>
 ```
 
 ---
 
-## 📈 监控与日志
+## 📈 Monitoring & Logs
 
-NextStack 集群支持以下监控方式：
+NextStack clusters support:
 
-- Prometheus + Grafana 实时监控
-- 告警通知（Email/Webhook）
+- Real‑time monitoring with **Prometheus + Grafana**
+- Alert notifications (Email / Webhook)
+
+Agent logs:
+
+- Default path: `/opt/gnext/log`
 
 ---
 
-## 🧪 常见问题
+## 🧪 FAQ
 
-### Q：如何升级集群版本？
+### Q: How do I upgrade the cluster?
 
-A：建议采用滚动升级策略，逐个节点更新二进制文件并重启服务。
+A: We recommend a **rolling upgrade** strategy: update binaries node‑by‑node and restart related services to avoid downtime.
 
-### Q： 如何查看镜像库位置？
+---
 
-A： 默认位置为： /vms/backing，可通过以下命令查看
+### Q: Where is the image repository located?
+
+A: By default, images are stored under:
+
+```bash
+/vms/backing
+```
+
+You can verify with:
 
 ```bash
 ls /vms/backing
 ```
 
-### Q: gnext在安装完毕后报错，缺失libpcap.so.1文件
+---
 
-A：可先进行库的安装，之后进行软连接即可
+### Q: `gnext` reports a missing `libpcap.so.1` after installation. What should I do?
 
-```
+A: Install the dependency and create a symlink:
+
+```bash
 apt install -y libpcap-dev
 ln -s /usr/lib/x86_64-linux-gnu/libpcap.so.0 /usr/lib/x86_64-linux-gnu/libpcap.so.1
 ```
 
+---
 
+### Q: How can I change the admin login password?
 
-### Q： 如何修改管理员登录密码
+A: Log into the NextStack Web UI and:
 
-A:   可通过访问Nextstack WebUI页面进行修改,如下图所示：
-
-第一步：进入控制台后，点击右上角用户名-修改密码
-第二步：根据提示更改密码，点击确定后即可完成密码修改
-第三步：重新登录
-
-### Q： 需要更多技术支持
-
-技术支持联系方式：service@lnjoying.com
+1. Click your username in the top‑right corner → **Change Password**.
+2. Follow the prompts to set a new password.
+3. Log in again with the new credentials.
 
 ---
 
-## 🤝 贡献指南
+### Q: How can I get further technical support?
 
-我们欢迎社区开发者贡献代码，改进 NextStack！
-
-### 贡献方式
-
-1. **Fork 本项目**
-2. **创建新分支** (`git checkout -b feature-xyz`)
-3. **提交代码** (`git commit -m "Add feature xyz"`)
-4. **推送到远程仓库** (`git push origin feature-xyz`)
-5. **创建 PR（Pull Request）**，等待审核
+A: Please contact: `service@lnjoying.com`.
 
 ---
 
-## 📜 许可证（License）
+## 🤝 Contributing
 
-本项目采用 **Apache 2.0 开源协议** ，详情请查看 [LICENSE](LICENSE)文件。
+We warmly welcome community contributions to improve NextStack!
+
+### How to Contribute
+
+1. **Fork** this repository.
+2. **Create a feature branch**: `git checkout -b feature-xyz`
+3. **Commit your changes**: `git commit -m "Add feature xyz"`
+4. **Push to your fork**: `git push origin feature-xyz`
+5. **Open a Pull Request** and wait for review.
+
+Please make sure your code follows the existing style and includes necessary tests and documentation updates where appropriate.
 
 ---
 
-## 📣 联系我们
+## 📜 License
 
-- 官网：[https://91gpu.cloud](https://91gpu.cloud)
-- 邮箱：service@lnjoying.com
-- 社区：微信交流群+V：lnjoying-ai
+The community edition of this project is provided under an **Apache 2.0–style open-source license with additional terms for commercial use**.
+Please see the [LICENSE](LICENSE) file for the full license text.
 
+---
+
+## 📣 Contact
+
+- Website: [https://91gpu.cloud](https://91gpu.cloud)
+- Email: `service@lnjoying.com`
+- Community: WeChat group (add friend): `lnjoying-ai`
+
+If you are deploying AiCloud in production or would like to discuss partnership opportunities, feel free to reach out.
